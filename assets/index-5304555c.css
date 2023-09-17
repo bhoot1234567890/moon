@@ -1,0 +1,97 @@
+@font-face {
+  font-family: Majestic;
+  src: url(/assets/MajesticPersonalUseRegular-ZVP3B-3b7214b6.ttf);
+}
+@font-face {
+  font-family: Yatra;
+  src: url(/assets/YatraOne-Regular-7b2da389.ttf);
+}
+@font-face {
+  font-family: Saturday Moon;
+  src: url(/assets/SaturdayMoonDemo-PK5lx-ed1c61fc.ttf);
+}
+@font-face {
+  font-family: Khand;
+  src: url(/assets/Khand-SemiBold-5b929aa7.ttf);
+}
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+#info {
+  font-size: 4vw;
+  font-family: Belanosima, sans-serif;
+  text-shadow: rgb(76, 0, 255) 2px 0 20px;
+  color: #b97cff;
+  position: absolute;
+  top: 10px;
+  height: 5%;
+  left: 0;
+  right: 0;
+  margin: auto;
+  text-align: center;
+  z-index: 100;
+}
+#title_en {
+  font-family: Saturday Moon;
+}
+#title_hi {
+  font-family: Khand;
+}
+*,
+:before,
+:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  align-items: center;
+}
+#btn {
+  position: relative;
+  font-weight: 600;
+  height: 40px;
+  padding: 12px 20px;
+  outline: none;
+  color: #fff;
+  border: 1px solid rgb(255, 255, 255);
+  background-color: transparent;
+  border-radius: 5px;
+  cursor: pointer;
+}
+#btn:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  top: 7px;
+  left: 7px;
+  height: 100%;
+  background-color: #c9b8f645;
+  z-index: -1;
+  transition: all 0.35s;
+  border-radius: inherit;
+}
+#btn:hover:after {
+  top: 0px;
+  left: 0px;
+  background-color: #c9b8f6;
+}
+#curr_phase_name {
+  position: absolute;
+  top: 75vh;
+  right: 5vw;
+  font-size: 4vw;
+}
+#english {
+  font-family: Majestic;
+  color: #bef800;
+}
+#hindi {
+  font-family: Yatra;
+  color: #ff00c8;
+}
