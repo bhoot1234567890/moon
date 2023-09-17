@@ -1,18 +1,18 @@
 @font-face {
   font-family: Majestic;
-  src: url(../assets/MajesticPersonalUseRegular-ZVP3B-3b7214b6.ttf);
+  src: url(../MajesticPersonalUseRegular-ZVP3B-3b7214b6.ttf);
 }
 @font-face {
   font-family: Yatra;
-  src: url(../assets/YatraOne-Regular-7b2da389.ttf);
+  src: url(../YatraOne-Regular-7b2da389.ttf);
 }
 @font-face {
   font-family: Saturday Moon;
-  src: url(../assets/SaturdayMoonDemo-PK5lx-ed1c61fc.ttf);
+  src: url(../SaturdayMoonDemo-PK5lx-ed1c61fc.ttf);
 }
 @font-face {
   font-family: Khand;
-  src: url(../assets/Khand-SemiBold-5b929aa7.ttf);
+  src: url(../Khand-SemiBold-5b929aa7.ttf);
 }
 canvas {
   position: fixed;
