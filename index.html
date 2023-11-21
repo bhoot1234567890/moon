@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Simple Chess Game</title>
   <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
     .board {
       display: grid;
       grid-template-columns: repeat(8, 50px);
@@ -24,6 +32,10 @@
 
     .dark {
       background-color: #aaa;
+    }
+
+    .selected {
+      background-color: #8cf7ff; /* Light blue for selected square */
     }
   </style>
 </head>
