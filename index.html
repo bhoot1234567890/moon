@@ -1,9 +1,105 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Example</title>
-  </head>
-  <body>
-    <p>This is an example of a simple HTML page with one paragraph.</p>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Chess Game</title>
+  <style>
+    .board {
+      display: grid;
+      grid-template-columns: repeat(8, 50px);
+      grid-template-rows: repeat(8, 50px);
+    }
+
+    .square {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #ccc;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .dark {
+      background-color: #aaa;
+    }
+  </style>
+</head>
+<body>
+
+<div id="chessBoard" class="board"></div>
+
+<script>
+  const initialBoard = [
+    ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'],
+    ['♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟'],
+    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+    ['♙', '♙', '♙', '♙', '♙', '♙', '♙', '♙'],
+    ['♖', '♘', '♗', '♕', '♔', '♗', '♘', '♖'],
+  ];
+
+  function renderBoard(board) {
+    const chessBoard = document.getElementById('chessBoard');
+    chessBoard.innerHTML = '';
+
+    for (let row = 0; row < 8; row++) {
+      for (let col = 0; col < 8; col++) {
+        const square = document.createElement('div');
+        square.className = 'square';
+        square.dataset.row = row;
+        square.dataset.col = col;
+        square.innerHTML = board[row][col];
+
+        // Apply darkness to alternate squares
+        if ((row + col) % 2 === 1) {
+          square.classList.add('dark');
+        }
+
+        square.addEventListener('click', handleSquareClick);
+
+        chessBoard.appendChild(square);
+      }
+    }
+  }
+
+  function handleSquareClick(event) {
+    const selectedSquare = event.target;
+    const selectedRow = parseInt(selectedSquare.dataset.row);
+    const selectedCol = parseInt(selectedSquare.dataset.col);
+
+    // Check if the clicked square is empty
+    if (initialBoard[selectedRow][selectedCol] === ' ') {
+      // Example: Move the piece to the clicked square
+      initialBoard[selectedRow][selectedCol] = initialBoard[currentRow][currentCol];
+      initialBoard[currentRow][currentCol] = ' ';
+    }
+
+    renderBoard(initialBoard);
+  }
+
+  let currentRow = -1;
+  let currentCol = -1;
+
+  function handlePieceClick(event) {
+    const clickedSquare = event.target;
+    currentRow = parseInt(clickedSquare.dataset.row);
+    currentCol = parseInt(clickedSquare.dataset.col);
+  }
+
+  function addPieceClickHandlers() {
+    const squares = document.querySelectorAll('.square');
+    squares.forEach(square => square.addEventListener('click', handlePieceClick));
+  }
+
+  // Initial render
+  renderBoard(initialBoard);
+  addPieceClickHandlers();
+</script>
+
+</body>
 </html>
