@@ -1,117 +1,397 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simple Chess Game</title>
-  <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
+<html>
+  <head>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        user-select: none;
+      }
+      .chess-board {
+        display: grid;
+        grid-template: repeat(8, 1fr) / repeat(8, 1fr);
+        width: 500px;
+        height: 500px;
+      }
+      .square {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 3em;
+      }
+      .white {
+        background-color: rgb(165, 255, 154);
+      }
+      .black {
+        background-color: #185a12;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="chess-board" class="chess-board"></div>
+    <!-- Chess board squares will be dynamically generated here -->
+    <script>
+      var board = document.getElementById("chess-board");
+      var pieces = {
+        "♙": {
+          frequency: 8,
+          positions: [
+            { row: 6, col: 0 },
+            { row: 6, col: 1 },
+            { row: 6, col: 2 },
+            { row: 6, col: 3 },
+            { row: 6, col: 4 },
+            { row: 6, col: 5 },
+            { row: 6, col: 6 },
+            { row: 6, col: 7 },
+          ],
+        },
+        "♟": {
+          frequency: 8,
+          positions: [
+            { row: 1, col: 0 },
+            { row: 1, col: 1 },
+            { row: 1, col: 2 },
+            { row: 1, col: 3 },
+            { row: 1, col: 4 },
+            { row: 1, col: 5 },
+            { row: 1, col: 6 },
+            { row: 1, col: 7 },
+          ],
+        },
+        "♘": {
+          frequency: 2,
+          positions: [
+            { row: 7, col: 1 },
+            { row: 7, col: 6 },
+          ],
+        },
+        "♞": {
+          frequency: 2,
+          positions: [
+            { row: 0, col: 1 },
+            { row: 0, col: 6 },
+          ],
+        },
+        "♗": {
+          frequency: 2,
+          positions: [
+            { row: 7, col: 2 },
+            { row: 7, col: 5 },
+          ],
+        },
+        "♝": {
+          frequency: 2,
+          positions: [
+            { row: 0, col: 2 },
+            { row: 0, col: 5 },
+          ],
+        },
+        "♖": {
+          frequency: 2,
+          positions: [
+            { row: 7, col: 0 },
+            { row: 7, col: 7 },
+          ],
+        },
+        "♜": {
+          frequency: 2,
+          positions: [
+            { row: 0, col: 0 },
+            { row: 0, col: 7 },
+          ],
+        },
+        "♕": { frequency: 1, positions: [{ row: 7, col: 3 }] },
+        "♛": { frequency: 1, positions: [{ row: 0, col: 3 }] },
+        "♔": { frequency: 1, positions: [{ row: 7, col: 4 }] },
+        "♚": { frequency: 1, positions: [{ row: 0, col: 4 }] },
+      };
+      const generateBoard = () => {
+        for (let i = 0; i < 8; i++) {
+          for (let j = 0; j < 8; j++) {
+            let square = document.createElement("div");
+            square.classList.add(
+              "square",
+              (i + j) % 2 === 0 ? "white" : "black"
+            );
+            square.id = `${i}-${j}`;
+            board.appendChild(square);
+          }
+        }
+      };
+      function placePieces() {
+        for (let piece in pieces) {
+          for (let position of pieces[piece].positions) {
+            if (
+              position.row >= 0 &&
+              position.row < 8 &&
+              position.col >= 0 &&
+              position.col < 8
+            ) {
+              var square = document.getElementById(
+                `${position.row}-${position.col}`
+              );
+              square.textContent = piece;
+            }
+          }
+        }
+      }
+      function getValidMoves(piece, position) {
+        let validMoves = [];
 
-    .board {
-      display: grid;
-      grid-template-columns: repeat(8, 50px);
-      grid-template-rows: repeat(8, 50px);
-    }
+        // Check if the piece is a pawn
+        if (piece === "♙" || piece === "♟") {
+          // Pawns can only move forward. In our grid, 'forward' means decreasing the row number for white pawns and increasing it for black pawns.
+          let direction = piece === "♙" ? -1 : 1;
 
-    .square {
-      width: 50px;
-      height: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid #ccc;
-      font-size: 24px;
-      cursor: pointer;
-    }
+          // Pawns can move forward one square if it's not occupied
+          let forwardSquare = {
+            row: position.row + direction,
+            col: position.col,
+          };
+          if (!isOccupied(forwardSquare)) {
+            validMoves.push(forwardSquare);
+          }
 
-    .dark {
-      background-color: #aaa;
-    }
-
-    .selected {
-      background-color: #8cf7ff; /* Light blue for selected square */
-    }
-  </style>
-</head>
-<body>
-
-<div id="chessBoard" class="board"></div>
-
-<script>
-  const initialBoard = [
-    ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'],
-    ['♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟'],
-    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-    ['♙', '♙', '♙', '♙', '♙', '♙', '♙', '♙'],
-    ['♖', '♘', '♗', '♕', '♔', '♗', '♘', '♖'],
-  ];
-
-  function renderBoard(board) {
-    const chessBoard = document.getElementById('chessBoard');
-    chessBoard.innerHTML = '';
-
-    for (let row = 0; row < 8; row++) {
-      for (let col = 0; col < 8; col++) {
-        const square = document.createElement('div');
-        square.className = 'square';
-        square.dataset.row = row;
-        square.dataset.col = col;
-        square.innerHTML = board[row][col];
-
-        // Apply darkness to alternate squares
-        if ((row + col) % 2 === 1) {
-          square.classList.add('dark');
+          // Pawns can move diagonally forward if there's an enemy piece there
+          let diagonalSquares = [
+            { row: position.row + direction, col: position.col - 1 },
+            { row: position.row + direction, col: position.col + 1 },
+          ];
+          for (let square of diagonalSquares) {
+            if (isOccupiedByEnemy(square, piece)) {
+              validMoves.push(square);
+            }
+          }
         }
 
-        square.addEventListener('click', handleSquareClick);
+        // Inside getValidMoves function
+        // Check if the piece is a rook
+        if (piece === "♖" || piece === "♜") {
+          // Rooks can move any number of squares along a rank or file
+          for (let i = 0; i < 8; i++) {
+            let horizontalSquare = { row: position.row, col: i };
+            let verticalSquare = { row: i, col: position.col };
+            if (!isOccupied(horizontalSquare)) {
+              validMoves.push(horizontalSquare);
+            }
+            if (!isOccupied(verticalSquare)) {
+              validMoves.push(verticalSquare);
+            }
+          }
+        }
+        // Inside getValidMoves function
+        // Check if the piece is a bishop
+        if (piece === "♗" || piece === "♝") {
+          // Bishops can move any number of squares diagonally
+          for (let i = -7; i <= 7; i++) {
+            let diagonalSquare1 = {
+              row: position.row + i,
+              col: position.col + i,
+            };
+            let diagonalSquare2 = {
+              row: position.row + i,
+              col: position.col - i,
+            };
+            if (!isOccupied(diagonalSquare1)) {
+              validMoves.push(diagonalSquare1);
+            }
+            if (!isOccupied(diagonalSquare2)) {
+              validMoves.push(diagonalSquare2);
+            }
+          }
+        }
+        // Inside getValidMoves function
+        // Check if the piece is a knight
+        if (piece === "♘" || piece === "♞") {
+          // Knights can move to any of the squares immediately adjacent to them diagonally,
+          // and then one square horizontally or vertically.
+          let knightMoves = [
+            { row: position.row - 2, col: position.col - 1 },
+            { row: position.row - 2, col: position.col + 1 },
+            { row: position.row - 1, col: position.col - 2 },
+            { row: position.row - 1, col: position.col + 2 },
+            { row: position.row + 1, col: position.col - 2 },
+            { row: position.row + 1, col: position.col + 2 },
+            { row: position.row + 2, col: position.col - 1 },
+            { row: position.row + 2, col: position.col + 1 },
+          ];
+          for (let move of knightMoves) {
+            if (!isOccupied(move)) {
+              validMoves.push(move);
+            }
+          }
+        }
+        // Inside getValidMoves function
+        // Check if the piece is a queen
+        if (piece === "♕" || piece === "♛") {
+          // Queens can move any number of squares along a rank, file, or diagonal
+          // This is a combination of the rook and bishop movements
+          // So we just reuse the code for those pieces here
+          // Rook movement
+          for (let i = 0; i < 8; i++) {
+            let horizontalSquare = { row: position.row, col: i };
+            let verticalSquare = { row: i, col: position.col };
+            if (!isOccupied(horizontalSquare)) {
+              validMoves.push(horizontalSquare);
+            }
+            if (!isOccupied(verticalSquare)) {
+              validMoves.push(verticalSquare);
+            }
+          }
+          // Bishop movement
+          for (let i = -7; i <= 7; i++) {
+            let diagonalSquare1 = {
+              row: position.row + i,
+              col: position.col + i,
+            };
+            let diagonalSquare2 = {
+              row: position.row + i,
+              col: position.col - i,
+            };
+            if (!isOccupied(diagonalSquare1)) {
+              validMoves.push(diagonalSquare1);
+            }
+            if (!isOccupied(diagonalSquare2)) {
+              validMoves.push(diagonalSquare2);
+            }
+          }
+        }
 
-        chessBoard.appendChild(square);
+        // Inside getValidMoves function
+        // Check if the piece is a king
+        if (piece === "♔" || piece === "♚") {
+          // Kings can move one square in any direction
+          let kingMoves = [
+            { row: position.row - 1, col: position.col - 1 },
+            { row: position.row - 1, col: position.col },
+            { row: position.row - 1, col: position.col + 1 },
+            { row: position.row, col: position.col - 1 },
+            { row: position.row, col: position.col + 1 },
+            { row: position.row + 1, col: position.col - 1 },
+            { row: position.row + 1, col: position.col },
+            { row: position.row + 1, col: position.col + 1 },
+          ];
+          for (let move of kingMoves) {
+            if (!isOccupied(move)) {
+              validMoves.push(move);
+            }
+          }
+        }
+
+        return validMoves;
       }
-    }
-  }
 
-  function handleSquareClick(event) {
-    const selectedSquare = event.target;
-    const selectedRow = parseInt(selectedSquare.dataset.row);
-    const selectedCol = parseInt(selectedSquare.dataset.col);
+      function isOccupied(position) {
+        // Check if a square is occupied by any piece
+        let square = document.getElementById(`${position.row}-${position.col}`);
+        return square.textContent !== "";
+      }
 
-    // Check if the clicked square is empty
-    if (initialBoard[selectedRow][selectedCol] === ' ') {
-      // Example: Move the piece to the clicked square
-      initialBoard[selectedRow][selectedCol] = initialBoard[currentRow][currentCol];
-      initialBoard[currentRow][currentCol] = ' ';
-    }
+      function isOccupiedByEnemy(position, piece) {
+        // Check if a square is occupied by an enemy piece
+        let square = document.getElementById(`${position.row}-${position.col}`);
+        return (
+          square.textContent !== "" &&
+          getColor(square.textContent) !== getColor(piece)
+        );
+      }
+      function getColor(piece) {
+        // Assuming that 'pieces' is an object where keys are piece symbols and values are objects with a 'color' property
+        return pieces[piece].color;
+      }
+      generateBoard();
+      placePieces();
+      function getValidMoves(piece, position) {
+        // TODO: Implement this function based on the rules of chess
+        return [];
+      }
 
-    renderBoard(initialBoard);
-  }
+      function getSquarePosition(square) {
+        let [row, col] = square.id.split("-");
+        return { row: parseInt(row), col: parseInt(col) };
+      }
 
-  let currentRow = -1;
-  let currentCol = -1;
+      function squaresAreEqual(square1, square2) {
+        return square1.id === square2.id;
+      }
 
-  function handlePieceClick(event) {
-    const clickedSquare = event.target;
-    currentRow = parseInt(clickedSquare.dataset.row);
-    currentCol = parseInt(clickedSquare.dataset.col);
-  }
+      function getPiecePosition(piece) {
+        // Find the piece in the pieces object and return its position
+        for (let key in pieces) {
+          if (key === piece) {
+            return pieces[key].positions[0]; // Assuming each piece only has one position
+          }
+        }
+      }
 
-  function addPieceClickHandlers() {
-    const squares = document.querySelectorAll('.square');
-    squares.forEach(square => square.addEventListener('click', handlePieceClick));
-  }
+      function setPiecePosition(piece, newPosition) {
+        // Find the piece in the pieces object and update its position
+        for (let key in pieces) {
+          if (key === piece) {
+            pieces[key].positions[0] = newPosition;
+          }
+        }
+      }
+      let selectedPiece = null;
+      let currentPlayer = "white";
+      function getColor(piece) {
+        // Assuming that 'pieces' is an object where keys are piece symbols and values are objects with a 'color' property
+        return pieces[piece].color;
+      }
+      function onSquareClick(event) {
+        console.log(event.target);
+        let square = event.target;
+        let piece = square.textContent;
 
-  // Initial render
-  renderBoard(initialBoard);
-  addPieceClickHandlers();
-</script>
+        if (selectedPiece) {
+          // A piece is selected, try to move it
+          let validMoves = getValidMoves(
+            selectedPiece,
+            getSquarePosition(square)
+          );
+          if (
+            validMoves.some((move) =>
+              squaresAreEqual(move, getSquarePosition(square))
+            )
+          ) {
+            // The move is valid, move the piece
+            movePiece(selectedPiece, getSquarePosition(square));
+            // Switch turns
+            currentPlayer = currentPlayer === "white" ? "black" : "white";
+          }
+          selectedPiece = null;
+        } else if (piece && getColor(piece) === currentPlayer) {
+          // No piece is selected, select the clicked piece
+          selectedPiece = piece;
+        }
+      }
 
-</body>
+      function movePiece(piece, newPosition) {
+        // Update the piece's position in the pieces object
+        let oldPosition = getPiecePosition(piece);
+        setPiecePosition(piece, newPosition);
+        // Update the DOM
+        let oldSquare = document.getElementById(
+          `${oldPosition.row}-${oldPosition.col}`
+        );
+        let newSquare = document.getElementById(
+          `${newPosition.row}-${newPosition.col}`
+        );
+        oldSquare.textContent = "";
+        newSquare.textContent = piece;
+      }
+
+      // Attach the click event listener to the squares
+      let squares = document.querySelectorAll(".square");
+      squares.forEach((square) =>
+        square.addEventListener("click", onSquareClick)
+      );
+    </script>
+  </body>
 </html>
