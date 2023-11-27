@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku</title>
+    <style>
+        /* CSS styles for the Sudoku grid */
+
+        .alternate {
+            background-color: #ddd;
+        }
+
+        .alternate input {
+            background-color: #ddd;
+        }
+        table {
+            margin: auto;
+            width: 450px;
+            height: 450px;
+        }
+        td {
+            width: 50px;
+            height: 50px;
+            border: 1px solid #000;
+            text-align: center;
+            vertical-align: middle;
+        }
+        tr:nth-child(3n) td, td:nth-child(3n) {
+            border-width: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sudoku grid -->
+    <table id="sudoku"></table>
+    <button id="solve">Solve Sudoku</button>
+    <button id="clear">Clear Grid</button>
+    <script>
+         // JavaScript code for generating the Sudoku grid, solving the Sudoku, and clearing the grid
+        
+        /**
+         * Generates the Sudoku grid and adds it to the HTML table.
+         */
+        const table = document.getElementById('sudoku');
+        for (let i = 0; i < 9; i++) {
+            const row = document.createElement('tr');
+            for (let j = 0; j < 9; j++) {
+                const cell = document.createElement('td');
+                const input = document.createElement('input');
+                input.type = 'number';
+                input.min = 1;
+                input.max = 9;
+                input.id = `cell-${i}-${j}`; // Assign an ID to the input element
+                cell.appendChild(input);
+                if (Math.floor(i / 3) % 2 === Math.floor(j / 3) % 2) {
+                    cell.classList.add('alternate');
+                }
+                row.appendChild(cell);
+            }
+            table.appendChild(row);
+        }
+        document.getElementById('solve').addEventListener('click', function() {
+            const grid = [];
+            for (let i = 0; i < 9; i++) {
+                const row = [];
+                for (let j = 0; j < 9; j++) {
+                    const value = document.getElementById(`cell-${i}-${j}`).value;
+                    row.push(value ? parseInt(value, 10) : 0);
+                }
+                grid.push(row);
+            }
+
+            if (!isValidSudoku(grid)) {
+                alert('The Sudoku is not valid');
+                return;
+            }
+
+            if (solveSudoku(grid)) {
+                for (let i = 0; i < 9; i++) {
+                    for (let j = 0; j < 9; j++) {
+                        document.getElementById(`cell-${i}-${j}`).value = grid[i][j];
+                    }
+                }
+            } else {
+                alert('The Sudoku cannot be solved');
+            }
+        });
+
+        function isValidSudoku(grid) {
+            for (let i = 0; i < 9; i++) {
+                const row = new Set();
+                const col = new Set();
+                const box = new Set();
+
+                for (let j = 0; j < 9; j++) {
+                    if (grid[i][j] !== 0) {
+                        if (row.has(grid[i][j])) {
+                            return false;
+                        }
+                        row.add(grid[i][j]);
+                    }
+
+                    if (grid[j][i] !== 0) {
+                        if (col.has(grid[j][i])) {
+                            return false;
+                        }
+                        col.add(grid[j][i]);
+                    }
+
+                    const boxRow = 3 * Math.floor(i / 3) + Math.floor(j / 3);
+                    const boxCol = 3 * (i % 3) + (j % 3);
+                    if (grid[boxRow][boxCol] !== 0) {
+                        if (box.has(grid[boxRow][boxCol])) {
+                            return false;
+                        }
+                        box.add(grid[boxRow][boxCol]);
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        function solveSudoku(grid, row = 0, col = 0) {
+            if (row === 9) {
+                return true;
+            }
+
+            if (col === 9) {
+                return solveSudoku(grid, row + 1, 0);
+            }
+
+            if (grid[row][col] !== 0) {
+                return solveSudoku(grid, row, col + 1);
+            }
+
+            for (let num = 1; num <= 9; num++) {
+                if (isValid(grid, row, col, num)) {
+                    grid[row][col] = num;
+
+                    if (solveSudoku(grid, row, col + 1)) {
+                        return true;
+                    }
+
+                    grid[row][col] = 0;
+                }
+            }
+
+            return false;
+        }
+
+        function isValid(grid, row, col, num) {
+            for (let i = 0; i < 9; i++) {
+                if (grid[i][col] === num) {
+                    return false;
+                }
+
+                if (grid[row][i] === num) {
+                    return false;
+                }
+
+                if (grid[3 * Math.floor(row / 3) + Math.floor(i / 3)][3 * Math.floor(col / 3) + i % 3] === num) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+        document.getElementById('clear').addEventListener('click', function() {
+            for (let i = 0; i < 9; i++) {
+                for (let j = 0; j < 9; j++) {
+                    document.getElementById(`cell-${i}-${j}`).value = '';
+                }
+            }
+        });
+    </script>
+</body>
+</html>
