@@ -6,6 +6,32 @@
     <meta name="generator" content="TeX4ht (https://tug.org/tex4ht/)" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <style>
+      .button-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+      }
+
+      .download-button {
+        font-family: "Courier New", monospace; /* Retro, typewriter-like font */
+
+        background-color: #ffffff; /* White background */
+        border: 1px solid #000000; /* Black border */
+        color: #000000; /* Black text */
+        padding: 10px 20px; /* Some padding */
+        text-align: center; /* Centered text */
+        text-decoration: none; /* Remove underline */
+        font-size: 16px;
+        cursor: pointer; /* Mouse pointer on hover */
+        transition-duration: 0.4s; /* Transition effects */
+      }
+
+      .download-button:hover {
+        background-color: #000000; /* Black background on hover */
+        color: #ffffff; /* White text on hover */
+        border: 1px dashed #ffffff; /* Black border */
+        filter: drop-shadow(rgb(166, 255, 0) 1rem 1rem 20px);
+      }
       .cmex-10 {
         font-size: 90%;
       }
@@ -1449,6 +1475,11 @@
       </li>
     </ul>
     <!--l. 179-->
-    <p class="noindent">——————————————-</p>
+    <p class="noindent" style="text-align: center">——————————————-</p>
+    <div class="button-container">
+      <a href="chaitanya_malhotra_resume.pdf" download>
+        <button class="download-button">Download PDF</button>
+      </a>
+    </div>
   </body>
 </html>
