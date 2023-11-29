@@ -115,6 +115,22 @@
               nextCell.focus();
             }
           });
+          input.addEventListener("keydown", function (event) {
+            if (event.key === "Backspace" && input.value === "") {
+              let previousCell;
+              if (j > 0) {
+                // If it's not the first cell in the row
+                previousCell = document.getElementById(`cell-${i}-${j - 1}`);
+              } else if (i > 0) {
+                // If it's not the first row
+                previousCell = document.getElementById(`cell-${i - 1}-8`);
+              }
+              if (previousCell) {
+                previousCell.focus();
+              }
+              event.preventDefault(); // Prevent the default action
+            }
+          });
           cell.appendChild(input);
           if (Math.floor(i / 3) % 2 === Math.floor(j / 3) % 2) {
             cell.classList.add("alternate");
