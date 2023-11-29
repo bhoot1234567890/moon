@@ -103,16 +103,18 @@
             if (input.value == 0) {
               input.value = ""; // Clear the input field if the user enters 0
             }
-            let nextCell;
-            if (j < 8) {
-              // If it's not the last cell in the row
-              nextCell = document.getElementById(`cell-${i}-${j + 1}`);
-            } else if (i < 8) {
-              // If it's not the last row
-              nextCell = document.getElementById(`cell-${i + 1}-0`);
-            }
-            if (nextCell) {
-              nextCell.focus();
+            if (input.value !== "") {
+              let nextCell;
+              if (j < 8) {
+                // If it's not the last cell in the row
+                nextCell = document.getElementById(`cell-${i}-${j + 1}`);
+              } else if (i < 8) {
+                // If it's not the last row
+                nextCell = document.getElementById(`cell-${i + 1}-0`);
+              }
+              if (nextCell) {
+                nextCell.focus();
+              }
             }
           });
           input.addEventListener("keydown", function (event) {
