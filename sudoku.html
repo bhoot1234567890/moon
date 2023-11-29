@@ -100,7 +100,9 @@
 
           // Add event listener
           input.addEventListener("input", function () {
-            if (input.value == 0) {
+            if (input.value > 9) {
+              input.value = ""; // Clear the input field if the user enters a number greater than 9
+            } else if (input.value == 0) {
               input.value = ""; // Clear the input field if the user enters 0
             }
             if (input.value !== "") {
