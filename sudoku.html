@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sudoku</title>
     <style>
-      /* CSS styles for the Sudoku grid */
       input[type="number"]::-webkit-inner-spin-button,
       input[type="number"]::-webkit-outer-spin-button {
         -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
         margin: 0;
+      }
+
+      input[type="number"] {
+        -moz-appearance: textfield;
       }
       .alternate {
         background-color: #ddd;
@@ -19,22 +20,6 @@
 
       .alternate input {
         background-color: #ddd;
-      }
-      table {
-        margin: auto;
-        width: 450px;
-        height: 450px;
-      }
-      td {
-        width: 50px;
-        height: 50px;
-        /* border: 1px solid #000; */
-        text-align: center;
-        vertical-align: middle;
-      }
-      tr:nth-child(3n) td,
-      td:nth-child(3n) {
-        border-width: 2px;
       }
 
       /* New CSS to center the Sudoku grid and buttons */
@@ -42,22 +27,12 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        /* justify-content: center; */
-        height: 100vh;
-        margin: 0;
-      }
-      #buttons {
-        display: flex;
         justify-content: center;
-        gap: 10px;
-        margin-top: 20px;
-      }
-      .alternate {
-        background-color: #ddd;
-      }
-
-      .alternate input {
-        background-color: #ddd;
+        height: 100vh;
+        width: 100vw;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
       }
       table {
         max-width: 90vw;
@@ -65,39 +40,33 @@
         width: auto;
         height: auto;
       }
-      td {
-        width: 1fr;
-        height: 1fr;
-        border: 1px solid #000;
-        text-align: center;
-        vertical-align: middle;
-      }
-      tr:nth-child(3n) td,
-      td:nth-child(3n) {
-        border-width: 2px;
-      }
-
-      /* New CSS to center the Sudoku grid and buttons */
-      body {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        margin: 0;
-      }
-      #buttons {
+      button {
         display: flex;
         justify-content: center;
         gap: 10px;
         margin-top: 20px;
+        font-family: "Courier New", Courier, monospace;
+      }
+      #toptext {
+        font-family: "Courier New", Courier, monospace;
+        font-size: 2vh;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+      input {
+        width: 2em;
+        height: 2em;
+        text-align: center;
       }
     </style>
   </head>
   <body>
     <!-- Sudoku grid -->
-    Start by entering the numbers in the grid. Then click the Solve Sudoku
-    button to solve the Sudoku. 0 represents an empty cell.
+    <span id="toptext">
+      Start by entering the numbers in the grid. Then click the Solve Sudoku
+      button to solve the Sudoku. 0 represents an empty cell.
+    </span>
+
     <table id="sudoku"></table>
     <button id="solve">Solve Sudoku</button>
     <button id="clear">Clear Grid</button>
