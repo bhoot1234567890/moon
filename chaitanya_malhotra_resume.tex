@@ -1,0 +1,180 @@
+%-------------------------
+% Resume in Latex
+% Author : Sourabh Bajaj
+% License : MIT
+%------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\input{glyphtounicode}
+
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+% Ensure that generate pdf is machine readable/ATS parsable
+\pdfgentounicode=1
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[2]{
+  \item\small{
+    \textbf{#1}{: #2 \vspace{-2pt}}
+  }
+}
+
+% Just in case someone needs a heading that does not need to be in a list
+\newcommand{\resumeHeading}[4]{
+    \begin{tabular*}{0.99\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-5pt}
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-1pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-5pt}
+}
+
+\newcommand{\resumeSubSubheading}[2]{
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textit{\small#1} & \textit{\small #2} \\
+    \end{tabular*}\vspace{-5pt}
+}
+
+\newcommand{\resumeSubItem}[2]{\resumeItem{#1}{#2}\vspace{-4pt}}
+
+\renewcommand{\labelitemii}{$\circ$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=*]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%-------------------------------------------
+%%%%%%  CV STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+%----------HEADING-----------------
+\begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}r}
+  \textbf{\href{http://chaitanyamalhotra.com/}{\Large Chaitanya Malhotra}} & Email : \href{mailto:cm@chaitanyamalhotra.com}{cm@chaitanyamalhotra.com}\\& \href{mailto:chetanvmalhotra@yahoo.com}{chetanvmalhotra@yahoo.com}\\
+  \href{http://chaitanyamalhotra.com/}{http://www.chaitanyamalhotra.com} & Mobile : \href{tel:+918130127720}{+918130127720} \\
+\end{tabular*}
+
+%-----------EDUCATION-----------------
+\section{Education}
+\resumeSubHeadingListStart
+\resumeSubheading
+{Scaler Academy}{Online}
+{Certification, Computer Science}{2022 - 2023}
+\resumeSubheading
+{Manav Rachna International Institute of Research and Studies}{Faridabad, India}
+{Bachelors in Electronics and Communication Engineering}{2016- 2020}\resumeSubheading
+{Delhi Public School, Dwarka}{Delhi, India}
+{}{2002-2016}
+\resumeSubHeadingListEnd
+
+%-----------EXPERIENCE-----------------
+\section{Experience}
+\resumeSubHeadingListStart
+
+\resumeSubheading
+{Cactus Communication}{Mumbai, Maharashtra, India}
+{Full Stack Intern}{August 2023 - Present}
+\resumeItemListStart
+\resumeItem{Cactus Labs}
+{Developed multiple suite of solutions for the company's internal use. Used NLP libraries like Spacy and NLTK for text processing. Worked on multiple pretrained models like MobileBERT, BERT, RoBERTa, Xception, etc. for image classification and finding similarity. Deployed the solutions on AWS Lambda and Amazon ECS.}
+
+\resumeItemListEnd
+\resumeSubheading
+{NVIDIA High-Performance Computing Lab}{Bengaluru, Karnataka, India}
+{Machine Learning Intern}{July 2019- August 2019}
+\resumeItemListStart
+\resumeItem{Re-training SSD MobileNet}
+{Object Detection using SSD MobileNet on the COCO dataset. Retrained and deployed the model on the Jetson Nano.}
+\resumeItemListEnd
+
+\resumeSubheading
+{Texas Instruments Centre for Embedded Product Design}{New Delhi, Delhi, India}
+{Summer Intern}{June 2019 - July 2019}
+\resumeItemListStart
+\resumeItem{Embedded System Design}
+{Worked on PCB designing and embedded system design. Software used: Eagle, Proteus, Arduino IDE. Hardware used: Arduino Uno, Raspberry Pi 3B+, ESP8266, ESP32, NodeMCU, etc.}
+\resumeItemListEnd
+
+\resumeSubheading
+{Technoplanet Labs}{Faridabad, Haryana, India}
+{R\&D Intern }{September 2018 - February 2019}
+\resumeItemListStart
+\resumeItem{STEM Education}
+{Worked on STEM education and robotics. Developed multiple projects using Arduino and Raspberry Pi.}
+
+\resumeItemListEnd
+
+\resumeSubHeadingListEnd
+
+%-----------PROJECTS-----------------
+\section{Projects}
+\resumeSubHeadingListStart
+\resumeSubItem{\href{https://chaitanyamalhotra.com/moon}{Moon Phase Calculator}}
+{Implemented a web application that shows the current moon phase using pyephem, Skyfield
+  API and three.js for rendering of 3D model. Used Flask Framework for web services and
+  HTML, CSS and three.js for front end.}
+\resumeSubItem{\href{https://chaitanyamalhotra.com/chess}{2 Player Chess} \emph{WIP}}
+% \textit{This text will be italicized.}
+{Implemented a web application that allows two players to play chess. HTML, CSS and Javascript used.}
+
+\resumeSubItem{\href{https://chaitanyamalhotra.com/sudoku}{Sudoku Solver}}
+{Implemented a web application that solves Sudoku Puzzles using Set Theory, Recursion and
+  Backtracking. Used Flask Framework for web services and HTML, CSS for front end}
+
+\resumeSubHeadingListEnd
+
+% --------PROGRAMMING SKILLS------------
+\section{Programming Skills}
+\resumeSubHeadingListStart
+\item{
+            \textbf{Languages}{:Python, Javascript, C++, SQL, Javascript, HTML, CSS, LaTeX}
+            \hfill
+            \textbf{Technologies}{: AWS, Three.js, GCP}
+      }
+\resumeSubHeadingListEnd
+
+-------------------------------------------
+\end{document}
