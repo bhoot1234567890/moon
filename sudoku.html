@@ -6,7 +6,13 @@
     <title>Sudoku</title>
     <style>
       /* CSS styles for the Sudoku grid */
-
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        margin: 0;
+      }
       .alternate {
         background-color: #ddd;
       }
@@ -89,6 +95,8 @@
   </head>
   <body>
     <!-- Sudoku grid -->
+    Start by entering the numbers in the grid. Then click the Solve Sudoku
+    button to solve the Sudoku. 0 represents an empty cell.
     <table id="sudoku"></table>
     <button id="solve">Solve Sudoku</button>
     <button id="clear">Clear Grid</button>
@@ -108,6 +116,24 @@
           input.min = 1;
           input.max = 9;
           input.id = `cell-${i}-${j}`; // Assign an ID to the input element
+
+          // Add event listener
+          input.addEventListener("input", function () {
+            if (input.value == 0) {
+              input.value = ""; // Clear the input field if the user enters 0
+            }
+            let nextCell;
+            if (j < 8) {
+              // If it's not the last cell in the row
+              nextCell = document.getElementById(`cell-${i}-${j + 1}`);
+            } else if (i < 8) {
+              // If it's not the last row
+              nextCell = document.getElementById(`cell-${i + 1}-0`);
+            }
+            if (nextCell) {
+              nextCell.focus();
+            }
+          });
           cell.appendChild(input);
           if (Math.floor(i / 3) % 2 === Math.floor(j / 3) % 2) {
             cell.classList.add("alternate");
@@ -116,6 +142,8 @@
         }
         table.appendChild(row);
       }
+      // Set focus to the first input field when the webpage loads
+      document.getElementById("cell-0-0").focus();
       document.getElementById("solve").addEventListener("click", function () {
         const grid = [];
         for (let i = 0; i < 9; i++) {
