@@ -1,397 +1,658 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <style>
-      body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-        user-select: none;
-      }
-      .chess-board {
-        display: grid;
-        grid-template: repeat(8, 1fr) / repeat(8, 1fr);
-        width: 500px;
-        height: 500px;
-      }
-      .square {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 3em;
-      }
-      .white {
-        background-color: rgb(165, 255, 154);
-      }
-      .black {
-        background-color: #185a12;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="chess-board" class="chess-board"></div>
-    <!-- Chess board squares will be dynamically generated here -->
-    <script>
-      var board = document.getElementById("chess-board");
-      var pieces = {
-        "♙": {
-          frequency: 8,
-          positions: [
-            { row: 6, col: 0 },
-            { row: 6, col: 1 },
-            { row: 6, col: 2 },
-            { row: 6, col: 3 },
-            { row: 6, col: 4 },
-            { row: 6, col: 5 },
-            { row: 6, col: 6 },
-            { row: 6, col: 7 },
-          ],
-        },
-        "♟": {
-          frequency: 8,
-          positions: [
-            { row: 1, col: 0 },
-            { row: 1, col: 1 },
-            { row: 1, col: 2 },
-            { row: 1, col: 3 },
-            { row: 1, col: 4 },
-            { row: 1, col: 5 },
-            { row: 1, col: 6 },
-            { row: 1, col: 7 },
-          ],
-        },
-        "♘": {
-          frequency: 2,
-          positions: [
-            { row: 7, col: 1 },
-            { row: 7, col: 6 },
-          ],
-        },
-        "♞": {
-          frequency: 2,
-          positions: [
-            { row: 0, col: 1 },
-            { row: 0, col: 6 },
-          ],
-        },
-        "♗": {
-          frequency: 2,
-          positions: [
-            { row: 7, col: 2 },
-            { row: 7, col: 5 },
-          ],
-        },
-        "♝": {
-          frequency: 2,
-          positions: [
-            { row: 0, col: 2 },
-            { row: 0, col: 5 },
-          ],
-        },
-        "♖": {
-          frequency: 2,
-          positions: [
-            { row: 7, col: 0 },
-            { row: 7, col: 7 },
-          ],
-        },
-        "♜": {
-          frequency: 2,
-          positions: [
-            { row: 0, col: 0 },
-            { row: 0, col: 7 },
-          ],
-        },
-        "♕": { frequency: 1, positions: [{ row: 7, col: 3 }] },
-        "♛": { frequency: 1, positions: [{ row: 0, col: 3 }] },
-        "♔": { frequency: 1, positions: [{ row: 7, col: 4 }] },
-        "♚": { frequency: 1, positions: [{ row: 0, col: 4 }] },
-      };
-      const generateBoard = () => {
-        for (let i = 0; i < 8; i++) {
-          for (let j = 0; j < 8; j++) {
-            let square = document.createElement("div");
-            square.classList.add(
-              "square",
-              (i + j) % 2 === 0 ? "white" : "black"
-            );
-            square.id = `${i}-${j}`;
-            board.appendChild(square);
-          }
-        }
-      };
-      function placePieces() {
-        for (let piece in pieces) {
-          for (let position of pieces[piece].positions) {
-            if (
-              position.row >= 0 &&
-              position.row < 8 &&
-              position.col >= 0 &&
-              position.col < 8
-            ) {
-              var square = document.getElementById(
-                `${position.row}-${position.col}`
-              );
-              square.textContent = piece;
-            }
-          }
-        }
-      }
-      function getValidMoves(piece, position) {
-        let validMoves = [];
-
-        // Check if the piece is a pawn
-        if (piece === "♙" || piece === "♟") {
-          // Pawns can only move forward. In our grid, 'forward' means decreasing the row number for white pawns and increasing it for black pawns.
-          let direction = piece === "♙" ? -1 : 1;
-
-          // Pawns can move forward one square if it's not occupied
-          let forwardSquare = {
-            row: position.row + direction,
-            col: position.col,
-          };
-          if (!isOccupied(forwardSquare)) {
-            validMoves.push(forwardSquare);
-          }
-
-          // Pawns can move diagonally forward if there's an enemy piece there
-          let diagonalSquares = [
-            { row: position.row + direction, col: position.col - 1 },
-            { row: position.row + direction, col: position.col + 1 },
-          ];
-          for (let square of diagonalSquares) {
-            if (isOccupiedByEnemy(square, piece)) {
-              validMoves.push(square);
-            }
-          }
-        }
-
-        // Inside getValidMoves function
-        // Check if the piece is a rook
-        if (piece === "♖" || piece === "♜") {
-          // Rooks can move any number of squares along a rank or file
-          for (let i = 0; i < 8; i++) {
-            let horizontalSquare = { row: position.row, col: i };
-            let verticalSquare = { row: i, col: position.col };
-            if (!isOccupied(horizontalSquare)) {
-              validMoves.push(horizontalSquare);
-            }
-            if (!isOccupied(verticalSquare)) {
-              validMoves.push(verticalSquare);
-            }
-          }
-        }
-        // Inside getValidMoves function
-        // Check if the piece is a bishop
-        if (piece === "♗" || piece === "♝") {
-          // Bishops can move any number of squares diagonally
-          for (let i = -7; i <= 7; i++) {
-            let diagonalSquare1 = {
-              row: position.row + i,
-              col: position.col + i,
-            };
-            let diagonalSquare2 = {
-              row: position.row + i,
-              col: position.col - i,
-            };
-            if (!isOccupied(diagonalSquare1)) {
-              validMoves.push(diagonalSquare1);
-            }
-            if (!isOccupied(diagonalSquare2)) {
-              validMoves.push(diagonalSquare2);
-            }
-          }
-        }
-        // Inside getValidMoves function
-        // Check if the piece is a knight
-        if (piece === "♘" || piece === "♞") {
-          // Knights can move to any of the squares immediately adjacent to them diagonally,
-          // and then one square horizontally or vertically.
-          let knightMoves = [
-            { row: position.row - 2, col: position.col - 1 },
-            { row: position.row - 2, col: position.col + 1 },
-            { row: position.row - 1, col: position.col - 2 },
-            { row: position.row - 1, col: position.col + 2 },
-            { row: position.row + 1, col: position.col - 2 },
-            { row: position.row + 1, col: position.col + 2 },
-            { row: position.row + 2, col: position.col - 1 },
-            { row: position.row + 2, col: position.col + 1 },
-          ];
-          for (let move of knightMoves) {
-            if (!isOccupied(move)) {
-              validMoves.push(move);
-            }
-          }
-        }
-        // Inside getValidMoves function
-        // Check if the piece is a queen
-        if (piece === "♕" || piece === "♛") {
-          // Queens can move any number of squares along a rank, file, or diagonal
-          // This is a combination of the rook and bishop movements
-          // So we just reuse the code for those pieces here
-          // Rook movement
-          for (let i = 0; i < 8; i++) {
-            let horizontalSquare = { row: position.row, col: i };
-            let verticalSquare = { row: i, col: position.col };
-            if (!isOccupied(horizontalSquare)) {
-              validMoves.push(horizontalSquare);
-            }
-            if (!isOccupied(verticalSquare)) {
-              validMoves.push(verticalSquare);
-            }
-          }
-          // Bishop movement
-          for (let i = -7; i <= 7; i++) {
-            let diagonalSquare1 = {
-              row: position.row + i,
-              col: position.col + i,
-            };
-            let diagonalSquare2 = {
-              row: position.row + i,
-              col: position.col - i,
-            };
-            if (!isOccupied(diagonalSquare1)) {
-              validMoves.push(diagonalSquare1);
-            }
-            if (!isOccupied(diagonalSquare2)) {
-              validMoves.push(diagonalSquare2);
-            }
-          }
-        }
-
-        // Inside getValidMoves function
-        // Check if the piece is a king
-        if (piece === "♔" || piece === "♚") {
-          // Kings can move one square in any direction
-          let kingMoves = [
-            { row: position.row - 1, col: position.col - 1 },
-            { row: position.row - 1, col: position.col },
-            { row: position.row - 1, col: position.col + 1 },
-            { row: position.row, col: position.col - 1 },
-            { row: position.row, col: position.col + 1 },
-            { row: position.row + 1, col: position.col - 1 },
-            { row: position.row + 1, col: position.col },
-            { row: position.row + 1, col: position.col + 1 },
-          ];
-          for (let move of kingMoves) {
-            if (!isOccupied(move)) {
-              validMoves.push(move);
-            }
-          }
-        }
-
-        return validMoves;
-      }
-
-      function isOccupied(position) {
-        // Check if a square is occupied by any piece
-        let square = document.getElementById(`${position.row}-${position.col}`);
-        return square.textContent !== "";
-      }
-
-      function isOccupiedByEnemy(position, piece) {
-        // Check if a square is occupied by an enemy piece
-        let square = document.getElementById(`${position.row}-${position.col}`);
-        return (
-          square.textContent !== "" &&
-          getColor(square.textContent) !== getColor(piece)
-        );
-      }
-      function getColor(piece) {
-        // Assuming that 'pieces' is an object where keys are piece symbols and values are objects with a 'color' property
-        return pieces[piece].color;
-      }
-      generateBoard();
-      placePieces();
-      function getValidMoves(piece, position) {
-        // TODO: Implement this function based on the rules of chess
-        return [];
-      }
-
-      function getSquarePosition(square) {
-        let [row, col] = square.id.split("-");
-        return { row: parseInt(row), col: parseInt(col) };
-      }
-
-      function squaresAreEqual(square1, square2) {
-        return square1.id === square2.id;
-      }
-
-      function getPiecePosition(piece) {
-        // Find the piece in the pieces object and return its position
-        for (let key in pieces) {
-          if (key === piece) {
-            return pieces[key].positions[0]; // Assuming each piece only has one position
-          }
-        }
-      }
-
-      function setPiecePosition(piece, newPosition) {
-        // Find the piece in the pieces object and update its position
-        for (let key in pieces) {
-          if (key === piece) {
-            pieces[key].positions[0] = newPosition;
-          }
-        }
-      }
-      let selectedPiece = null;
-      let currentPlayer = "white";
-      function getColor(piece) {
-        // Assuming that 'pieces' is an object where keys are piece symbols and values are objects with a 'color' property
-        return pieces[piece].color;
-      }
-      function onSquareClick(event) {
-        console.log(event.target);
-        let square = event.target;
-        let piece = square.textContent;
-
-        if (selectedPiece) {
-          // A piece is selected, try to move it
-          let validMoves = getValidMoves(
-            selectedPiece,
-            getSquarePosition(square)
-          );
-          if (
-            validMoves.some((move) =>
-              squaresAreEqual(move, getSquarePosition(square))
-            )
-          ) {
-            // The move is valid, move the piece
-            movePiece(selectedPiece, getSquarePosition(square));
-            // Switch turns
-            currentPlayer = currentPlayer === "white" ? "black" : "white";
-          }
-          selectedPiece = null;
-        } else if (piece && getColor(piece) === currentPlayer) {
-          // No piece is selected, select the clicked piece
-          selectedPiece = piece;
-        }
-      }
-
-      function movePiece(piece, newPosition) {
-        // Update the piece's position in the pieces object
-        let oldPosition = getPiecePosition(piece);
-        setPiecePosition(piece, newPosition);
-        // Update the DOM
-        let oldSquare = document.getElementById(
-          `${oldPosition.row}-${oldPosition.col}`
-        );
-        let newSquare = document.getElementById(
-          `${newPosition.row}-${newPosition.col}`
-        );
-        oldSquare.textContent = "";
-        newSquare.textContent = piece;
-      }
-
-      // Attach the click event listener to the squares
-      let squares = document.querySelectorAll(".square");
-      squares.forEach((square) =>
-        square.addEventListener("click", onSquareClick)
-      );
-    </script>
-  </body>
+<!DOCTYPE html> 
+<html lang="en" xml:lang="en" > 
+<head><title></title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (https://tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="chaitanya_malhotra_resume.css" /> 
+<meta name="src" content="chaitanya_malhotra_resume.tex" /> 
+</head><body 
+>
+<!--l. 95--><p class="noindent" ></p> <table id="TBL-1" class="tabular" 
+ 
+><colgroup id="TBL-1-1g"><col 
+id="TBL-1-1" /><col 
+id="TBL-1-2" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-1-1-"><td  style="text-align:left; white-space:nowrap;" id="TBL-1-1-1"  
+class="td10"><a 
+href="http://chaitanyamalhotra.com/" ><span 
+class="cmbx-12x-x-120">Chaitanya Malhotra</span></a>     </td><td  style="text-align:right; white-space:nowrap;" id="TBL-1-1-2"  
+class="td01">Email : <a 
+href="mailto:cm@chaitanyamalhotra.com" >cm@chaitanyamalhotra.com</a></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-2-"><td  style="text-align:left; white-space:nowrap;" id="TBL-1-2-1"  
+class="td10">                              </td><td  style="text-align:right; white-space:nowrap;" id="TBL-1-2-2"  
+class="td01">      <a 
+href="mailto:chetanvmalhotra@yahoo.com" >chetanvmalhotra@yahoo.com</a></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-3-"><td  style="text-align:left; white-space:nowrap;" id="TBL-1-3-1"  
+class="td10"><a 
+href="http://chaitanyamalhotra.com/" >http://www.chaitanyamalhotra.com</a></td><td  style="text-align:right; white-space:nowrap;" id="TBL-1-3-2"  
+class="td01">          Mobile : <a 
+href="tel:+918130127720" >+918130127720</a></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-4-"><td  style="text-align:left; white-space:nowrap;" id="TBL-1-4-1"  
+class="td10">                              </td></tr></table>
+<h3 class="sectionHead"><span class="titlemark">1   </span> <a 
+ id="x1-10001"></a>Education</h3>
+  <ul class="itemize1">
+  <li class="itemize">
+  <!--l. 105--><p class="noindent" ></p> <table id="TBL-2" class="tabular" 
+ 
+><colgroup id="TBL-2-1g"><col 
+id="TBL-2-1" /><col 
+id="TBL-2-2" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-2-1-"><td  style="text-align:left; white-space:nowrap;" id="TBL-2-1-1"  
+class="td10"><span 
+class="cmbx-10x-x-109">Scaler Academy            </span></td><td  style="text-align:right; white-space:nowrap;" id="TBL-2-1-2"  
+class="td01">    Online</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-2-2-"><td  style="text-align:left; white-space:nowrap;" id="TBL-2-2-1"  
+class="td10"><span 
+class="cmti-10">Certiﬁcation, Computer Science</span></td><td  style="text-align:right; white-space:nowrap;" id="TBL-2-2-2"  
+class="td01"><span 
+class="cmti-10">2022 - 2023</span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-2-3-"><td  style="text-align:left; white-space:nowrap;" id="TBL-2-3-1"  
+class="td10">                        </td></tr></table>
+  </li>
+  <li class="itemize">
+  <!--l. 108--><p class="noindent" ></p> <table id="TBL-3" class="tabular" 
+ 
+><colgroup id="TBL-3-1g"><col 
+id="TBL-3-1" /><col 
+id="TBL-3-2" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-3-1-"><td  style="text-align:left; white-space:nowrap;" id="TBL-3-1-1"  
+class="td10"><span 
+class="cmbx-10x-x-109">Manav Rachna International Institute of Research and Studies</span></td><td  style="text-align:right; white-space:nowrap;" id="TBL-3-1-2"  
+class="td01">Faridabad, India</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-3-2-"><td  style="text-align:left; white-space:nowrap;" id="TBL-3-2-1"  
+class="td10"><span 
+class="cmti-10">Bachelors in Electronics and Communication Engineering                           </span></td><td  style="text-align:right; white-space:nowrap;" id="TBL-3-2-2"  
+class="td01">     <span 
+class="cmti-10">2016- 2020</span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-3-3-"><td  style="text-align:left; white-space:nowrap;" id="TBL-3-3-1"  
+class="td10">                                                             </td></tr></table>
+  </li>
+  <li class="itemize">
+  <!--l. 110--><p class="noindent" ></p> <table id="TBL-4" class="tabular" 
+ 
+><colgroup id="TBL-4-1g"><col 
+id="TBL-4-1" /><col 
+id="TBL-4-2" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-4-1-"><td  style="text-align:left; white-space:nowrap;" id="TBL-4-1-1"  
+class="td10"><span 
+class="cmbx-10x-x-109">Delhi Public School, Dwarka</span></td><td  style="text-align:right; white-space:nowrap;" id="TBL-4-1-2"  
+class="td01">Delhi, India</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-4-2-"><td  style="text-align:left; white-space:nowrap;" id="TBL-4-2-1"  
+class="td10">                            </td><td  style="text-align:right; white-space:nowrap;" id="TBL-4-2-2"  
+class="td01">  <span 
+class="cmti-10">2002-2016</span></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-4-3-"><td  style="text-align:left; white-space:nowrap;" id="TBL-4-3-1"  
+class="td10"> </td>
+</tr></table></li></ul>
+<!--l. 114--><p class="noindent" >
+</p>
+<h3 class="sectionHead"><span class="titlemark">2   </span> <a 
+ id="x1-20002"></a>Experience</h3>
+  <ul class="itemize1">
+  <li class="itemize">
+  <!--l. 119--><p class="noindent" ></p> <table id="TBL-5" class="tabular" 
+ 
+><colgroup id="TBL-5-1g"><col 
+id="TBL-5-1" /><col 
+id="TBL-5-2" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-5-1-"><td  style="text-align:left; white-space:nowrap;" id="TBL-5-1-1"  
+class="td10"><span 
+class="cmbx-10x-x-109">Cactus Communication</span></td><td  style="text-align:right; white-space:nowrap;" id="TBL-5-1-2"  
+class="td01">Mumbai, Maharashtra, India</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-5-2-"><td  style="text-align:left; white-space:nowrap;" id="TBL-5-2-1"  
+class="td10"><span 
+class="cmti-10">Full Stack Intern                </span></td><td  style="text-align:right; white-space:nowrap;" id="TBL-5-2-2"  
+class="td01">       <span 
+class="cmti-10">August 2023 - Present</span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-5-3-"><td  style="text-align:left; white-space:nowrap;" id="TBL-5-3-1"  
+class="td10">                       </td></tr></table>
+       <ul class="itemize2">
+       <li class="itemize">
+       <!--l. 122--><p class="noindent" >
+       <span 
+class="cmbx-10">Cactus</span>
+       <span 
+class="cmbx-10">Labs</span><span 
+class="cmr-10">:</span>
+       <span 
+class="cmr-10">Developed</span>
+       <span 
+class="cmr-10">multiple</span>
+       <span 
+class="cmr-10">suite</span>
+       <span 
+class="cmr-10">of</span>
+       <span 
+class="cmr-10">solutions</span>
+       <span 
+class="cmr-10">for</span>
+       <span 
+class="cmr-10">the</span>
+       <span 
+class="cmr-10">company’s</span>
+       <span 
+class="cmr-10">internal</span>
+       <span 
+class="cmr-10">use.</span>
+       <span 
+class="cmr-10">Used</span>
+       <span 
+class="cmr-10">NLP</span>                                                                                             
+                                                                                                       
+       <span 
+class="cmr-10">libraries</span>
+       <span 
+class="cmr-10">like</span>
+       <span 
+class="cmr-10">Spacy</span>
+       <span 
+class="cmr-10">and</span>
+       <span 
+class="cmr-10">NLTK</span>
+       <span 
+class="cmr-10">for</span>
+       <span 
+class="cmr-10">text</span>
+       <span 
+class="cmr-10">processing.</span>
+       <span 
+class="cmr-10">Worked</span>
+       <span 
+class="cmr-10">on</span>
+       <span 
+class="cmr-10">multiple</span>
+       <span 
+class="cmr-10">pretrained</span>
+       <span 
+class="cmr-10">models</span>
+       <span 
+class="cmr-10">like</span>
+       <span 
+class="cmr-10">MobileBERT,</span>
+       <span 
+class="cmr-10">BERT,</span>
+       <span 
+class="cmr-10">RoBERTa,</span>
+       <span 
+class="cmr-10">Xception,</span>
+       <span 
+class="cmr-10">etc.</span>
+       <span 
+class="cmr-10">for</span>
+       <span 
+class="cmr-10">image</span>
+       <span 
+class="cmr-10">classiﬁcation</span>
+       <span 
+class="cmr-10">and</span>
+       <span 
+class="cmr-10">ﬁnding</span>
+       <span 
+class="cmr-10">similarity.</span>
+       <span 
+class="cmr-10">Deployed</span>
+       <span 
+class="cmr-10">the</span>
+       <span 
+class="cmr-10">solutions</span>
+       <span 
+class="cmr-10">on</span>
+       <span 
+class="cmr-10">AWS</span>
+       <span 
+class="cmr-10">Lambda</span>
+       <span 
+class="cmr-10">and</span>
+       <span 
+class="cmr-10">Amazon</span>
+       <span 
+class="cmr-10">ECS.</span>
+</p>
+       </li></ul>
+  </li>
+  <li class="itemize">
+  <!--l. 127--><p class="noindent" ></p> <table id="TBL-6" class="tabular" 
+ 
+><colgroup id="TBL-6-1g"><col 
+id="TBL-6-1" /><col 
+id="TBL-6-2" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-6-1-"><td  style="text-align:left; white-space:nowrap;" id="TBL-6-1-1"  
+class="td10"><span 
+class="cmbx-10x-x-109">NVIDIA High-Performance Computing Lab</span></td><td  style="text-align:right; white-space:nowrap;" id="TBL-6-1-2"  
+class="td01">Bengaluru, Karnataka, India</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-6-2-"><td  style="text-align:left; white-space:nowrap;" id="TBL-6-2-1"  
+class="td10"><span 
+class="cmti-10">Machine Learning Intern                                      </span></td><td  style="text-align:right; white-space:nowrap;" id="TBL-6-2-2"  
+class="td01">      <span 
+class="cmti-10">July 2019- August 2019</span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-6-3-"><td  style="text-align:left; white-space:nowrap;" id="TBL-6-3-1"  
+class="td10">                                           </td></tr></table>
+       <ul class="itemize2">
+       <li class="itemize">
+       <!--l. 130--><p class="noindent" >
+       <span 
+class="cmbx-10">Re-training</span>
+       <span 
+class="cmbx-10">SSD</span>
+       <span 
+class="cmbx-10">MobileNet</span><span 
+class="cmr-10">:</span>
+       <span 
+class="cmr-10">Object</span>
+       <span 
+class="cmr-10">Detection</span>
+       <span 
+class="cmr-10">using</span>
+       <span 
+class="cmr-10">SSD</span>
+       <span 
+class="cmr-10">MobileNet</span>
+       <span 
+class="cmr-10">on</span>
+       <span 
+class="cmr-10">the</span>
+       <span 
+class="cmr-10">COCO</span>
+       <span 
+class="cmr-10">dataset.</span>
+       <span 
+class="cmr-10">Retrained</span>                                                                                        
+                                                                                                       
+       <span 
+class="cmr-10">and</span>
+       <span 
+class="cmr-10">deployed</span>
+       <span 
+class="cmr-10">the</span>
+       <span 
+class="cmr-10">model</span>
+       <span 
+class="cmr-10">on</span>
+       <span 
+class="cmr-10">the</span>
+       <span 
+class="cmr-10">Jetson</span>
+       <span 
+class="cmr-10">Nano.</span>
+        </p></li></ul>
+  </li>
+  <li class="itemize">
+  <!--l. 135--><p class="noindent" ></p> <table id="TBL-7" class="tabular" 
+ 
+><colgroup id="TBL-7-1g"><col 
+id="TBL-7-1" /><col 
+id="TBL-7-2" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-7-1-"><td  style="text-align:left; white-space:nowrap;" id="TBL-7-1-1"  
+class="td10"><span 
+class="cmbx-10x-x-109">Texas Instruments Centre for Embedded Product Design</span></td><td  style="text-align:right; white-space:nowrap;" id="TBL-7-1-2"  
+class="td01">New Delhi, Delhi, India</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-7-2-"><td  style="text-align:left; white-space:nowrap;" id="TBL-7-2-1"  
+class="td10"><span 
+class="cmti-10">Summer Intern                                                                       </span></td><td  style="text-align:right; white-space:nowrap;" id="TBL-7-2-2"  
+class="td01">   <span 
+class="cmti-10">June 2019 - July 2019</span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-7-3-"><td  style="text-align:left; white-space:nowrap;" id="TBL-7-3-1"  
+class="td10">                                                        </td></tr></table>
+       <ul class="itemize2">
+       <li class="itemize">
+       <!--l. 138--><p class="noindent" >
+       <span 
+class="cmbx-10">Embedded</span>
+       <span 
+class="cmbx-10">System</span>
+       <span 
+class="cmbx-10">Design</span><span 
+class="cmr-10">:</span>
+       <span 
+class="cmr-10">Worked</span>
+       <span 
+class="cmr-10">on</span>
+       <span 
+class="cmr-10">PCB</span>
+       <span 
+class="cmr-10">designing</span>
+       <span 
+class="cmr-10">and</span>
+       <span 
+class="cmr-10">embedded</span>
+       <span 
+class="cmr-10">system</span>
+       <span 
+class="cmr-10">design.</span>
+       <span 
+class="cmr-10">Software</span>
+       <span 
+class="cmr-10">used:</span>
+       <span 
+class="cmr-10">Eagle,</span>
+       <span 
+class="cmr-10">Proteus,</span>
+       <span 
+class="cmr-10">Arduino</span>
+       <span 
+class="cmr-10">IDE.</span>
+       <span 
+class="cmr-10">Hardware</span>
+       <span 
+class="cmr-10">used:</span>
+       <span 
+class="cmr-10">Arduino</span>
+       <span 
+class="cmr-10">Uno,</span>
+       <span 
+class="cmr-10">Raspberry</span>
+       <span 
+class="cmr-10">Pi</span>
+       <span 
+class="cmr-10">3B+,</span>
+       <span 
+class="cmr-10">ESP8266,</span>
+       <span 
+class="cmr-10">ESP32,</span>
+       <span 
+class="cmr-10">NodeMCU,</span>
+       <span 
+class="cmr-10">etc.</span>
+        </p></li></ul>
+  </li>
+  <li class="itemize">
+  <!--l. 143--><p class="noindent" ></p> <table id="TBL-8" class="tabular" 
+ 
+><colgroup id="TBL-8-1g"><col 
+id="TBL-8-1" /><col 
+id="TBL-8-2" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-8-1-"><td  style="text-align:left; white-space:nowrap;" id="TBL-8-1-1"  
+class="td10"><span 
+class="cmbx-10x-x-109">Technoplanet Labs</span></td><td  style="text-align:right; white-space:nowrap;" id="TBL-8-1-2"  
+class="td01">   Faridabad, Haryana, India</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-8-2-"><td  style="text-align:left; white-space:nowrap;" id="TBL-8-2-1"  
+class="td10"><span 
+class="cmti-10">R&#x0026;D Intern               </span></td><td  style="text-align:right; white-space:nowrap;" id="TBL-8-2-2"  
+class="td01"><span 
+class="cmti-10">September 2018 - February 2019</span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-8-3-"><td  style="text-align:left; white-space:nowrap;" id="TBL-8-3-1"  
+class="td10">                   </td></tr></table>
+       <ul class="itemize2">
+       <li class="itemize">
+       <!--l. 146--><p class="noindent" >
+       <span 
+class="cmbx-10">STEM</span>
+       <span 
+class="cmbx-10">Education</span><span 
+class="cmr-10">:</span>
+                                                                                                       
+                                                                                                       
+       <span 
+class="cmr-10">Worked</span>
+       <span 
+class="cmr-10">on</span>
+       <span 
+class="cmr-10">STEM</span>
+       <span 
+class="cmr-10">education</span>
+       <span 
+class="cmr-10">and</span>
+       <span 
+class="cmr-10">robotics.</span>
+       <span 
+class="cmr-10">Developed</span>
+       <span 
+class="cmr-10">multiple</span>
+       <span 
+class="cmr-10">projects</span>
+       <span 
+class="cmr-10">using</span>
+       <span 
+class="cmr-10">Arduino</span>
+       <span 
+class="cmr-10">and</span>
+       <span 
+class="cmr-10">Raspberry</span>
+       <span 
+class="cmr-10">Pi.</span>
+</p>
+       </li></ul>
+  </li></ul>
+<!--l. 153--><p class="noindent" >
+</p>
+<h3 class="sectionHead"><span class="titlemark">3   </span> <a 
+ id="x1-30003"></a>Projects</h3>
+  <ul class="itemize1">
+  <li class="itemize">
+  <!--l. 158--><p class="noindent" >
+  <a 
+href="https://chaitanyamalhotra.com/moon" ><span 
+class="cmbx-10">Moon</span>
+  <span 
+class="cmbx-10">Phase</span>
+  <span 
+class="cmbx-10">Calculator</span></a><span 
+class="cmr-10">:</span>
+  <span 
+class="cmr-10">Implemented</span>
+  <span 
+class="cmr-10">a</span>
+  <span 
+class="cmr-10">web</span>
+  <span 
+class="cmr-10">application</span>
+  <span 
+class="cmr-10">that</span>
+  <span 
+class="cmr-10">shows</span>
+  <span 
+class="cmr-10">the</span>
+  <span 
+class="cmr-10">current</span>
+  <span 
+class="cmr-10">moon</span>
+  <span 
+class="cmr-10">phase</span>
+  <span 
+class="cmr-10">using</span>
+  <span 
+class="cmr-10">pyephem,</span>
+  <span 
+class="cmr-10">Skyﬁeld</span>
+  <span 
+class="cmr-10">API</span>
+  <span 
+class="cmr-10">and</span>
+  <span 
+class="cmr-10">three.js</span>
+  <span 
+class="cmr-10">for</span>
+  <span 
+class="cmr-10">rendering</span>
+  <span 
+class="cmr-10">of</span>
+  <span 
+class="cmr-10">3D</span>
+  <span 
+class="cmr-10">model.</span>
+  <span 
+class="cmr-10">Used</span>
+  <span 
+class="cmr-10">Flask</span>
+  <span 
+class="cmr-10">Framework</span>
+  <span 
+class="cmr-10">for</span>                                                                                                   
+                                                                                                       
+  <span 
+class="cmr-10">web</span>
+  <span 
+class="cmr-10">services</span>
+  <span 
+class="cmr-10">and</span>
+  <span 
+class="cmr-10">HTML,</span>
+  <span 
+class="cmr-10">CSS</span>
+  <span 
+class="cmr-10">and</span>
+  <span 
+class="cmr-10">three.js</span>
+  <span 
+class="cmr-10">for</span>
+  <span 
+class="cmr-10">front</span>
+  <span 
+class="cmr-10">end.</span>
+  </p></li>
+  <li class="itemize">
+  <!--l. 161--><p class="noindent" >
+  <a 
+href="https://chaitanyamalhotra.com/chess" ><span 
+class="cmbx-10">2</span>
+  <span 
+class="cmbx-10">Player</span>
+  <span 
+class="cmbx-10">Chess</span></a>
+  <span 
+class="cmbxti-10">WIP</span><span 
+class="cmr-10">:</span>
+  <span 
+class="cmr-10">Implemented</span>
+  <span 
+class="cmr-10">a</span>
+  <span 
+class="cmr-10">web</span>
+  <span 
+class="cmr-10">application</span>
+  <span 
+class="cmr-10">that</span>
+  <span 
+class="cmr-10">allows</span>
+  <span 
+class="cmr-10">two</span>
+  <span 
+class="cmr-10">players</span>
+  <span 
+class="cmr-10">to</span>
+  <span 
+class="cmr-10">play</span>
+  <span 
+class="cmr-10">chess.</span>
+  <span 
+class="cmr-10">HTML,</span>
+  <span 
+class="cmr-10">CSS</span>
+  <span 
+class="cmr-10">and</span>
+  <span 
+class="cmr-10">Javascript</span>
+  <span 
+class="cmr-10">used.</span>
+  </p></li>
+  <li class="itemize">
+  <!--l. 165--><p class="noindent" >
+  <a 
+href="https://chaitanyamalhotra.com/sudoku" ><span 
+class="cmbx-10">Sudoku</span>
+  <span 
+class="cmbx-10">Solver</span></a><span 
+class="cmr-10">:</span>
+  <span 
+class="cmr-10">Implemented</span>
+  <span 
+class="cmr-10">a</span>
+  <span 
+class="cmr-10">web</span>
+  <span 
+class="cmr-10">application</span>
+  <span 
+class="cmr-10">that</span>
+  <span 
+class="cmr-10">solves</span>
+  <span 
+class="cmr-10">Sudoku</span>
+  <span 
+class="cmr-10">Puzzles</span>
+  <span 
+class="cmr-10">using</span>
+  <span 
+class="cmr-10">Set</span>
+  <span 
+class="cmr-10">Theory,</span>
+  <span 
+class="cmr-10">Recursion</span>
+  <span 
+class="cmr-10">and</span>
+  <span 
+class="cmr-10">Backtracking.</span>
+  <span 
+class="cmr-10">Used</span>
+  <span 
+class="cmr-10">Flask</span>
+  <span 
+class="cmr-10">Framework</span>                                                                                            
+                                                                                                       
+  <span 
+class="cmr-10">for</span>
+  <span 
+class="cmr-10">web</span>
+  <span 
+class="cmr-10">services</span>
+  <span 
+class="cmr-10">and</span>
+  <span 
+class="cmr-10">HTML,</span>
+  <span 
+class="cmr-10">CSS</span>
+  <span 
+class="cmr-10">for</span>
+  <span 
+class="cmr-10">front</span>
+  <span 
+class="cmr-10">end</span>
+</p>
+  </li></ul>
+<!--l. 170--><p class="noindent" >
+</p>
+<h3 class="sectionHead"><span class="titlemark">4   </span> <a 
+ id="x1-40004"></a>Programming Skills</h3>
+  <ul class="itemize1">
+  <li class="itemize">
+  <!--l. 172--><p class="noindent" >
+  <span 
+class="cmbx-10x-x-109">Languages</span>:Python,
+  Javascript,
+  C++,
+  SQL,
+  Javascript,
+  HTML,
+  CSS,
+  LaTeX
+  <span 
+class="cmbx-10x-x-109">Technologies</span>:
+  AWS,
+  Three.js,
+  GCP
+  </p></li></ul>
+<!--l. 179--><p class="noindent" >——————————————-
+</p>
+ 
+</body> 
 </html>
+                                                                                                       
+
+
