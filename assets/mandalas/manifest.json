@@ -1,0 +1,65 @@
+{
+  "Rigveda": [
+    "./assets/mandalas/rigveda-1.jpg"
+  ],
+  "OriginalText": {
+    "1": "./assets/original_text/book1.pdf",
+    "2": "./assets/original_text/book2.pdf",
+    "3": "./assets/original_text/book3.pdf",
+    "4": "./assets/original_text/book4.pdf",
+    "5": "./assets/original_text/book5.pdf",
+    "6": "./assets/original_text/book6.pdf",
+    "7": "./assets/original_text/book7.pdf",
+    "8": "./assets/original_text/book8.pdf",
+    "9": "./assets/original_text/book9.pdf",
+    "10": "./assets/original_text/book10.pdf"
+  },
+  "Flashcards": {
+    "1": "./assets/flashcards/book1_flashcards.pdf",
+    "2": "./assets/flashcards/book2_flashcards.pdf",
+    "3": "./assets/flashcards/book3_flashcards.pdf",
+    "4": "./assets/flashcards/book4_flashcards.pdf",
+    "5": "./assets/flashcards/book5_flashcards.pdf",
+    "6": "./assets/flashcards/book6_flashcards.pdf",
+    "7": "./assets/flashcards/book7_flashcards.pdf",
+    "8": "./assets/flashcards/book8_flashcards.pdf",
+    "9": "./assets/flashcards/book9_flashcards.pdf",
+    "10": "./assets/flashcards/book10_flashcards.pdf"
+  },
+  "Podcasts": {
+    "1": "./assets/podcasts/book1.mp3",
+    "2": "./assets/podcasts/book2.mp3",
+    "3": "./assets/podcasts/book3.mp3",
+    "4": "./assets/podcasts/book4.mp3",
+    "5": "./assets/podcasts/book5.mp3",
+    "6": "./assets/podcasts/book6.mp3",
+    "7": "./assets/podcasts/book7.mp3",
+    "8": "./assets/podcasts/book8.mp3",
+    "9": "./assets/podcasts/book9.mp3",
+    "10": "./assets/podcasts/book10.mp3"
+  },
+  "Videos": {
+    "1": "./assets/videos/video_mandal1.mp4",
+    "2": "./assets/videos/video_mandal2.mp4",
+    "3": "./assets/videos/video_mandal3.mp4",
+    "4": "./assets/videos/video_mandal4.mp4",
+    "5": "./assets/videos/video_mandal5.mp4",
+    "6": "./assets/videos/video_mandal6.mp4",
+    "7": "./assets/videos/video_mandal7.mp4",
+    "8": "./assets/videos/video_mandal8.mp4",
+    "9": "./assets/videos/video_mandal9.mp4",
+    "10": "./assets/videos/video_mandal10.mp4"
+  },
+  "Mandals": {
+    "1": ["./assets/mandalas/mandal1-1.jpg", "./assets/mandalas/mandal1-2.jpg"],
+    "2": ["./assets/mandalas/mandal2-1.jpg"],
+    "3": [],
+    "4": [],
+    "5": [],
+    "6": [],
+    "7": [],
+    "8": [],
+    "9": [],
+    "10": []
+  }
+}
