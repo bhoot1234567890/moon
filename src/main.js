@@ -391,13 +391,13 @@ function createMandalOverlay() {
   mandalOverlay.style.background = "rgba(10,10,30,0.97)";
   mandalOverlay.style.zIndex = "9999";
   mandalOverlay.style.display = "none";
-  mandalOverlay.style.justifyContent = "center";
+  mandalOverlay.style.justifyContent = "flex-start";
   mandalOverlay.style.alignItems = "center";
   mandalOverlay.style.flexDirection = "column";
   mandalOverlay.style.color = "#ffd700";
   mandalOverlay.style.fontFamily = "sans-serif";
   mandalOverlay.style.overflowY = "auto";
-  mandalOverlay.style.padding = "32px";
+  mandalOverlay.style.padding = "32px 32px 64px 32px";
   mandalOverlay.style.boxSizing = "border-box";
   mandalOverlay.style.transition = "opacity 0.3s";
   mandalOverlay.style.opacity = "0";
@@ -427,6 +427,8 @@ function createMandalOverlay() {
   content.style.display = "flex";
   content.style.flexDirection = "column";
   content.style.alignItems = "center";
+  content.style.marginTop = "32px"; // Add top margin to prevent clipping at top
+  content.style.marginBottom = "32px"; // Add bottom margin for breathing room
   mandalOverlay.appendChild(content);
   document.body.appendChild(mandalOverlay);
   // Close overlay on Escape
@@ -676,7 +678,11 @@ function populateMandalOverlay(mandalIndex) {
     } catch (e) {}
   });
   video.style.width = "100%";
+  video.style.maxHeight = "60vh"; // Limit video height to prevent overflow
+  video.style.borderRadius = "8px";
+  video.style.boxShadow = "0 4px 12px rgba(0,0,0,0.4)";
   video.style.display = "none";
+  video.style.marginTop = "12px";
   videoContainer.appendChild(video);
   videoToggle.addEventListener("click", () => {
     if (video.style.display === "none") {
@@ -689,6 +695,12 @@ function populateMandalOverlay(mandalIndex) {
           video.src = manifestData.Videos[mk];
         }
       } catch (e) {}
+      // Scroll the video into view smoothly when shown
+      setTimeout(() => {
+        try {
+          video.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        } catch (e) {}
+      }, 100);
     } else {
       video.style.display = "none";
       videoToggle.innerText = "Show Video";
