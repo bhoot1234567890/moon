@@ -31,6 +31,16 @@ let camStart = null;
 let camTarget = null;
 let textFadeProgress = 0; // 0 = fully transparent, 1 = fully opaque
 
+// Default spoke count (fallback) and last announced index for accessibility
+const DEFAULT_SPOKE_COUNT = 10;
+let lastAnnouncedIndex = null;
+
+function getSpokeCount(){
+  if (window.__rigvedaControls && window.__rigvedaControls.spokeCount) return window.__rigvedaControls.spokeCount;
+  if (wheelRef && wheelRef.userData && Array.isArray(wheelRef.userData.textSprites)) return wheelRef.userData.textSprites.length;
+  return DEFAULT_SPOKE_COUNT;
+}
+
 // Screen state: "start", "main", "overlay"
 let currentScreen = "start";
 
@@ -264,7 +274,8 @@ function createRadialTextSprites(wheel, labels) {
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
     const ctx = canvas.getContext("2d");
-    ctx.font = `bold ${fontSize}px sans-serif`;
+  // Use Papyrus (with fallbacks) for the canvas-rendered radial text so it visually matches the page
+  ctx.font = `bold ${fontSize}px 'Papyrus', 'Papyrus-Regular', fantasy, serif`;
     ctx.textAlign = "left";
     ctx.textBaseline = "middle";
     ctx.fillStyle = "#ffd700";
@@ -326,12 +337,15 @@ let wheelRotationAnimating = false;
 let wheelRotationAnimStart = 0;
 let wheelRotationAnimEnd = 0;
 let wheelRotationAnimProgress = 0;
-const WHEEL_ROTATE_STEP = (Math.PI * 2) / 10;
+// Wheel rotate step is derived dynamically from the current spoke count
+function getWheelRotateStep(){
+  return (Math.PI * 2) / Math.max(1, getSpokeCount());
+}
 const WHEEL_ROTATE_ANIM_SPEED = 0.08;
 function rotateWheelByStep(direction) {
   if (!wheelRef || wheelRotationAnimating) return;
   wheelRotationAnimStart = wheelRef.rotation.z;
-  wheelRotationAnimEnd = wheelRef.rotation.z + direction * WHEEL_ROTATE_STEP;
+  wheelRotationAnimEnd = wheelRef.rotation.z + direction * getWheelRotateStep();
   wheelRotationAnimProgress = 0;
   wheelRotationAnimating = true;
 }
@@ -365,8 +379,9 @@ let selectedMandalIndex = null;
 // Manifest data (loaded at startup)
 let manifestData = null;
 
-// Fetch and cache manifest.json on startup
-fetch("/assets/mandalas/manifest.json")
+// Fetch and cache manifest.json on startup (use relative path so it works when
+// the site is served from a subdirectory)
+fetch("assets/mandalas/manifest.json")
   .then((res) => {
     if (!res.ok) throw new Error("Failed to fetch manifest");
     return res.json();
@@ -395,7 +410,7 @@ function createMandalOverlay() {
   mandalOverlay.style.alignItems = "center";
   mandalOverlay.style.flexDirection = "column";
   mandalOverlay.style.color = "#ffd700";
-  mandalOverlay.style.fontFamily = "sans-serif";
+  mandalOverlay.style.fontFamily = "'Papyrus', 'Papyrus-Regular', fantasy, serif";
   mandalOverlay.style.overflowY = "auto";
   mandalOverlay.style.padding = "32px 32px 64px 32px";
   mandalOverlay.style.boxSizing = "border-box";
@@ -404,6 +419,8 @@ function createMandalOverlay() {
   mandalOverlay.style.display = "flex";
   const closeBtn = document.createElement("button");
   closeBtn.innerText = "×";
+  closeBtn.id = 'mandal-overlay-close';
+  closeBtn.setAttribute('aria-label','Close mandal overlay');
   closeBtn.style.position = "absolute";
   closeBtn.style.top = "32px";
   closeBtn.style.right = "48px";
@@ -417,7 +434,8 @@ function createMandalOverlay() {
   mandalOverlay.appendChild(closeBtn);
   const content = document.createElement("div");
   content.id = "mandal-overlay-content";
-  content.style.maxWidth = "600px";
+  // Use a responsive max-width so on narrow/mobile screens the overlay fits and can scroll
+  content.style.maxWidth = "min(640px, 92vw)";
   content.style.width = "100%";
   content.style.background = "rgba(30,30,60,0.98)";
   content.style.borderRadius = "18px";
@@ -431,6 +449,26 @@ function createMandalOverlay() {
   content.style.marginBottom = "32px"; // Add bottom margin for breathing room
   mandalOverlay.appendChild(content);
   document.body.appendChild(mandalOverlay);
+  // Create a focus trap handler to keep Tab inside the overlay while open
+  mandalOverlay._focusTrapHandler = function (ev) {
+    if (ev.key !== 'Tab') return;
+    const contentEl = document.getElementById('mandal-overlay-content');
+    if (!contentEl) return;
+    const focusable = contentEl.querySelectorAll('a,button,textarea,input,select,video,audio,[tabindex]:not([tabindex="-1"])');
+    if (!focusable || focusable.length === 0) return;
+    const focusArray = Array.prototype.slice.call(focusable).filter((el)=> !el.disabled && el.offsetParent !== null);
+    if (focusArray.length === 0) return;
+    const first = focusArray[0];
+    const last = focusArray[focusArray.length - 1];
+    if (!ev.shiftKey && document.activeElement === last) {
+      ev.preventDefault();
+      first.focus();
+    } else if (ev.shiftKey && document.activeElement === first) {
+      ev.preventDefault();
+      last.focus();
+    }
+  };
+  mandalOverlay.addEventListener('keydown', mandalOverlay._focusTrapHandler);
   // Close overlay on Escape
   document.addEventListener("keydown", (e) => {
     if (mandalOverlayVisible && e.key === "Escape") {
@@ -438,14 +476,43 @@ function createMandalOverlay() {
     }
   });
   // Close overlay when clicking/tapping outside the content box
+  // Use composedPath() so native/video-control shadow DOM targets are handled
   mandalOverlay.addEventListener("pointerdown", (ev) => {
-    // If user clicked the overlay container but not the content area, close
-    if (!ev.target) return;
-    // If target is the overlay itself or an element outside #mandal-overlay-content
-    const contentEl = document.getElementById("mandal-overlay-content");
-    if (!contentEl) return;
-    if (!contentEl.contains(ev.target)) {
+    try {
+      if (!ev) return;
+      const contentEl = document.getElementById("mandal-overlay-content");
+      if (!contentEl) return;
+      // If the event originated from inside content (including shadow DOM like video controls), do nothing
+      const path = ev.composedPath ? ev.composedPath() : (ev.path || []);
+      if (Array.isArray(path) && path.length > 0) {
+        for (let i = 0; i < path.length; i++) {
+          const node = path[i];
+          if (!node) continue;
+          // Direct containment in the light DOM
+          if (node === contentEl || (node instanceof Element && contentEl.contains(node))) {
+            return;
+          }
+          // Shadow DOM / composed path cases: the path may include a ShadowRoot or nodes whose
+          // getRootNode() has a .host property. If that host is within our content element,
+          // consider the event as originating inside the overlay (e.g. native video controls).
+          try {
+            if (node && node.host && contentEl.contains(node.host)) return;
+          } catch (e) {}
+          try {
+            const root = node && node.getRootNode && node.getRootNode();
+            if (root && root.host && contentEl.contains(root.host)) return;
+          } catch (e) {}
+        }
+      }
+      // Fallback for older browsers: check target containment
+      if (ev.target && contentEl.contains(ev.target)) return;
+      // Otherwise clicked outside content -> close
       hideMandalOverlay();
+    } catch (e) {
+      try { if (ev.target) {
+        const contentEl = document.getElementById("mandal-overlay-content");
+        if (contentEl && !contentEl.contains(ev.target)) hideMandalOverlay();
+      }} catch (e){}
     }
   });
 }
@@ -489,7 +556,13 @@ function showMandalOverlay(mandalIndex) {
   populateMandalOverlay(mandalIndex);
   currentScreen = "overlay";
   updateMainCloseBtnVisibility();
-  updateControlsOverlayVisibility();
+  // move focus to the overlay's close button for keyboard users
+  setTimeout(() => {
+    try {
+      const close = document.getElementById('mandal-overlay-close');
+      if (close) close.focus();
+    } catch (e) {}
+  }, 220);
 }
 function hideMandalOverlay() {
   mandalOverlayVisible = false;
@@ -538,12 +611,27 @@ function hideMandalOverlay() {
       overlay.style.display = "none";
     }, 300);
   }
+  // remove focus trap listener if present
+  try {
+    if (mandalOverlay && mandalOverlay._focusTrapHandler) {
+      mandalOverlay.removeEventListener('keydown', mandalOverlay._focusTrapHandler);
+      delete mandalOverlay._focusTrapHandler;
+    }
+  } catch (e) {}
+  // Announce overlay close
+  try { if (window.__rigvedaLiveRegion) window.__rigvedaLiveRegion.textContent = 'Closed mandal details overlay'; } catch(e){}
   currentScreen = "main";
   // Restore text sprites visibility when returning to main screen
   textFadeProgress = 1.0;
   setTextSpritesVisibilityByFade();
   updateMainCloseBtnVisibility();
-  updateControlsOverlayVisibility();
+  // return focus to the controls info button (if present) for keyboard users
+  setTimeout(() => {
+    try {
+      const info = window.__rigvedaControls && window.__rigvedaControls.infoBtn;
+      if (info && typeof info.focus === 'function') info.focus();
+    } catch (e) {}
+  }, 320);
 }
 function populateMandalOverlay(mandalIndex) {
   const content = document.getElementById("mandal-overlay-content");
@@ -643,6 +731,8 @@ function populateMandalOverlay(mandalIndex) {
   videoContainer.style.marginBottom = "18px";
   const videoToggle = document.createElement("button");
   videoToggle.innerText = "Show Video";
+  // Ensure the toggle uses the same Papyrus fallback font as the overlay/content
+  videoToggle.style.fontFamily = "'Papyrus', 'Papyrus-Regular', fantasy, serif";
   videoToggle.style.background = "#ffd700";
   videoToggle.style.color = "#222";
   videoToggle.style.border = "none";
@@ -653,8 +743,27 @@ function populateMandalOverlay(mandalIndex) {
   videoContainer.appendChild(videoToggle);
   const video = document.createElement("video");
   video.controls = true;
-  video.src = "";
+  // Keep inline playback on mobile Safari and avoid unexpected fullscreen
+  try { video.playsInline = true; video.setAttribute('playsinline','true'); } catch(e){}
+  // Do NOT set an empty src initially; it can cause the browser to try loading the page URL as media.
+  // We'll assign the actual source lazily when the user clicks "Show Video".
+  video.preload = "none";
   video.dataset.mandal = String(mandalIndex + 1);
+  // If background music is playing, pause it when video starts to avoid conflicts
+  try {
+    video.addEventListener('play', () => {
+      try { const bg = document.getElementById('player-audio'); if (bg && !bg.paused) bg.pause(); } catch(e){}
+    });
+  } catch(e){}
+  // Prevent background overlay "click-to-close" handler from firing when
+  // interacting with native media controls (some browsers dispatch events
+  // from shadow DOM that can bubble to the overlay).
+  try {
+    const stop = (ev)=>{ ev.stopPropagation(); };
+    video.addEventListener('pointerdown', stop);
+    video.addEventListener('click', stop);
+    video.addEventListener('touchstart', stop, { passive: true });
+  } catch(e){}
   video.addEventListener("loadedmetadata", () => {
     try {
       const key = `mandal_playback_${video.dataset.mandal}`;
@@ -693,10 +802,21 @@ function populateMandalOverlay(mandalIndex) {
       // set video src lazily if manifest provides it
       try {
         const mk = String(mandalIndex + 1);
-        if (manifestData && manifestData.Videos && manifestData.Videos[mk]) {
-          video.src = manifestData.Videos[mk];
+        if (!video.src || video.src === window.location.href) {
+          if (manifestData && manifestData.Videos && manifestData.Videos[mk]) {
+            video.src = manifestData.Videos[mk];
+          } else {
+            // Fallback path if Videos entry is missing from manifest
+            const fallback = `./assets/videos/video_mandal${mk}.mp4`;
+            video.src = fallback;
+            try { console.warn('[rigveda] manifest.Videos missing for', mk, 'using fallback', fallback); } catch(e){}
+          }
+          // Ensure the browser acknowledges the new src before play
+          try { video.load(); } catch(e){}
         }
       } catch (e) {}
+      // Best-effort: begin playback on toggle if user gesture allows it
+      try { video.play().catch(()=>{}); } catch(e){}
       // Scroll the video into view smoothly when shown
       setTimeout(() => {
         try {
@@ -824,74 +944,138 @@ function getMandalDescription(idx) {
 }
 
 // =============================
-// Raycaster and Mandal sprite click wiring
+// Control overlay buttons (replace pointer/touch canvas interactions)
 // =============================
-const raycaster = new THREE.Raycaster();
-const mouse = new THREE.Vector2();
-renderer.domElement.addEventListener("pointerdown", (event) => {
-  if (!wheelRef || !wheelRef.userData.textSprites) return;
-  // On mobile/touch, support left/center/right regions for navigation
-  const clientX = event.clientX;
-  const width = renderer.domElement.clientWidth;
-  const region = getTouchRegion(clientX, width);
-  if (region === "left") {
-    // act as ArrowLeft
-    if (currentScreen === "main" && !wheelRotationAnimating) {
-      rotateWheelByStep(+1);
-      highlightedMandalIndex = (highlightedMandalIndex + 9) % 10;
-      updateHighlightedMandalSprite();
-    }
-    return;
+// Pointer/touch interactions on the canvas were removed in favor of explicit
+// overlay buttons. Keyboard handlers remain unchanged.
+
+;(function createControlOverlay() {
+  function makeBtn(label, title) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.textContent = label;
+    b.title = title || '';
+    b.style.minWidth = '48px';
+    b.style.minHeight = '48px';
+    b.style.padding = '8px 12px';
+    b.style.fontSize = '16px';
+    b.style.borderRadius = '10px';
+    b.style.border = '1px solid rgba(255,255,255,0.06)';
+    b.style.background = 'rgba(0,0,0,0.55)';
+    b.style.color = '#ffd700';
+    b.style.cursor = 'pointer';
+    b.style.backdropFilter = 'blur(6px)';
+    b.style.boxShadow = '0 6px 18px rgba(0,0,0,0.6)';
+    return b;
   }
-  if (region === "right") {
-    // act as ArrowRight
-    if (currentScreen === "main" && !wheelRotationAnimating) {
-      rotateWheelByStep(-1);
-      highlightedMandalIndex = (highlightedMandalIndex + 1) % 10;
-      updateHighlightedMandalSprite();
-    }
-    return;
-  }
-  if (region === "center") {
-    // act as Enter / open overlay when in main
-    if (currentScreen === "main") {
+
+  const overlay = document.createElement('div');
+  overlay.id = 'controls-overlay';
+  overlay.style.position = 'fixed';
+  overlay.style.right = '18px';
+  overlay.style.bottom = '18px';
+  overlay.style.display = 'flex';
+  overlay.style.flexDirection = 'column';
+  overlay.style.gap = '10px';
+  overlay.style.zIndex = '10005';
+
+  const infoBtn = makeBtn('ℹ', 'Open details for selected mandal');
+  const prevBtn = makeBtn('◀', 'Rotate previous');
+  const nextBtn = makeBtn('▶', 'Rotate next');
+  infoBtn.setAttribute('aria-label','Open mandal details');
+  prevBtn.setAttribute('aria-label','Rotate to previous mandal');
+  nextBtn.setAttribute('aria-label','Rotate to next mandal');
+
+  infoBtn.addEventListener('click', () => {
+    if (currentScreen === 'main' && typeof showMandalOverlay === 'function') {
       showMandalOverlay(highlightedMandalIndex);
-      currentScreen = "overlay";
-      return;
     }
-  }
-
-  // Fallback: perform raycast for clicks on sprites (desktop or precise touch)
-  mouse.x = (event.clientX / renderer.domElement.clientWidth) * 2 - 1;
-  mouse.y = -(event.clientY / renderer.domElement.clientHeight) * 2 + 1;
-  raycaster.setFromCamera(mouse, camera);
-  const intersects = raycaster.intersectObjects(wheelRef.userData.textSprites);
-  if (intersects.length > 0) {
-    const sprite = intersects[0].object;
-    if (typeof sprite.onClick === "function") sprite.onClick();
-  }
-});
-
-function getTouchRegion(clientX, width) {
-  // Divide screen into three equal vertical regions: left, center, right
-  const third = width / 3;
-  if (clientX < third) return "left";
-  if (clientX > 2 * third) return "right";
-  return "center";
-}
-
-function setupMandalOverlayAfterWheel() {
-  addMandalSpriteClickEvents();
-}
-function addMandalSpriteClickEvents() {
-  if (!wheelRef || !wheelRef.userData.textSprites) return;
-  wheelRef.userData.textSprites.forEach((sprite, idx) => {
-    sprite.onClick = () => {
-      showMandalOverlay(idx);
-    };
-    sprite.cursor = "pointer";
-    sprite.userData.mandalIndex = idx;
   });
+
+  prevBtn.addEventListener('click', () => {
+    if (currentScreen !== 'main' || wheelRotationAnimating || cameraAnimating) return;
+    const count = (wheelRef && wheelRef.userData && wheelRef.userData.textSprites)
+      ? wheelRef.userData.textSprites.length
+      : 10;
+    rotateWheelByStep(-1);
+    highlightedMandalIndex = (highlightedMandalIndex - 1 + count) % count;
+    if (typeof updateHighlightedMandalSprite === 'function') updateHighlightedMandalSprite();
+  });
+
+  nextBtn.addEventListener('click', () => {
+    if (currentScreen !== 'main' || wheelRotationAnimating || cameraAnimating) return;
+    const count = (wheelRef && wheelRef.userData && wheelRef.userData.textSprites)
+      ? wheelRef.userData.textSprites.length
+      : 10;
+    rotateWheelByStep(1);
+    highlightedMandalIndex = (highlightedMandalIndex + 1) % count;
+    if (typeof updateHighlightedMandalSprite === 'function') updateHighlightedMandalSprite();
+  });
+
+  overlay.appendChild(infoBtn);
+  overlay.appendChild(prevBtn);
+  overlay.appendChild(nextBtn);
+  document.body.appendChild(overlay);
+
+  // Initial visibility depends on current screen
+  overlay.style.display = currentScreen === 'main' ? 'flex' : 'none';
+
+  // expose for debugging / programmatic control
+  window.__rigvedaControls = { infoBtn, prevBtn, nextBtn, root: overlay };
+
+  // Helper to update enabled/disabled state and visibility
+  function updateControlsState() {
+    const isMain = currentScreen === 'main' && !cameraAnimating;
+    overlay.style.display = isMain ? 'flex' : 'none';
+    const disabled = !isMain || wheelRotationAnimating;
+    [infoBtn, prevBtn, nextBtn].forEach((b) => {
+      b.disabled = !!disabled;
+      b.setAttribute('aria-disabled', String(!!disabled));
+      if (disabled) b.classList.add('disabled'); else b.classList.remove('disabled');
+    });
+  }
+
+  // Call once to set initial state
+  updateControlsState();
+
+  // Make updateControlsState available globally so other code paths can call it
+  window.__rigvedaControls.updateState = updateControlsState;
+})();
+
+// Backwards-compat shim: some code paths expect this function to exist.
+// We intentionally keep it as a no-op because sprite click handling was
+// replaced by explicit UI controls. If you later want to re-enable
+// sprite-based clicking, implement this to register sprite handlers.
+function setupMandalOverlayAfterWheel() {
+  // no-op compatibility shim
+}
+
+// Create an ARIA live region for screen-reader announcements (visually hidden)
+(function ensureLiveRegion(){
+  if (window.__rigvedaLiveRegion) return;
+  const lr = document.createElement('div');
+  lr.id = 'rigveda-live-region';
+  lr.setAttribute('role','status');
+  lr.setAttribute('aria-live','polite');
+  lr.style.position = 'absolute';
+  lr.style.width = '1px';
+  lr.style.height = '1px';
+  lr.style.margin = '-1px';
+  lr.style.border = '0';
+  lr.style.padding = '0';
+  lr.style.clip = 'rect(0 0 0 0)';
+  lr.style.overflow = 'hidden';
+  lr.style.whiteSpace = 'nowrap';
+  try { document.body.appendChild(lr); window.__rigvedaLiveRegion = lr; } catch(e){}
+})();
+
+function announceForSR(text){
+  try{
+    if (!window.__rigvedaLiveRegion) return;
+    window.__rigvedaLiveRegion.textContent = '';
+    // slight delay to ensure assistive tech notices changes
+    setTimeout(()=>{ try{ window.__rigvedaLiveRegion.textContent = String(text); lastAnnouncedIndex = highlightedMandalIndex; }catch(e){} }, 50);
+  }catch(e){}
 }
 
 // Highlight Mandal Sprite Glow
@@ -923,6 +1107,10 @@ function updateHighlightedMandalSprite() {
       glow.visible = sprite.visible;
       scene.add(glow);
       sprite.userData.glowSprite = glow;
+      // Announce change for screen-reader users when highlight changes
+      if (idx === highlightedMandalIndex && lastAnnouncedIndex !== highlightedMandalIndex) {
+        announceForSR(`Selected Mandal ${highlightedMandalIndex + 1}`);
+      }
     }
   });
 }
@@ -984,7 +1172,6 @@ function returnToStart() {
   updateHighlightedMandalSprite();
   currentScreen = "start";
   updateMainCloseBtnVisibility();
-  updateControlsOverlayVisibility();
 }
 
 // Load and add the golden chariot wheel model
@@ -1061,7 +1248,12 @@ gltfLoader.load(
     ]);
     hideTextSpritesCompletely();
     setupMandalOverlayAfterWheel();
-    highlightedMandalIndex = 0;
+    // determine actual spoke count and expose to controls
+    const count = (wheel.userData && wheel.userData.textSprites)
+      ? wheel.userData.textSprites.length
+      : 10;
+    if (window.__rigvedaControls) window.__rigvedaControls.spokeCount = count;
+    highlightedMandalIndex = highlightedMandalIndex % count;
     updateHighlightedMandalSprite();
   },
   undefined,
@@ -1069,53 +1261,6 @@ gltfLoader.load(
     console.error("Failed to load wheel model:", err);
   }
 );
-
-// =============================
-// Controls Help Overlay
-// =============================
-const controlsOverlay = document.createElement("div");
-controlsOverlay.id = "controls-overlay";
-controlsOverlay.style.position = "fixed";
-controlsOverlay.style.bottom = "18px";
-controlsOverlay.style.right = "18px";
-controlsOverlay.style.zIndex = "10003";
-controlsOverlay.style.background = "rgba(20, 20, 40, 0.85)";
-controlsOverlay.style.color = "#ffe066";
-controlsOverlay.style.border = "1px solid #ffd70055";
-controlsOverlay.style.borderRadius = "10px";
-controlsOverlay.style.padding = "14px 22px";
-controlsOverlay.style.fontFamily = "'Segoe UI', 'Arial', sans-serif";
-controlsOverlay.style.fontSize = "1.1rem";
-controlsOverlay.style.boxShadow = "0 2px 16px #222";
-controlsOverlay.style.userSelect = "none";
-controlsOverlay.style.pointerEvents = "none";
-controlsOverlay.style.transition = "opacity 0.2s, box-shadow 0.2s, border-color 0.2s";
-controlsOverlay.innerHTML = `
-  <div style="display: flex; flex-direction: column; gap: 7px;">
-    <span id="ctrl-enter"><b>Enter</b>: Select</span>
-    <span id="ctrl-left"><b>← Left Arrow</b>: Previous</span>
-    <span id="ctrl-right"><b>→ Right Arrow</b>: Next</span>
-  </div>
-`;
-document.body.appendChild(controlsOverlay);
-
-function highlightControl(key) {
-  let el = null;
-  if (key === "Enter") el = document.getElementById("ctrl-enter");
-  if (key === "ArrowLeft") el = document.getElementById("ctrl-left");
-  if (key === "ArrowRight") el = document.getElementById("ctrl-right");
-  if (!el) return;
-  el.style.background = "#ffd70022";
-  el.style.borderRadius = "6px";
-  el.style.transition = "background 0.2s";
-  controlsOverlay.style.boxShadow = "0 0 32px #ffd700";
-  controlsOverlay.style.borderColor = "#ffd700";
-  setTimeout(() => {
-    el.style.background = "none";
-    controlsOverlay.style.boxShadow = "0 2px 16px #222";
-    controlsOverlay.style.borderColor = "#ffd70055";
-  }, 220);
-}
 
 // Animation loop
 function animate() {
@@ -1219,7 +1364,13 @@ function animate() {
     updateRadialTextSpriteTransformsWithOffset(wheelRef.rotation.z);
   }
   updateHighlightedGlowInAnimation();
-  updateControlsOverlayVisibility();
+  // Keep control overlay state in sync (visibility / disabled state)
+  try {
+    if (window.__rigvedaControls && typeof window.__rigvedaControls.updateState === 'function') {
+      window.__rigvedaControls.updateState();
+    }
+  } catch (e) {}
+
   composer.render();
 }
 
@@ -1233,9 +1384,6 @@ window.addEventListener("resize", () => {
 
 // UI keyboard handlers (top-level, so overlay functions are available)
 document.addEventListener("keydown", (e) => {
-  if (["Enter", "ArrowLeft", "ArrowRight"].includes(e.key)) {
-    highlightControl(e.key);
-  }
   if (e.key === "Enter") {
     if (currentScreen === "start") {
       cameraAnimating = true;
@@ -1291,12 +1439,14 @@ document.addEventListener("keydown", (e) => {
   if (currentScreen === "main" && !wheelRotationAnimating) {
     if (e.key === "ArrowLeft") {
       rotateWheelByStep(+1);
-      highlightedMandalIndex = (highlightedMandalIndex + 9) % 10;
+      const cnt = getSpokeCount();
+      highlightedMandalIndex = (highlightedMandalIndex - 1 + cnt) % cnt;
       updateHighlightedMandalSprite();
     }
     if (e.key === "ArrowRight") {
       rotateWheelByStep(-1);
-      highlightedMandalIndex = (highlightedMandalIndex + 1) % 10;
+      const cnt = getSpokeCount();
+      highlightedMandalIndex = (highlightedMandalIndex + 1) % cnt;
       updateHighlightedMandalSprite();
     }
   }
@@ -1331,3 +1481,16 @@ if (startBtn) {
 }
 
 animate();
+
+// Cleanup on unload: remove controls and overlay references to avoid leaks
+window.addEventListener('unload', () => {
+  try {
+    if (window.__rigvedaControls) {
+      const root = window.__rigvedaControls.root;
+      if (root && root.parentNode) root.parentNode.removeChild(root);
+      delete window.__rigvedaControls;
+    }
+    const mo = document.getElementById('mandal-overlay');
+    if (mo && mo.parentNode) mo.parentNode.removeChild(mo);
+  } catch (e) {}
+});
