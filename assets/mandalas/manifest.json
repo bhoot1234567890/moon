@@ -52,10 +52,10 @@
   },
   "Mandals": {
     "1": [
-      "./assets/mandalas/mandala_1_cover_prompt.png",
+      "./assets/mandalas/mandala_1_cover_prompt.png"
     ],
     "2": [
-      "./assets/mandalas/mandala_2_cover_prompt.png",
+      "./assets/mandalas/mandala_2_cover_prompt.png"
     ],
     "3": [
       "./assets/mandalas/mandala_3_cover_prompt.png"
