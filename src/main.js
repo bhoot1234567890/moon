@@ -489,6 +489,7 @@ function showMandalOverlay(mandalIndex) {
   populateMandalOverlay(mandalIndex);
   currentScreen = "overlay";
   updateMainCloseBtnVisibility();
+  updateControlsOverlayVisibility();
 }
 function hideMandalOverlay() {
   mandalOverlayVisible = false;
@@ -542,6 +543,7 @@ function hideMandalOverlay() {
   textFadeProgress = 1.0;
   setTextSpritesVisibilityByFade();
   updateMainCloseBtnVisibility();
+  updateControlsOverlayVisibility();
 }
 function populateMandalOverlay(mandalIndex) {
   const content = document.getElementById("mandal-overlay-content");
@@ -982,6 +984,7 @@ function returnToStart() {
   updateHighlightedMandalSprite();
   currentScreen = "start";
   updateMainCloseBtnVisibility();
+  updateControlsOverlayVisibility();
 }
 
 // Load and add the golden chariot wheel model
@@ -1066,6 +1069,53 @@ gltfLoader.load(
     console.error("Failed to load wheel model:", err);
   }
 );
+
+// =============================
+// Controls Help Overlay
+// =============================
+const controlsOverlay = document.createElement("div");
+controlsOverlay.id = "controls-overlay";
+controlsOverlay.style.position = "fixed";
+controlsOverlay.style.bottom = "18px";
+controlsOverlay.style.right = "18px";
+controlsOverlay.style.zIndex = "10003";
+controlsOverlay.style.background = "rgba(20, 20, 40, 0.85)";
+controlsOverlay.style.color = "#ffe066";
+controlsOverlay.style.border = "1px solid #ffd70055";
+controlsOverlay.style.borderRadius = "10px";
+controlsOverlay.style.padding = "14px 22px";
+controlsOverlay.style.fontFamily = "'Segoe UI', 'Arial', sans-serif";
+controlsOverlay.style.fontSize = "1.1rem";
+controlsOverlay.style.boxShadow = "0 2px 16px #222";
+controlsOverlay.style.userSelect = "none";
+controlsOverlay.style.pointerEvents = "none";
+controlsOverlay.style.transition = "opacity 0.2s, box-shadow 0.2s, border-color 0.2s";
+controlsOverlay.innerHTML = `
+  <div style="display: flex; flex-direction: column; gap: 7px;">
+    <span id="ctrl-enter"><b>Enter</b>: Select</span>
+    <span id="ctrl-left"><b>← Left Arrow</b>: Previous</span>
+    <span id="ctrl-right"><b>→ Right Arrow</b>: Next</span>
+  </div>
+`;
+document.body.appendChild(controlsOverlay);
+
+function highlightControl(key) {
+  let el = null;
+  if (key === "Enter") el = document.getElementById("ctrl-enter");
+  if (key === "ArrowLeft") el = document.getElementById("ctrl-left");
+  if (key === "ArrowRight") el = document.getElementById("ctrl-right");
+  if (!el) return;
+  el.style.background = "#ffd70022";
+  el.style.borderRadius = "6px";
+  el.style.transition = "background 0.2s";
+  controlsOverlay.style.boxShadow = "0 0 32px #ffd700";
+  controlsOverlay.style.borderColor = "#ffd700";
+  setTimeout(() => {
+    el.style.background = "none";
+    controlsOverlay.style.boxShadow = "0 2px 16px #222";
+    controlsOverlay.style.borderColor = "#ffd70055";
+  }, 220);
+}
 
 // Animation loop
 function animate() {
@@ -1169,6 +1219,7 @@ function animate() {
     updateRadialTextSpriteTransformsWithOffset(wheelRef.rotation.z);
   }
   updateHighlightedGlowInAnimation();
+  updateControlsOverlayVisibility();
   composer.render();
 }
 
@@ -1182,6 +1233,9 @@ window.addEventListener("resize", () => {
 
 // UI keyboard handlers (top-level, so overlay functions are available)
 document.addEventListener("keydown", (e) => {
+  if (["Enter", "ArrowLeft", "ArrowRight"].includes(e.key)) {
+    highlightControl(e.key);
+  }
   if (e.key === "Enter") {
     if (currentScreen === "start") {
       cameraAnimating = true;
