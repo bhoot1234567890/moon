@@ -51,15 +51,35 @@
     "10": "./assets/videos/video_mandal10.mp4"
   },
   "Mandals": {
-    "1": ["./assets/mandalas/mandal1-1.jpg", "./assets/mandalas/mandal1-2.jpg"],
-    "2": ["./assets/mandalas/mandal2-1.jpg"],
-    "3": [],
-    "4": [],
-    "5": [],
-    "6": [],
-    "7": [],
-    "8": [],
-    "9": [],
-    "10": []
+    "1": [
+      "./assets/mandalas/mandala_1_cover_prompt.png",
+    ],
+    "2": [
+      "./assets/mandalas/mandala_2_cover_prompt.png",
+    ],
+    "3": [
+      "./assets/mandalas/mandala_3_cover_prompt.png"
+    ],
+    "4": [
+      "./assets/mandalas/mandala_4_cover_prompt.png"
+    ],
+    "5": [
+      "./assets/mandalas/mandala_5_cover_prompt.png"
+    ],
+    "6": [
+      "./assets/mandalas/mandala_6_cover_prompt.png"
+    ],
+    "7": [
+      "./assets/mandalas/mandala_7_cover_prompt.png"
+    ],
+    "8": [
+      "./assets/mandalas/mandala_8_cover_prompt.png"
+    ],
+    "9": [
+      "./assets/mandalas/mandala_9_cover_prompt.png"
+    ],
+    "10": [
+      "./assets/mandalas/mandala_10_cover_prompt.png"
+    ]
   }
 }
