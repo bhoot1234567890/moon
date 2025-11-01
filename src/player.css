@@ -6,39 +6,40 @@
   position: fixed;
   right: 18px;
   bottom: 18px;
-  z-index: 2000;
+  /* keep the player visually behind main content but still available if needed */
+  z-index: 6;
   display: flex;
   gap: 10px;
   align-items: center;
-  background: rgba(6,6,8,0.6);
-  padding: 10px 12px;
+  /* make background mostly transparent so it recedes visually */
+  background: rgba(6,6,8,0.12);
+  padding: 8px 10px;
   border-radius: 10px;
-  border: 1px solid rgba(255,215,0,0.06);
-  box-shadow: 0 8px 28px rgba(0,0,0,0.7), 0 0 16px rgba(255,200,60,0.02);
+  border: 1px solid rgba(255,215,0,0.04);
+  box-shadow: none;
   color: #ffeec8;
-  backdrop-filter: blur(6px);
-  font-family: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif;
+  backdrop-filter: blur(2px);
+  font-family: 'Papyrus', 'Papyrus-Regular', fantasy, serif;
   pointer-events: auto;
 }
 #audio-player .ap-btn {
   background: rgba(255,230,120,0.06);
   border: 1px solid rgba(255,215,0,0.12);
   color: #ffe066;
-  width: 44px;
-  height: 44px;
-  border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
   display: inline-grid;
   place-items: center;
   font-weight: 700;
   cursor: pointer;
-  text-shadow: 0 0 6px rgba(255,200,60,0.12);
+  text-shadow: none;
 }
 #ap-controls { display:flex; gap:12px; align-items:center; }
 .ap-controls { display:flex; gap:12px; align-items:center; width: 100%; }
 /* Buttons group: center and distribute space evenly within their block */
 .ap-btns { display:flex; gap:8px; align-items:center; justify-content: space-between; width: 120px; }
-#ap-seek-wrap { display:flex; flex-direction: column; gap:6px; min-width: 240px; max-width: 380px; }
-#ap-seek-wrap { display:flex; flex-direction: column; gap:6px; min-width: 240px; max-width: 380px; flex: 1 1 auto; }
+#ap-seek-wrap { display:none; /* seek bar removed per user request */ }
 #ap-seek { width: 100%; appearance: none; height: 6px; background: linear-gradient(90deg,#ffd54f,#ffe066); border-radius: 6px; }
 #ap-seek::-webkit-slider-thumb { -webkit-appearance: none; width:14px; height:14px; background:#fff; border-radius:50%; box-shadow:0 2px 8px rgba(0,0,0,0.45); }
 #ap-times { font-size: 12px; color: #ffe7b6; text-align: right; }
@@ -53,3 +54,43 @@
 .ap-btn.active, .ap-btn-small.active { box-shadow: 0 0 10px rgba(255,200,60,0.18); }
 .ap-btn[aria-pressed="true"], .ap-btn-small[aria-pressed="true"] { outline: 2px solid rgba(255,215,0,0.12); }
 @media (max-width:420px){ #ap-seek-wrap { min-width: 140px; } .ap-meta{display:none;} }
+
+/* make the player even more subtle on very small screens */
+@media (max-width:520px){
+  #audio-player { right: 12px; bottom: 12px; padding: 6px 8px; }
+  #audio-player .ap-btn { width:50px; height:50px; }
+}
+
+/* Controls overlay (wheel navigation) */
+#controls-overlay {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 10005;
+  pointer-events: auto;
+}
+#controls-overlay button {
+  min-width: 48px !important;
+  min-height: 48px !important;
+  padding: 8px 12px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(0,0,0,0.55);
+  color: #ffd700;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+}
+#controls-overlay button.disabled, #controls-overlay button[aria-disabled="true"] {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+@media (max-width:520px){
+  #controls-overlay { right: 12px; bottom: 12px; gap: 8px; }
+  #controls-overlay button { min-width: 64px !important; min-height: 64px !important; font-size: 18px !important; }
+}
