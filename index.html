@@ -1,1579 +1,309 @@
 <!DOCTYPE html>
-<html lang="en" xml:lang="en">
-  <head>
-    <title>Chaitanya Malhotra</title>
-    <meta charset="utf-8" />
-    <meta name="generator" content="TeX4ht (https://tug.org/tex4ht/)" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <style>
-      /* body {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
 
-      @media (max-width: 600px) {
-        body {
-          align-items: flex-start;
-          padding-top: 20px;
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Industrial Portfolio</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#ff4d00",
+              "background-light": "#cccccc",
+              "background-dark": "#212121",
+            },
+            fontFamily: {
+              "display": ["Space Grotesk", "monospace"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem", "sm": "0.125rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        /* Industrial specific utility overrides */
+        .industrial-border {
+            border-width: 2px;
+            border-style: solid;
         }
-      } */
-      .button-container {
-        display: flex;
-        justify-content: center;
-        margin-top: 20px;
-      }
-
-      .download-button {
-        font-family: "Courier New", monospace; /* Retro, typewriter-like font */
-
-        background-color: #ffffff; /* White background */
-        border: 1px solid #000000; /* Black border */
-        color: #000000; /* Black text */
-        padding: 10px 20px; /* Some padding */
-        text-align: center; /* Centered text */
-        text-decoration: none; /* Remove underline */
-        font-size: 16px;
-        cursor: pointer; /* Mouse pointer on hover */
-        transition-duration: 0.4s; /* Transition effects */
-      }
-
-      .download-button:hover {
-        background-color: #000000; /* Black background on hover */
-        color: #ffffff; /* White text on hover */
-        border: 1px dashed #ffffff; /* Black border */
-        filter: drop-shadow(rgb(166, 255, 0) 1rem 1rem 20px);
-      }
-      .cmex-10 {
-        font-size: 90%;
-      }
-      .cmr-10 {
-        font-size: 90%;
-      }
-      .cmr-10x-x-109 {
-      }
-      .cmbx-10x-x-109 {
-        font-weight: bold;
-      }
-      .cmbx-10x-x-109 {
-        font-weight: bold;
-      }
-      .cmbx-10x-x-109 {
-        font-weight: bold;
-      }
-      .cmbsy-10x-x-109 {
-        font-weight: bold;
-      }
-      .cmbsy-10x-x-109 {
-        font-weight: bold;
-      }
-      .cmbsy-10x-x-109 {
-        font-weight: bold;
-      }
-      .cmbsy-8 {
-        font-size: 72%;
-        font-weight: bold;
-      }
-      .cmbsy-8 {
-        font-weight: bold;
-      }
-      .cmbsy-8 {
-        font-weight: bold;
-      }
-      .cmbsy-6 {
-        font-size: 54%;
-        font-weight: bold;
-      }
-      .cmbsy-6 {
-        font-weight: bold;
-      }
-      .cmbsy-6 {
-        font-weight: bold;
-      }
-      .cmr-8 {
-        font-size: 72%;
-      }
-      .cmr-6 {
-        font-size: 54%;
-      }
-      .cmmi-10x-x-109 {
-        font-style: italic;
-      }
-      .cmmi-8 {
-        font-size: 72%;
-        font-style: italic;
-      }
-      .cmmi-6 {
-        font-size: 54%;
-        font-style: italic;
-      }
-      .cmsy-10x-x-109 {
-      }
-      .cmsy-8 {
-        font-size: 72%;
-      }
-      .cmsy-6 {
-        font-size: 54%;
-      }
-      .cmtt-10x-x-109 {
-        font-family: monospace, monospace;
-      }
-      .cmbx-12x-x-120 {
-        font-size: 130%;
-        font-weight: bold;
-      }
-      .cmbx-12x-x-120 {
-        font-weight: bold;
-      }
-      .cmbx-12x-x-120 {
-        font-weight: bold;
-      }
-      .cmti-10 {
-        font-size: 90%;
-        font-style: italic;
-      }
-      .cmbx-10 {
-        font-size: 90%;
-        font-weight: bold;
-      }
-      .cmbx-10 {
-        font-weight: bold;
-      }
-      .cmbx-10 {
-        font-weight: bold;
-      }
-      .cmbxti-10 {
-        font-size: 90%;
-        font-weight: bold;
-        font-style: italic;
-      }
-      p {
-        margin-top: 0;
-        margin-bottom: 0;
-      }
-      p.indent {
-        text-indent: 0;
-      }
-      p + p {
-        margin-top: 1em;
-      }
-      p + div,
-      p + pre {
-        margin-top: 1em;
-      }
-      div + p,
-      pre + p {
-        margin-top: 1em;
-      }
-      a {
-        overflow-wrap: break-word;
-        word-wrap: break-word;
-        word-break: break-word;
-        hyphens: auto;
-      }
-      @media print {
-        div.crosslinks {
-          visibility: hidden;
+        .barcode-stripe {
+            display: inline-block;
+            height: 100%;
+            background-color: currentColor;
         }
-      }
-      table.tabular {
-        border-collapse: collapse;
-        border-spacing: 0;
-      }
-      a img {
-        border-top: 0;
-        border-left: 0;
-        border-right: 0;
-      }
-      center {
-        margin-top: 1em;
-        margin-bottom: 1em;
-      }
-      td center {
-        margin-top: 0em;
-        margin-bottom: 0em;
-      }
-      .Canvas {
-        position: relative;
-      }
-      math {
-        text-indent: 0em;
-      }
-      body {
-        margin: 1em auto;
-        max-width: 80ch;
-        padding: 0 0.62em;
-      }
-      h1,
-      h2,
-      h3,
-      h4,
-      h5 {
-        line-height: 1.2;
-      }
-      @media print {
-        body {
-          max-width: none;
+        /* Hide scrollbar for cleaner industrial look in overflow areas */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
         }
-      }
-      .partHead,
-      .likepartHead {
-        font-size: 2em;
-      }
-      .chapterHead,
-      .likechapterHead {
-        font-size: 1.7411em;
-      }
-      .sectionHead,
-      .likesectionHead {
-        font-size: 1.5157em;
-      }
-      .subsectionHead,
-      .likesubsectionHead {
-        font-size: 1.3195em;
-      }
-      .subsubsectionHead,
-      .likesubsubsectionHead {
-        font-size: 1.1487em;
-      }
-      @media (prefers-color-scheme: dark) {
-        img[src^="chaitanya_malhotra_resume"] {
-          filter: invert(1);
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
-      }
-      li p.indent {
-        text-indent: 0em;
-      }
-      li p:first-child {
-        margin-top: 0em;
-      }
-      li p:last-child,
-      li div:last-child {
-        margin-bottom: 0.5em;
-      }
-      li p:first-child {
-        margin-bottom: 0;
-      }
-      li p ~ ul:last-child,
-      li p ~ ol:last-child {
-        margin-bottom: 0.5em;
-      }
-      .enumerate1 {
-        list-style-type: decimal;
-      }
-      .enumerate2 {
-        list-style-type: lower-alpha;
-      }
-      .enumerate3 {
-        list-style-type: lower-roman;
-      }
-      .enumerate4 {
-        list-style-type: upper-alpha;
-      }
-      div.newtheorem {
-        margin-bottom: 2em;
-        margin-top: 2em;
-      }
-      div.newtheorem .head {
-        font-weight: bold;
-      }
-      .obeylines-h,
-      .obeylines-v {
-        white-space: nowrap;
-      }
-      div.obeylines-v p {
-        margin-top: 0;
-        margin-bottom: 0;
-      }
-      .overline {
-        text-decoration: overline;
-      }
-      .overline img {
-        border-top: 1px solid black;
-      }
-      td.displaylines {
-        text-align: center;
-        white-space: nowrap;
-      }
-      .centerline {
-        text-align: center;
-      }
-      .rightline {
-        text-align: right;
-      }
-      pre.verbatim {
-        font-family: monospace, monospace;
-        text-align: left;
-        clear: both;
-      }
-      .fbox {
-        padding-left: 3pt;
-        padding-right: 3pt;
-        text-indent: 0pt;
-        border: solid black 0.4pt;
-      }
-      div.fbox {
-        display: table;
-      }
-      div.center div.fbox {
-        text-align: center;
-        clear: both;
-        padding-left: 3pt;
-        padding-right: 3pt;
-        text-indent: 0pt;
-        border: solid black 0.4pt;
-      }
-      div.minipage {
-        width: 100%;
-      }
-      div.center,
-      div.center div.center {
-        text-align: center;
-        margin-left: 1em;
-        margin-right: 1em;
-      }
-      div.center div {
-        text-align: left;
-      }
-      div.flushright,
-      div.flushright div.flushright {
-        text-align: right;
-      }
-      div.flushright div {
-        text-align: left;
-      }
-      div.flushleft {
-        text-align: left;
-      }
-      .underline {
-        text-decoration: underline;
-      }
-      .underline img {
-        border-bottom: 1px solid black;
-        margin-bottom: 1pt;
-      }
-      .framebox-c,
-      .framebox-l,
-      .framebox-r {
-        padding-left: 3pt;
-        padding-right: 3pt;
-        text-indent: 0pt;
-        border: solid black 0.4pt;
-      }
-      .framebox-c {
-        text-align: center;
-      }
-      .framebox-l {
-        text-align: left;
-      }
-      .framebox-r {
-        text-align: right;
-      }
-      span.thank-mark {
-        vertical-align: super;
-      }
-      span.footnote-mark sup.textsuperscript,
-      span.footnote-mark a sup.textsuperscript {
-        font-size: 80%;
-      }
-      div.tabular,
-      div.center div.tabular {
-        text-align: center;
-        margin-top: 0.5em;
-        margin-bottom: 0.5em;
-      }
-      table.tabular td p {
-        margin-top: 0em;
-      }
-      table.tabular {
-        margin-left: auto;
-        margin-right: auto;
-      }
-      td p:first-child {
-        margin-top: 0em;
-      }
-      td p:last-child {
-        margin-bottom: 0em;
-      }
-      div.td00 {
-        margin-left: 0pt;
-        margin-right: 0pt;
-      }
-      div.td01 {
-        margin-left: 0pt;
-        margin-right: 5pt;
-      }
-      div.td10 {
-        margin-left: 5pt;
-        margin-right: 0pt;
-      }
-      div.td11 {
-        margin-left: 5pt;
-        margin-right: 5pt;
-      }
-      table[rules] {
-        border-left: solid black 0.4pt;
-        border-right: solid black 0.4pt;
-      }
-      td.td00 {
-        padding-left: 0pt;
-        padding-right: 0pt;
-      }
-      td.td01 {
-        padding-left: 0pt;
-        padding-right: 5pt;
-      }
-      td.td10 {
-        padding-left: 5pt;
-        padding-right: 0pt;
-      }
-      td.td11 {
-        padding-left: 5pt;
-        padding-right: 5pt;
-      }
-      table[rules] {
-        border-left: solid black 0.4pt;
-        border-right: solid black 0.4pt;
-      }
-      .hline hr,
-      .cline hr {
-        height: 0px;
-        margin: 0px;
-      }
-      .hline td,
-      .cline td {
-        padding: 0;
-      }
-      .hline hr,
-      .cline hr {
-        border: none;
-        border-top: 1px solid black;
-      }
-      .hline {
-        border-top: 1px solid black;
-      }
-      .hline + .vspace:last-child {
-        display: none;
-      }
-      .hline:first-child {
-        border-bottom: 1px solid black;
-        border-top: none;
-      }
-      .tabbing-right {
-        text-align: right;
-      }
-      div.float,
-      div.figure {
-        margin-left: auto;
-        margin-right: auto;
-      }
-      div.float img {
-        text-align: center;
-      }
-      div.figure img {
-        text-align: center;
-      }
-      .marginpar,
-      .reversemarginpar {
-        width: 20%;
-        float: right;
-        text-align: left;
-        margin-left: auto;
-        margin-top: 0.5em;
-        font-size: 85%;
-        text-decoration: underline;
-      }
-      .marginpar p,
-      .reversemarginpar p {
-        margin-top: 0.4em;
-        margin-bottom: 0.4em;
-      }
-      .reversemarginpar {
-        float: left;
-      }
-      .equation td {
-        text-align: center;
-        vertical-align: middle;
-      }
-      td.eq-no {
-        width: 5%;
-      }
-      table.equation {
-        width: 100%;
-      }
-      div.math-display,
-      div.par-math-display {
-        text-align: center;
-      }
-      .array-hline,
-      .array-cline {
-        border-top: 1px solid black;
-        height: 0px;
-      }
-      .array-hline + .array-vspace:last-child {
-        display: none;
-      }
-      .hline-mtd,
-      .array-hline td {
-        display: none;
-      }
-      .array-hline + .array-row:last-child {
-        display: none;
-      }
-      .array-hline:first-child {
-        border-bottom: 1px solid black;
-        border-top: none;
-      }
-      math .texttt {
-        font-family: monospace;
-      }
-      math .textit {
-        font-style: italic;
-      }
-      math .textsl {
-        font-style: oblique;
-      }
-      math .textsf {
-        font-family: sans-serif;
-      }
-      math .textbf {
-        font-weight: bold;
-      }
-      mo.MathClass-op + mi {
-        margin-left: 0.3em;
-      }
-      mi + mo.MathClass-op {
-        margin-left: 0.3em;
-      }
-      math mstyle[mathvariant="bold"] {
-        font-weight: bold;
-        font-style: normal;
-      }
-      math mstyle[mathvariant="normal"] {
-        font-weight: normal;
-        font-style: normal;
-      }
-      .partToc a,
-      .partToc,
-      .likepartToc a,
-      .likepartToc {
-        line-height: 200%;
-        font-weight: bold;
-        font-size: 110%;
-      }
-      .index-item,
-      .index-subitem,
-      .index-subsubitem {
-        display: block;
-      }
-      div.caption {
-        text-indent: -2em;
-        margin-left: 3em;
-        margin-right: 1em;
-        text-align: left;
-      }
-      div.caption span.id {
-        font-weight: bold;
-        white-space: nowrap;
-      }
-      h1.partHead {
-        text-align: center;
-      }
-      p.bibitem {
-        text-indent: -2em;
-        margin-left: 2em;
-        margin-top: 0.6em;
-        margin-bottom: 0.6em;
-      }
-      p.bibitem-p {
-        text-indent: 0em;
-        margin-left: 2em;
-        margin-top: 0.6em;
-        margin-bottom: 0.6em;
-      }
-      .subsubsectionHead,
-      .likesubsubsectionHead {
-        font-size: 1em;
-      }
-      .paragraphHead,
-      .likeparagraphHead {
-        margin-top: 2em;
-        font-weight: bold;
-      }
-      .subparagraphHead,
-      .likesubparagraphHead {
-        font-weight: bold;
-      }
-      .verse {
-        white-space: nowrap;
-        margin-left: 2em;
-      }
-      div.maketitle {
-        text-align: center;
-      }
-      h2.titleHead {
-        text-align: center;
-      }
-      div.maketitle {
-        margin-bottom: 2em;
-      }
-      div.author,
-      div.date {
-        text-align: center;
-      }
-      div.thanks {
-        text-align: left;
-        margin-left: 10%;
-        font-size: 85%;
-        font-style: italic;
-      }
-      div.author {
-        white-space: nowrap;
-      }
-      div.abstract p {
-        margin-left: 5%;
-        margin-right: 5%;
-      }
-      div.abstract {
-        width: 100%;
-      }
-      .abstracttitle {
-        text-align: center;
-        margin-bottom: 1em;
-      }
-      .subsectionToc,
-      .likesubsectionToc {
-        margin-left: 1em;
-      }
-      .subsubsectionToc,
-      .likesubsubsectionToc {
-        margin-left: 2em;
-      }
-      .paragraphToc,
-      .likeparagraphToc {
-        margin-left: 3em;
-      }
-      .subparagraphToc,
-      .likesubparagraphToc {
-        margin-left: 4em;
-      }
-      figure.float,
-      div.figure {
-        margin-left: auto;
-        margin-right: auto;
-      }
-      figure.figure {
-        text-align: center;
-      }
-      figcaption.caption {
-        text-indent: -2em;
-        margin-left: 3em;
-        margin-right: 1em;
-        text-align: center;
-      }
-      figcaption.caption span.id {
-        font-weight: bold;
-        white-space: nowrap;
-      }
-      p + figcaption,
-      img + figcaption {
-        margin-top: 1em;
-      }
-      .abstract {
-        margin: 1em;
-      }
-      div.verbatiminput {
-        font-family: monospace, monospace;
-        white-space: nowrap;
-      }
-      dl.enumerate-enumitem {
-        display: grid;
-        grid-template-columns: 3ch 1fr;
-        align-items: top;
-        row-gap: 1ch;
-      }
-      div.tabular,
-      div.center div.tabular {
-        text-align: center;
-        margin-top: 0.5em;
-        margin-bottom: 0.5em;
-      }
-      table.tabular td p {
-        margin-top: 0em;
-      }
-      table.tabular {
-        margin-left: auto;
-        margin-right: auto;
-      }
-      td p:first-child {
-        margin-top: 0em;
-      }
-      td p:last-child {
-        margin-bottom: 0em;
-      }
-      div.td00 {
-        margin-left: 0pt;
-        margin-right: 0pt;
-      }
-      div.td01 {
-        margin-left: 0pt;
-        margin-right: 5pt;
-      }
-      div.td10 {
-        margin-left: 5pt;
-        margin-right: 0pt;
-      }
-      div.td11 {
-        margin-left: 5pt;
-        margin-right: 5pt;
-      }
-      table[rules] {
-        border-left: solid black 0.4pt;
-        border-right: solid black 0.4pt;
-      }
-      td.td00 {
-        padding-left: 0pt;
-        padding-right: 0pt;
-      }
-      td.td01 {
-        padding-left: 0pt;
-        padding-right: 5pt;
-      }
-      td.td10 {
-        padding-left: 5pt;
-        padding-right: 0pt;
-      }
-      td.td11 {
-        padding-left: 5pt;
-        padding-right: 5pt;
-      }
-      table[rules] {
-        border-left: solid black 0.4pt;
-        border-right: solid black 0.4pt;
-      }
-      .hline hr,
-      .cline hr {
-        height: 0px;
-        margin: 0px;
-      }
-      .hline td,
-      .cline td {
-        padding: 0;
-      }
-      .hline hr,
-      .cline hr {
-        border: none;
-        border-top: 1px solid black;
-      }
-      .hline {
-        border-top: 1px solid black;
-      }
-      .hline + .vspace:last-child {
-        display: none;
-      }
-      .hline:first-child {
-        border-bottom: 1px solid black;
-        border-top: none;
-      }
     </style>
-    <meta name="src" content="chaitanya_malhotra_resume.tex" />
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
   </head>
-  <body>
-    <!--l. 95-->
-    <p class="noindent"></p>
-    <table id="TBL-1" class="tabular">
-      <colgroup id="TBL-1-1g">
-        <col id="TBL-1-1" />
-        <col id="TBL-1-2" />
-      </colgroup>
-      <tr style="vertical-align: baseline" id="TBL-1-1-">
-        <td
-          style="text-align: left; white-space: nowrap"
-          id="TBL-1-1-1"
-          class="td10"
-        >
-          <a href="http://chaitanyamalhotra.com/"
-            ><span class="cmbx-12x-x-120">Chaitanya Malhotra</span></a
-          >
-        </td>
-        <td
-          style="text-align: right; white-space: nowrap"
-          id="TBL-1-1-2"
-          class="td01"
-        >
-          Email :
-          <a href="mailto:cm@chaitanyamalhotra.com">cm@chaitanyamalhotra.com</a>
-        </td>
-      </tr>
-      <tr style="vertical-align: baseline" id="TBL-1-2-">
-        <td
-          style="text-align: left; white-space: nowrap"
-          id="TBL-1-2-1"
-          class="td10"
-        ></td>
-        <td
-          style="text-align: right; white-space: nowrap"
-          id="TBL-1-2-2"
-          class="td01"
-        >
-          <a href="mailto:chetanvmalhotra@yahoo.com"
-            >chetanvmalhotra@yahoo.com</a
-          >
-        </td>
-      </tr>
-      <tr style="vertical-align: baseline" id="TBL-1-3-">
-        <td
-          style="text-align: left; white-space: nowrap"
-          id="TBL-1-3-1"
-          class="td10"
-        >
-          <a href="http://chaitanyamalhotra.com/"
-            >http://www.chaitanyamalhotra.com</a
-          >
-        </td>
-        <td
-          style="text-align: right; white-space: nowrap"
-          id="TBL-1-3-2"
-          class="td01"
-        >
-          Mobile : <a></a>
-        </td>
-      </tr>
-      <tr style="vertical-align: baseline" id="TBL-1-4-">
-        <td
-          style="text-align: left; white-space: nowrap"
-          id="TBL-1-4-1"
-          class="td10"
-        ></td>
-      </tr>
-    </table>
-    <h3 class="sectionHead">
-      <span class="titlemark">1 </span> <a id="x1-10001"></a>Education
-    </h3>
-    <ul class="itemize1">
-      <li class="itemize">
-        <!--l. 105-->
-        <p class="noindent"></p>
-        <table id="TBL-2" class="tabular">
-          <colgroup id="TBL-2-1g">
-            <col id="TBL-2-1" />
-            <col id="TBL-2-2" />
-          </colgroup>
-          <tr style="vertical-align: baseline" id="TBL-2-1-">
-            <td
-              style="text-align: left; white-space: nowrap"
-              id="TBL-2-1-1"
-              class="td10"
-            >
-              <span class="cmbx-10x-x-109">Scaler Academy </span>
-            </td>
-            <td
-              style="text-align: right; white-space: nowrap"
-              id="TBL-2-1-2"
-              class="td01"
-            >
-              Online
-            </td>
-          </tr>
-          <tr style="vertical-align: baseline" id="TBL-2-2-">
-            <td
-              style="text-align: left; white-space: nowrap"
-              id="TBL-2-2-1"
-              class="td10"
-            >
-              <span class="cmti-10">Certiﬁcation, Computer Science</span>
-            </td>
-            <td
-              style="text-align: right; white-space: nowrap"
-              id="TBL-2-2-2"
-              class="td01"
-            >
-              <span class="cmti-10">2022 - 2023</span>
-            </td>
-          </tr>
-          <tr style="vertical-align: baseline" id="TBL-2-3-">
-            <td
-              style="text-align: left; white-space: nowrap"
-              id="TBL-2-3-1"
-              class="td10"
-            ></td>
-          </tr>
-        </table>
-      </li>
-      <li class="itemize">
-        <!--l. 108-->
-        <p class="noindent"></p>
-        <table id="TBL-3" class="tabular">
-          <colgroup id="TBL-3-1g">
-            <col id="TBL-3-1" />
-            <col id="TBL-3-2" />
-          </colgroup>
-          <tr style="vertical-align: baseline" id="TBL-3-1-">
-            <td
-              style="text-align: left; white-space: nowrap"
-              id="TBL-3-1-1"
-              class="td10"
-            >
-              <span class="cmbx-10x-x-109"
-                >Manav Rachna International Institute of Research and
-                Studies</span
-              >
-            </td>
-            <td
-              style="text-align: right; white-space: nowrap"
-              id="TBL-3-1-2"
-              class="td01"
-            >
-              Faridabad, India
-            </td>
-          </tr>
-          <tr style="vertical-align: baseline" id="TBL-3-2-">
-            <td
-              style="text-align: left; white-space: nowrap"
-              id="TBL-3-2-1"
-              class="td10"
-            >
-              <span class="cmti-10"
-                >Bachelors in Electronics and Communication Engineering
-              </span>
-            </td>
-            <td
-              style="text-align: right; white-space: nowrap"
-              id="TBL-3-2-2"
-              class="td01"
-            >
-              <span class="cmti-10">2016- 2020</span>
-            </td>
-          </tr>
-          <tr style="vertical-align: baseline" id="TBL-3-3-">
-            <td
-              style="text-align: left; white-space: nowrap"
-              id="TBL-3-3-1"
-              class="td10"
-            ></td>
-          </tr>
-        </table>
-      </li>
-      <li class="itemize">
-        <!--l. 110-->
-        <p class="noindent"></p>
-        <table id="TBL-4" class="tabular">
-          <colgroup id="TBL-4-1g">
-            <col id="TBL-4-1" />
-            <col id="TBL-4-2" />
-          </colgroup>
-          <tr style="vertical-align: baseline" id="TBL-4-1-">
-            <td
-              style="text-align: left; white-space: nowrap"
-              id="TBL-4-1-1"
-              class="td10"
-            >
-              <span class="cmbx-10x-x-109">Delhi Public School, Dwarka</span>
-            </td>
-            <td
-              style="text-align: right; white-space: nowrap"
-              id="TBL-4-1-2"
-              class="td01"
-            >
-              Delhi, India
-            </td>
-          </tr>
-          <tr style="vertical-align: baseline" id="TBL-4-2-">
-            <td
-              style="text-align: left; white-space: nowrap"
-              id="TBL-4-2-1"
-              class="td10"
-            ></td>
-            <td
-              style="text-align: right; white-space: nowrap"
-              id="TBL-4-2-2"
-              class="td01"
-            >
-              <span class="cmti-10">2002-2016</span>
-            </td>
-          </tr>
-          <tr style="vertical-align: baseline" id="TBL-4-3-">
-            <td
-              style="text-align: left; white-space: nowrap"
-              id="TBL-4-3-1"
-              class="td10"
-            ></td>
-          </tr>
-        </table>
-      </li>
-    </ul>
-    <!--l. 114-->
-    <p class="noindent"></p>
-    <h3 class="sectionHead">
-      <span class="titlemark">2 </span> <a id="x1-20002"></a>Experience
-    </h3>
-    <ul class="itemize1">
-      <li class="itemize">
-        <!--l. 118-->
-        <p class="noindent"></p>
-        <table id="TBL-5" class="tabular">
-          <colgroup id="TBL-5-1g">
-            <col id="TBL-5-1" />
-            <col id="TBL-5-2" />
-          </colgroup>
-          <tr style="vertical-align: baseline" id="TBL-5-1-">
-            <td
-              style="text-align: left; white-space: nowrap"
-              id="TBL-5-1-1"
-              class="td10"
-            >
-              <span class="cmbx-10x-x-109">Cactus Communication</span>
-            </td>
-            <td
-              style="text-align: right; white-space: nowrap"
-              id="TBL-5-1-2"
-              class="td01"
-            >
-              Mumbai, Maharashtra, India
-            </td>
-          </tr>
-          <tr style="vertical-align: baseline" id="TBL-5-2-">
-            <td
-              style="text-align: left; white-space: nowrap"
-              id="TBL-5-2-1"
-              class="td10"
-            >
-              <span class="cmti-10">Software Engineer </span>
-            </td>
-            <td
-              style="text-align: right; white-space: nowrap"
-              id="TBL-5-2-2"
-              class="td01"
-            >
-                <span class="cmti-10">December 2023 - September 2025</span>
-            </td>
-          </tr>
-          <tr style="vertical-align: baseline" id="TBL-5-3-">
-            <td
-              style="text-align: left; white-space: nowrap"
-              id="TBL-5-3-1"
-              class="td10"
-            ></td>
-          </tr>
-        </table>
-        <ul class="itemize2">
-          <li class="itemize">
-            <!--l. 121-->
-            <p class="noindent">
-              <span class="cmbx-10">Cactus</span>
-              <span class="cmbx-10">Labs</span><span class="cmr-10">:</span>
-              <span class="cmr-10">NLP</span>
-              <span class="cmr-10">and</span>
-              <span class="cmr-10">Computer</span>
-              <span class="cmr-10">Vision</span>
-              <span class="cmr-10">solutions.</span>
-              <span class="cmr-10">Focus</span>
-              <span class="cmr-10">on</span>
-              <span class="cmr-10">exploratory</span>
-              <span class="cmr-10">tasks.</span>
-            </p>
-          </li>
-        </ul>
-      </li>
-      <li class="itemize">
-        <!--l. 125-->
-        <p class="noindent"></p>
-        <table id="TBL-6" class="tabular">
-          <colgroup id="TBL-6-1g">
-            <col id="TBL-6-1" />
-            <col id="TBL-6-2" />
-          </colgroup>
-          <tr style="vertical-align: baseline" id="TBL-6-1-">
-            <td
-              style="text-align: left; white-space: nowrap"
-              id="TBL-6-1-1"
-              class="td10"
-            >
-              <span class="cmbx-10x-x-109">Cactus Communication</span>
-            </td>
-            <td
-              style="text-align: right; white-space: nowrap"
-              id="TBL-6-1-2"
-              class="td01"
-            >
-              Mumbai, Maharashtra, India
-            </td>
-          </tr>
-          <tr style="vertical-align: baseline" id="TBL-6-2-">
-            <td
-              style="text-align: left; white-space: nowrap"
-              id="TBL-6-2-1"
-              class="td10"
-            >
-              <span class="cmti-10">Full Stack Intern </span>
-            </td>
-            <td
-              style="text-align: right; white-space: nowrap"
-              id="TBL-6-2-2"
-              class="td01"
-            >
-              <span class="cmti-10">August 2023 - December 2023</span>
-            </td>
-          </tr>
-          <tr style="vertical-align: baseline" id="TBL-6-3-">
-            <td
-              style="text-align: left; white-space: nowrap"
-              id="TBL-6-3-1"
-              class="td10"
-            ></td>
-          </tr>
-        </table>
-        <ul class="itemize2">
-          <li class="itemize">
-            <!--l. 128-->
-            <p class="noindent">
-              <span class="cmbx-10">Cactus</span>
-              <span class="cmbx-10">Labs</span><span class="cmr-10">:</span>
-              <span class="cmr-10">Developed</span>
-              <span class="cmr-10">multiple</span>
-              <span class="cmr-10">suite</span>
-              <span class="cmr-10">of</span>
-              <span class="cmr-10">solutions</span>
-              <span class="cmr-10">for</span>
-              <span class="cmr-10">the</span>
-              <span class="cmr-10">company’s</span>
-              <span class="cmr-10">internal</span>
-              <span class="cmr-10">use.</span>
-              <span class="cmr-10">Used</span>
-              <span class="cmr-10">NLP</span>
-              <span class="cmr-10">libraries</span>
-              <span class="cmr-10">like</span>
-              <span class="cmr-10">Spacy</span>
-              <span class="cmr-10">and</span>
-              <span class="cmr-10">NLTK</span>
-              <span class="cmr-10">for</span>
-              <span class="cmr-10">text</span>
-              <span class="cmr-10">processing.</span>
-              <span class="cmr-10">Worked</span>
-              <span class="cmr-10">on</span>
-              <span class="cmr-10">multiple</span>
-              <span class="cmr-10">pretrained</span>
-              <span class="cmr-10">models</span>
-              <span class="cmr-10">like</span>
-              <span class="cmr-10">MobileBERT,</span>
-              <span class="cmr-10">BERT,</span>
-              <span class="cmr-10">RoBERTa,</span>
-              <span class="cmr-10">Xception,</span>
-              <span class="cmr-10">etc.</span>
-              <span class="cmr-10">for</span>
-              <span class="cmr-10">text</span>
-              <span class="cmr-10">and</span>
-              <span class="cmr-10">image</span>
-              <span class="cmr-10">classiﬁcation</span>
-              <span class="cmr-10">and</span>
-              <span class="cmr-10">ﬁnding</span>
-              <span class="cmr-10">similarity.</span>
-              <span class="cmr-10">Deployed</span>
-              <span class="cmr-10">the</span>
-              <span class="cmr-10">solutions</span>
-              <span class="cmr-10">on</span>
-              <span class="cmr-10">AWS</span>
-              <span class="cmr-10">Lambda</span>
-              <span class="cmr-10">and</span>
-              <span class="cmr-10">Amazon</span>
-              <span class="cmr-10">ECS.</span>
-            </p>
-          </li>
-        </ul>
-      </li>
-      <li class="itemize">
-        <!--l. 127-->
-        <p class="noindent"></p>
-        <table id="TBL-6" class="tabular">
-          <colgroup id="TBL-6-1g">
-            <col id="TBL-6-1" />
-            <col id="TBL-6-2" />
-          </colgroup>
-          <tr style="vertical-align: baseline" id="TBL-6-1-">
-            <td
-              style="text-align: left; white-space: nowrap"
-              id="TBL-6-1-1"
-              class="td10"
-            >
-              <span class="cmbx-10x-x-109"
-                >NVIDIA High-Performance Computing Lab</span
-              >
-            </td>
-            <td
-              style="text-align: right; white-space: nowrap"
-              id="TBL-6-1-2"
-              class="td01"
-            >
-              Bengaluru, Karnataka, India
-            </td>
-          </tr>
-          <tr style="vertical-align: baseline" id="TBL-6-2-">
-            <td
-              style="text-align: left; white-space: nowrap"
-              id="TBL-6-2-1"
-              class="td10"
-            >
-              <span class="cmti-10">Machine Learning Intern </span>
-            </td>
-            <td
-              style="text-align: right; white-space: nowrap"
-              id="TBL-6-2-2"
-              class="td01"
-            >
-              <span class="cmti-10">July 2019- August 2019</span>
-            </td>
-          </tr>
-          <tr style="vertical-align: baseline" id="TBL-6-3-">
-            <td
-              style="text-align: left; white-space: nowrap"
-              id="TBL-6-3-1"
-              class="td10"
-            ></td>
-          </tr>
-        </table>
-        <ul class="itemize2">
-          <li class="itemize">
-            <!--l. 130-->
-            <p class="noindent">
-              <span class="cmbx-10">Re-training</span>
-              <span class="cmbx-10">SSD</span>
-              <span class="cmbx-10">MobileNet</span
-              ><span class="cmr-10">:</span>
-              <span class="cmr-10">Object</span>
-              <span class="cmr-10">Detection</span>
-              <span class="cmr-10">using</span>
-              <span class="cmr-10">SSD</span>
-              <span class="cmr-10">MobileNet</span>
-              <span class="cmr-10">on</span>
-              <span class="cmr-10">the</span>
-              <span class="cmr-10">COCO</span>
-              <span class="cmr-10">dataset.</span>
-              <span class="cmr-10">Retrained</span>
-
-              <span class="cmr-10">and</span>
-              <span class="cmr-10">deployed</span>
-              <span class="cmr-10">the</span>
-              <span class="cmr-10">model</span>
-              <span class="cmr-10">on</span>
-              <span class="cmr-10">the</span>
-              <span class="cmr-10">Jetson</span>
-              <span class="cmr-10">Nano.</span>
-            </p>
-          </li>
-        </ul>
-      </li>
-      <li class="itemize">
-        <!--l. 135-->
-        <p class="noindent"></p>
-        <table id="TBL-7" class="tabular">
-          <colgroup id="TBL-7-1g">
-            <col id="TBL-7-1" />
-            <col id="TBL-7-2" />
-          </colgroup>
-          <tr style="vertical-align: baseline" id="TBL-7-1-">
-            <td
-              style="text-align: left; white-space: nowrap"
-              id="TBL-7-1-1"
-              class="td10"
-            >
-              <span class="cmbx-10x-x-109"
-                >Texas Instruments Centre for Embedded Product Design</span
-              >
-            </td>
-            <td
-              style="text-align: right; white-space: nowrap"
-              id="TBL-7-1-2"
-              class="td01"
-            >
-              New Delhi, Delhi, India
-            </td>
-          </tr>
-          <tr style="vertical-align: baseline" id="TBL-7-2-">
-            <td
-              style="text-align: left; white-space: nowrap"
-              id="TBL-7-2-1"
-              class="td10"
-            >
-              <span class="cmti-10">Summer Intern </span>
-            </td>
-            <td
-              style="text-align: right; white-space: nowrap"
-              id="TBL-7-2-2"
-              class="td01"
-            >
-              <span class="cmti-10">June 2019 - July 2019</span>
-            </td>
-          </tr>
-          <tr style="vertical-align: baseline" id="TBL-7-3-">
-            <td
-              style="text-align: left; white-space: nowrap"
-              id="TBL-7-3-1"
-              class="td10"
-            ></td>
-          </tr>
-        </table>
-        <ul class="itemize2">
-          <li class="itemize">
-            <!--l. 138-->
-            <p class="noindent">
-              <span class="cmbx-10">Embedded</span>
-              <span class="cmbx-10">System</span>
-              <span class="cmbx-10">Design</span><span class="cmr-10">:</span>
-              <span class="cmr-10">Worked</span>
-              <span class="cmr-10">on</span>
-              <span class="cmr-10">PCB</span>
-              <span class="cmr-10">designing</span>
-              <span class="cmr-10">and</span>
-              <span class="cmr-10">embedded</span>
-              <span class="cmr-10">system</span>
-              <span class="cmr-10">design.</span>
-              <span class="cmr-10">Software</span>
-              <span class="cmr-10">used:</span>
-              <span class="cmr-10">Eagle,</span>
-              <span class="cmr-10">Proteus,</span>
-              <span class="cmr-10">Arduino</span>
-              <span class="cmr-10">IDE.</span>
-              <span class="cmr-10">Hardware</span>
-              <span class="cmr-10">used:</span>
-              <span class="cmr-10">Arduino</span>
-              <span class="cmr-10">Uno,</span>
-              <span class="cmr-10">Raspberry</span>
-              <span class="cmr-10">Pi</span>
-              <span class="cmr-10">3B+,</span>
-              <span class="cmr-10">ESP8266,</span>
-              <span class="cmr-10">ESP32,</span>
-              <span class="cmr-10">NodeMCU,</span>
-              <span class="cmr-10">etc.</span>
-            </p>
-          </li>
-        </ul>
-      </li>
-      <li class="itemize">
-        <!--l. 143-->
-        <p class="noindent"></p>
-        <table id="TBL-8" class="tabular">
-          <colgroup id="TBL-8-1g">
-            <col id="TBL-8-1" />
-            <col id="TBL-8-2" />
-          </colgroup>
-          <tr style="vertical-align: baseline" id="TBL-8-1-">
-            <td
-              style="text-align: left; white-space: nowrap"
-              id="TBL-8-1-1"
-              class="td10"
-            >
-              <span class="cmbx-10x-x-109">Technoplanet Labs</span>
-            </td>
-            <td
-              style="text-align: right; white-space: nowrap"
-              id="TBL-8-1-2"
-              class="td01"
-            >
-              Faridabad, Haryana, India
-            </td>
-          </tr>
-          <tr style="vertical-align: baseline" id="TBL-8-2-">
-            <td
-              style="text-align: left; white-space: nowrap"
-              id="TBL-8-2-1"
-              class="td10"
-            >
-              <span class="cmti-10">R&#x0026;D Intern </span>
-            </td>
-            <td
-              style="text-align: right; white-space: nowrap"
-              id="TBL-8-2-2"
-              class="td01"
-            >
-              <span class="cmti-10">September 2018 - February 2019</span>
-            </td>
-          </tr>
-          <tr style="vertical-align: baseline" id="TBL-8-3-">
-            <td
-              style="text-align: left; white-space: nowrap"
-              id="TBL-8-3-1"
-              class="td10"
-            ></td>
-          </tr>
-        </table>
-        <ul class="itemize2">
-          <li class="itemize">
-            <!--l. 146-->
-            <p class="noindent">
-              <span class="cmbx-10">STEM</span>
-              <span class="cmbx-10">Education</span
-              ><span class="cmr-10">:</span>
-
-              <span class="cmr-10">Worked</span>
-              <span class="cmr-10">on</span>
-              <span class="cmr-10">STEM</span>
-              <span class="cmr-10">education</span>
-              <span class="cmr-10">and</span>
-              <span class="cmr-10">robotics.</span>
-              <span class="cmr-10">Developed</span>
-              <span class="cmr-10">multiple</span>
-              <span class="cmr-10">projects</span>
-              <span class="cmr-10">using</span>
-              <span class="cmr-10">Arduino</span>
-              <span class="cmr-10">and</span>
-              <span class="cmr-10">Raspberry</span>
-              <span class="cmr-10">Pi.</span>
-            </p>
-          </li>
-        </ul>
-      </li>
-    </ul>
-    <!--l. 153-->
-    <p class="noindent"></p>
-    <h3 class="sectionHead">
-      <span class="titlemark">3 </span> <a id="x1-30003"></a>Projects
-    </h3>
-    <ul class="itemize1">
-      <li class="itemize">
-        <!--l. 158-->
-        <p class="noindent">
-          <a href="https://chaitanyamalhotra.com/moon"
-            ><span class="cmbx-10">Moon</span>
-            <span class="cmbx-10">Phase</span>
-            <span class="cmbx-10">Calculator</span></a
-          ><span class="cmr-10">:</span>
-          <span class="cmr-10">Implemented</span>
-          <span class="cmr-10">a</span>
-          <span class="cmr-10">web</span>
-          <span class="cmr-10">application</span>
-          <span class="cmr-10">that</span>
-          <span class="cmr-10">shows</span>
-          <span class="cmr-10">the</span>
-          <span class="cmr-10">current</span>
-          <span class="cmr-10">moon</span>
-          <span class="cmr-10">phase</span>
-          <span class="cmr-10">using</span>
-          <span class="cmr-10">pyephem,</span>
-          <span class="cmr-10">Skyﬁeld</span>
-          <span class="cmr-10">API</span>
-          <span class="cmr-10">and</span>
-          <span class="cmr-10">three.js</span>
-          <span class="cmr-10">for</span>
-          <span class="cmr-10">rendering</span>
-          <span class="cmr-10">of</span>
-          <span class="cmr-10">3D</span>
-          <span class="cmr-10">model.</span>
-          <span class="cmr-10">Used</span>
-          <span class="cmr-10">Flask</span>
-          <span class="cmr-10">Framework</span>
-          <span class="cmr-10">for</span>
-
-          <span class="cmr-10">web</span>
-          <span class="cmr-10">services</span>
-          <span class="cmr-10">and</span>
-          <span class="cmr-10">HTML,</span>
-          <span class="cmr-10">CSS</span>
-          <span class="cmr-10">and</span>
-          <span class="cmr-10">three.js</span>
-          <span class="cmr-10">for</span>
-          <span class="cmr-10">front</span>
-          <span class="cmr-10">end.</span>
-        </p>
-        </li>
-        <li class="itemize">
-          <p class="noindent">
-            <a href="https://chaitanyamalhotra.com/rigveda">
-              <span class="cmbx-10">Rigveda</span>
-            </a>
-            <span class="cmr-10">:</span>
-            <span class="cmr-10">Making Rigveda more accessible. Fun 3D website, has flash cards on different mandals, short videos, podcast and complete translated text.</span>
-          </p>
-      </li>
-      <li class="itemize">
-        <!--l. 161-->
-        <p class="noindent">
-          <a href="https://chaitanyamalhotra.com/chess"
-            ><span class="cmbx-10">2</span>
-            <span class="cmbx-10">Player</span>
-            <span class="cmbx-10">Chess</span></a
-          >
-          <span class="cmbxti-10">WIP</span><span class="cmr-10">:</span>
-          <span class="cmr-10">Implemented</span>
-          <span class="cmr-10">a</span>
-          <span class="cmr-10">web</span>
-          <span class="cmr-10">application</span>
-          <span class="cmr-10">that</span>
-          <span class="cmr-10">allows</span>
-          <span class="cmr-10">two</span>
-          <span class="cmr-10">players</span>
-          <span class="cmr-10">to</span>
-          <span class="cmr-10">play</span>
-          <span class="cmr-10">chess.</span>
-          <span class="cmr-10">HTML,</span>
-          <span class="cmr-10">CSS</span>
-          <span class="cmr-10">and</span>
-          <span class="cmr-10">Javascript</span>
-          <span class="cmr-10">used.</span>
-        </p>
-      </li>
-      <li class="itemize">
-        <!--l. 165-->
-        <p class="noindent">
-          <a href="https://chaitanyamalhotra.com/sudoku"
-            ><span class="cmbx-10">Sudoku</span>
-            <span class="cmbx-10">Solver</span></a
-          ><span class="cmr-10">:</span>
-          <span class="cmr-10">Implemented</span>
-          <span class="cmr-10">a</span>
-          <span class="cmr-10">web</span>
-          <span class="cmr-10">application</span>
-          <span class="cmr-10">that</span>
-          <span class="cmr-10">solves</span>
-          <span class="cmr-10">Sudoku</span>
-          <span class="cmr-10">Puzzles</span>
-          <span class="cmr-10">using</span>
-          <span class="cmr-10">Set</span>
-          <span class="cmr-10">Theory,</span>
-          <span class="cmr-10">Recursion</span>
-          <span class="cmr-10">and</span>
-          <span class="cmr-10">Backtracking.</span>
-          <span class="cmr-10">Used</span>
-          <span class="cmr-10">Flask</span>
-          <span class="cmr-10">Framework</span>
-
-          <span class="cmr-10">for</span>
-          <span class="cmr-10">web</span>
-          <span class="cmr-10">services</span>
-          <span class="cmr-10">and</span>
-          <span class="cmr-10">HTML,</span>
-          <span class="cmr-10">CSS</span>
-          <span class="cmr-10">for</span>
-          <span class="cmr-10">front</span>
-          <span class="cmr-10">end</span>
-        </p>
-      </li>
-    </ul>
-    <!--l. 170-->
-    <p class="noindent"></p>
-    <h3 class="sectionHead">
-      <span class="titlemark">4 </span> <a id="x1-40004"></a>Programming Skills
-    </h3>
-    <ul class="itemize1">
-      <li class="itemize">
-        <!--l. 172-->
-        <p class="noindent">
-          <span class="cmbx-10x-x-109">Languages</span>:Python, Javascript, C++,
-          SQL, Javascript, HTML, CSS, LaTeX
-          <span class="cmbx-10x-x-109">Technologies</span>: AWS, Three.js, GCP
-        </p>
-      </li>
-    </ul>
-    <!--l. 179-->
-    <p class="noindent" style="text-align: center">——————————————-</p>
-    <div class="button-container">
-      <a href="chaitanya_malhotra_resume.pdf" download>
-        <button class="download-button">Download PDF</button>
-      </a>
-    </div>
-  </body>
-</html>
+<body class="bg-background-light dark:bg-background-dark text-black dark:text-gray-100 font-display overflow-x-hidden min-h-screen flex flex-col">
+<!-- TopAppBar: Control Panel -->
+<header class="sticky top-0 z-50 bg-background-light dark:bg-background-dark border-b-2 border-black dark:border-white px-4 py-3 flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-3xl font-bold border-2 border-black dark:border-white p-1">terminal</span>
+<div class="flex flex-col leading-none">
+<span class="font-bold text-sm tracking-tighter uppercase">ENG_PORTFOLIO_V2</span>
+<span class="text-[10px] font-mono opacity-70">ID: 849-22-XJ</span>
+</div>
+</div>
+<div class="flex items-center gap-2 border-2 border-black dark:border-white px-2 py-1 bg-white dark:bg-black/20">
+<div class="w-3 h-3 rounded-full bg-primary animate-pulse border border-black dark:border-transparent"></div>
+<span class="text-xs font-bold tracking-widest text-primary">SYS_READY</span>
+</div>
+</header>
+<!-- Hero Section: Boot Sequence -->
+<section class="p-6 border-b-2 border-black dark:border-white/20 relative grid bg-[#dcdcdc] dark:bg-[#2a2a2a]">
+<!-- Technical Label -->
+<div class="absolute top-2 right-2 text-[10px] font-bold opacity-50 border border-black dark:border-white px-1">FIG 1.0 // BOOT_SEQ</div>
+<div class="space-y-2 font-mono text-sm md:text-base leading-relaxed text-black dark:text-gray-300 min-h-[120px]">
+<p><span class="text-primary font-bold mr-2">&gt;</span>TARGET: ML / CV / EMBEDDED</p>
+<p><span class="text-primary font-bold mr-2">&gt;</span>INITIALIZING KERNEL...</p>
+<p><span class="text-primary font-bold mr-2">&gt;</span>MOUNTING CV_MODULE...</p>
+<p><span class="text-primary font-bold mr-2">&gt;</span>LOADING ASSETS [||||||||||||] 100%</p>
+<p class="animate-pulse"><span class="text-primary font-bold mr-2">&gt;</span>WELCOME USER_</p>
+</div>
+<h1 class="mt-8 text-4xl md:text-6xl font-bold uppercase tracking-tight leading-none border-t-2 border-black dark:border-white pt-4 border-dashed">
+            INDUSTRIAL<br/>
+<span class="text-transparent stroke-text" style="-webkit-text-stroke: 1.5px currentColor; color: transparent;">INTELLIGENCE</span>
+</h1>
+</section>
+<!-- Marquee Banner -->
+<div class="bg-primary border-y-2 border-black dark:border-white py-2 overflow-hidden flex select-none">
+<div class="whitespace-nowrap font-bold text-black text-sm tracking-widest px-4">
+            AVAILABLE FOR HIRE // SYSTEM OPTIMAL // DEPLOYMENT READY // AVAILABLE FOR HIRE // SYSTEM OPTIMAL // DEPLOYMENT READY //
+        </div>
+<div class="whitespace-nowrap font-bold text-black text-sm tracking-widest px-4 md:hidden">
+            AVAILABLE FOR HIRE // SYSTEM OPTIMAL //
+        </div>
+</div>
+<!-- Skills Matrix: Charts -->
+<section class="grid grid-cols-1 lg:grid-cols-2">
+<!-- Col 1: Chart -->
+<div class="p-6 border-b-2 lg:border-b-0 lg:border-r-2 border-black dark:border-white relative bg-[#e0e0e0] dark:bg-[#252525]">
+<div class="absolute top-2 right-2 text-[10px] font-bold opacity-50 border border-black dark:border-white px-1">FIG 2.A: SKILLS_MATRIX</div>
+<h3 class="text-xl font-bold mb-6 flex items-center gap-2 border-b-2 border-black dark:border-white pb-2 w-fit">
+<span class="material-symbols-outlined">memory</span>
+                SKILLS_DIAGNOSTIC
+            </h3>
+<div class="space-y-5">
+<!-- Skill Item -->
+<div class="grid grid-cols-[80px_1fr_40px] gap-2 items-center group">
+<span class="text-xs font-bold uppercase group-hover:text-primary transition-colors">Python</span>
+<div class="h-5 border-2 border-black dark:border-white p-[2px] bg-white dark:bg-black/50">
+<div class="h-full bg-black dark:bg-white w-[95%]"></div>
+</div>
+<span class="text-xs font-mono text-right">95%</span>
+</div>
+<!-- Skill Item with Alert -->
+<div class="grid grid-cols-[80px_1fr_40px] gap-2 items-center group">
+<div class="flex items-center gap-1">
+<span class="text-xs font-bold uppercase group-hover:text-primary transition-colors">C++</span>
+</div>
+<div class="h-5 border-2 border-black dark:border-white p-[2px] bg-white dark:bg-black/50">
+<div class="h-full bg-primary w-[90%] flex items-center justify-center overflow-hidden">
+<div class="w-full h-[1px] bg-black opacity-20"></div>
+</div>
+</div>
+<span class="text-xs font-mono text-right text-primary font-bold">90%</span>
+</div>
+<!-- Skill Item -->
+<div class="grid grid-cols-[80px_1fr_40px] gap-2 items-center group">
+<span class="text-xs font-bold uppercase group-hover:text-primary transition-colors">PyTorch</span>
+<div class="h-5 border-2 border-black dark:border-white p-[2px] bg-white dark:bg-black/50">
+<div class="h-full bg-black dark:bg-white w-[85%]"></div>
+</div>
+<span class="text-xs font-mono text-right">85%</span>
+</div>
+<!-- Skill Item -->
+<div class="grid grid-cols-[80px_1fr_40px] gap-2 items-center group">
+<span class="text-xs font-bold uppercase group-hover:text-primary transition-colors">OpenCV</span>
+<div class="h-5 border-2 border-black dark:border-white p-[2px] bg-white dark:bg-black/50">
+<div class="h-full bg-black dark:bg-white w-[92%]"></div>
+</div>
+<span class="text-xs font-mono text-right">92%</span>
+</div>
+<!-- Skill Item Pattern -->
+<div class="grid grid-cols-[80px_1fr_40px] gap-2 items-center group">
+<span class="text-xs font-bold uppercase group-hover:text-primary transition-colors">CUDA</span>
+<div class="h-5 border-2 border-black dark:border-white p-[2px] bg-white dark:bg-black/50">
+<!-- Striped pattern via gradient -->
+<div class="h-full w-[70%]" style="background: repeating-linear-gradient(45deg, #ff4d00, #ff4d00 4px, transparent 4px, transparent 8px);"></div>
+</div>
+<span class="text-xs font-mono text-right">70%</span>
+</div>
+</div>
+</div>
+<!-- Col 2: Stats Grid -->
+<div class="grid grid-rows-2 border-b-2 border-black dark:border-white">
+<div class="p-6 border-b-2 border-black dark:border-white flex flex-col justify-between bg-white dark:bg-white/5">
+<div class="flex justify-between items-start">
+<span class="text-xs font-bold opacity-60">TOTAL_PROJECTS_DEPLOYED</span>
+<span class="material-symbols-outlined text-primary">deployed_code</span>
+</div>
+<span class="text-6xl font-bold tracking-tighter">042</span>
+</div>
+<div class="grid grid-cols-2">
+<div class="p-6 border-r-2 border-black dark:border-white bg-[#f0f0f0] dark:bg-white/10 flex flex-col justify-center">
+<span class="text-xs font-bold opacity-60">UPTIME</span>
+<span class="text-2xl font-bold block mt-1 text-primary">99.9%</span>
+</div>
+<div class="p-6 flex flex-col justify-center bg-[#dcdcdc] dark:bg-white/5">
+<span class="text-xs font-bold opacity-60">ERRORS</span>
+<span class="text-2xl font-bold block mt-1">NULL</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Project Log Header -->
+<div class="bg-black dark:bg-white text-white dark:text-black py-2 px-4 flex justify-between items-center sticky top-[58px] z-40 shadow-md">
+<h2 class="font-bold tracking-wider">// PROJECT_LOG</h2>
+<span class="material-symbols-outlined animate-spin text-sm">settings</span>
+</div>
+<!-- Project Cards -->
+<section class="p-4 space-y-8 bg-background-light dark:bg-background-dark">
+<!-- Project 1 -->
+<article class="border-2 border-black dark:border-white p-1 bg-white dark:bg-black/40 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)]">
+<div class="border border-black dark:border-white p-4 flex flex-col gap-4">
+<div class="flex justify-between items-start border-b-2 border-black dark:border-white pb-3 border-dashed">
+<div>
+<h3 class="font-bold text-lg leading-tight uppercase">Autonomous Drone Nav</h3>
+<p class="text-xs font-mono mt-1 text-primary font-bold">REF: DR-NAV-01</p>
+</div>
+<!-- Barcode simulation -->
+<div aria-hidden="true" class="h-8 flex gap-[3px] items-stretch select-none opacity-80">
+<div class="w-1 bg-black dark:bg-white"></div>
+<div class="w-2 bg-black dark:bg-white"></div>
+<div class="w-px bg-black dark:bg-white"></div>
+<div class="w-3 bg-black dark:bg-white"></div>
+<div class="w-1 bg-black dark:bg-white"></div>
+<div class="w-2 bg-black dark:bg-white"></div>
+</div>
+</div>
+<div class="aspect-video w-full bg-gray-300 relative overflow-hidden border-2 border-black dark:border-white group">
+<img alt="Drone perspective wireframe view showing terrain mapping and vector lines" class="object-cover w-full h-full grayscale contrast-125 group-hover:grayscale-0 transition-all duration-300" data-alt="Drone perspective wireframe view showing terrain mapping and vector lines" src="assets/drone_image.png"/>
+<!-- Image Overlay UI -->
+<div class="absolute bottom-0 left-0 w-full p-2 flex justify-between items-end bg-gradient-to-t from-black/80 to-transparent">
+<div class="bg-black text-white px-2 py-0.5 text-[10px] font-bold border border-white/50">
+                            CAM_FEED_01
+                        </div>
+<span class="material-symbols-outlined text-white text-sm">videocam</span>
+</div>
+<!-- Crosshair -->
+<div class="absolute inset-0 pointer-events-none flex items-center justify-center opacity-30">
+<div class="w-16 h-16 border border-white rounded-full flex items-center justify-center">
+<div class="w-1 h-1 bg-primary rounded-full"></div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 text-sm border-b border-black dark:border-white pb-3">
+<span class="font-bold text-primary">COMPONENTS:</span>
+<span class="font-mono">OpenCV, C++, ROS2, SLAM</span>
+<span class="font-bold text-primary">STATUS:</span>
+<span class="font-mono uppercase flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-green-600"></span> Deployment Successful
+                    </span>
+</div>
+<button class="w-full bg-[#eeeeee] dark:bg-black border-2 border-black dark:border-white py-3 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors flex items-center justify-center gap-2 group/btn active:bg-primary active:text-black">
+<span class="font-bold tracking-widest text-sm">ACCESS_DATA</span>
+<span class="material-symbols-outlined text-sm group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</article>
+<!-- Project 2 -->
+<article class="border-2 border-black dark:border-white p-1 bg-white dark:bg-black/40 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)]">
+<div class="border border-black dark:border-white p-4 flex flex-col gap-4">
+<div class="flex justify-between items-start border-b-2 border-black dark:border-white pb-3 border-dashed">
+<div>
+<h3 class="font-bold text-lg leading-tight uppercase">Industrial Edge AI</h3>
+<p class="text-xs font-mono mt-1 text-primary font-bold">REF: EDGE-AI-X9</p>
+</div>
+<!-- Barcode simulation -->
+<div aria-hidden="true" class="h-8 flex gap-[3px] items-stretch select-none opacity-80">
+<div class="w-px bg-black dark:bg-white"></div>
+<div class="w-1 bg-black dark:bg-white"></div>
+<div class="w-3 bg-black dark:bg-white"></div>
+<div class="w-1 bg-black dark:bg-white"></div>
+<div class="w-2 bg-black dark:bg-white"></div>
+<div class="w-px bg-black dark:bg-white"></div>
+</div>
+</div>
+<div class="aspect-video w-full bg-gray-300 relative overflow-hidden border-2 border-black dark:border-white group">
+<img alt="Close up of industrial robotic arm server rack with detailed cabling" class="object-cover w-full h-full grayscale contrast-125 group-hover:grayscale-0 transition-all duration-300" data-alt="Close up of industrial robotic arm server rack with detailed cabling" src="assets/server_image.png"/>
+<div class="absolute top-2 right-2 bg-primary text-black px-2 py-0.5 text-[10px] font-bold flex items-center gap-1 border border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+<span class="material-symbols-outlined text-[10px]">bolt</span> LIVE
+                    </div>
+<!-- Data overlay -->
+<div class="absolute bottom-2 left-2 font-mono text-[10px] text-white bg-black/50 px-1 backdrop-blur-sm">
+                        TEMP: 42°C | LOAD: 88%
+                    </div>
+</div>
+<div class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 text-sm border-b border-black dark:border-white pb-3">
+<span class="font-bold text-primary">COMPONENTS:</span>
+<span class="font-mono">PyTorch, Jetson Nano, TensorRT</span>
+<span class="font-bold text-primary">LATENCY:</span>
+<span class="font-mono uppercase">&lt; 15ms inference</span>
+</div>
+<button class="w-full bg-[#eeeeee] dark:bg-black border-2 border-black dark:border-white py-3 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors flex items-center justify-center gap-2 group/btn active:bg-primary active:text-black">
+<span class="font-bold tracking-widest text-sm">INSPECT_CORE</span>
+<span class="material-symbols-outlined text-sm group-hover/btn:translate-x-1 transition-transform">search</span>
+</button>
+</div>
+</article>
+</section>
+<!-- Footer Action -->
+<section class="mt-auto border-t-2 border-black dark:border-white p-6 bg-white dark:bg-white/5 relative">
+<!-- Blueprint lines -->
+<div class="absolute left-0 top-0 w-full h-full pointer-events-none opacity-5" style="background-image: linear-gradient(0deg, transparent 24%, #000 25%, #000 26%, transparent 27%, transparent 74%, #000 75%, #000 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, #000 25%, #000 26%, transparent 27%, transparent 74%, #000 75%, #000 76%, transparent 77%, transparent); background-size: 30px 30px;"></div>
+<div class="border-2 border-black dark:border-white border-dashed p-6 text-center mb-6 bg-background-light dark:bg-background-dark relative z-10">
+<div class="inline-flex items-center justify-center p-3 border-2 border-black dark:border-white rounded-full mb-3 bg-white dark:bg-black">
+<span class="material-symbols-outlined text-3xl text-primary">mark_email_unread</span>
+</div>
+<p class="font-bold text-sm tracking-wide">TRANSMISSION CHANNEL OPEN</p>
+<p class="text-xs font-mono opacity-60 mt-1">AWAITING SIGNAL INPUT...</p>
+</div>
+<button class="relative z-10 w-full bg-primary text-black border-2 border-black dark:border-white p-4 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.8)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-[6px] active:translate-y-[6px] active:shadow-none transition-all">
+<span class="text-lg font-bold tracking-widest flex items-center justify-center gap-3">
+                [ INITIATE_COMMUNICATION ]
+            </span>
+</button>
+</section>
+<!-- Tactile Toggle Nav -->
+<nav class="sticky bottom-0 z-50 bg-background-light dark:bg-background-dark border-t-2 border-black dark:border-white grid grid-cols-3 h-20 shadow-[0px_-4px_10px_rgba(0,0,0,0.1)]">
+<!-- Active Button -->
+<button class="border-r-2 border-black dark:border-white flex flex-col items-center justify-center bg-primary text-black relative group active:bg-primary/80">
+<div class="absolute top-1 left-1 w-full h-full bg-white opacity-20 pointer-events-none"></div>
+<span class="material-symbols-outlined text-2xl mb-1">grid_view</span>
+<span class="text-[10px] font-bold tracking-wider">MAIN</span>
+<!-- Indicator Light -->
+<div class="absolute top-2 right-2 w-1.5 h-1.5 bg-black rounded-full"></div>
+</button>
+<!-- Inactive Button -->
+<button class="border-r-2 border-black dark:border-white flex flex-col items-center justify-center hover:bg-white dark:hover:bg-white/10 text-black dark:text-white transition-colors bg-[#dcdcdc] dark:bg-[#1f1f1f] active:bg-[#c0c0c0]">
+<span class="material-symbols-outlined text-2xl mb-1 opacity-60">folder_data</span>
+<span class="text-[10px] font-bold tracking-wider opacity-60">LOGS</span>
+</button>
+<!-- Inactive Button -->
+<button class="flex flex-col items-center justify-center hover:bg-white dark:hover:bg-white/10 text-black dark:text-white transition-colors bg-[#dcdcdc] dark:bg-[#1f1f1f] active:bg-[#c0c0c0]">
+<span class="material-symbols-outlined text-2xl mb-1 opacity-60">contact_page</span>
+<span class="text-[10px] font-bold tracking-wider opacity-60">CONTACT</span>
+</button>
+</nav>
+</body></html>
