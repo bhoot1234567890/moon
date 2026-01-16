@@ -16,7 +16,7 @@
         theme: {
           extend: {
             colors: {
-              "primary": "#ff4d00",
+              "primary": "rgb(var(--primary) / <alpha-value>)",
               "background-light": "#cccccc",
               "background-dark": "#212121",
             },
@@ -29,6 +29,9 @@
       }
     </script>
 <style>
+        :root {
+            --primary: 255 77 0; /* orange */
+        }
         /* Industrial specific utility overrides */
         .industrial-border {
             border-width: 2px;
@@ -64,9 +67,18 @@
 <span class="text-[10px] font-mono opacity-70">ID: 849-22-XJ</span>
 </div>
 </div>
+<div class="flex items-center gap-4">
 <div class="flex items-center gap-2 border-2 border-black dark:border-white px-2 py-1 bg-white dark:bg-black/20">
 <div class="w-3 h-3 rounded-full bg-primary animate-pulse border border-black dark:border-transparent"></div>
 <span class="text-xs font-bold tracking-widest text-primary">SYS_READY</span>
+</div>
+<div id="theme-switcher" class="flex items-center gap-2">
+<span class="text-xs font-bold tracking-widest text-primary">THEME:</span>
+<button data-color="255 77 0" class="theme-button w-4 h-4 rounded-full bg-[rgb(255,77,0)] border-2 border-black dark:border-white"></button>
+<button data-color="0 255 65" class="theme-button w-4 h-4 rounded-full bg-[rgb(0,255,65)] border-2 border-transparent"></button>
+<button data-color="0 178 255" class="theme-button w-4 h-4 rounded-full bg-[rgb(0,178,255)] border-2 border-transparent"></button>
+<button id="theme-toggle" class="ml-4 text-xs font-bold tracking-widest text-primary">ACTIVATE DARK MODE</button>
+</div>
 </div>
 </header>
 <!-- Hero Section: Boot Sequence -->
@@ -306,4 +318,57 @@
 <span class="text-[10px] font-bold tracking-wider opacity-60">CONTACT</span>
 </button>
 </nav>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeButtons = document.querySelectorAll('.theme-button');
+        const html = document.documentElement;
+        const root = document.querySelector(':root');
+
+        function applyTheme(theme, color) {
+            localStorage.setItem('theme', theme);
+            localStorage.setItem('theme-color', color);
+
+            if (theme === 'dark') {
+                html.classList.add('dark');
+                themeToggle.textContent = 'DEACTIVATE DARK MODE';
+            } else {
+                html.classList.remove('dark');
+                themeToggle.textContent = 'ACTIVATE DARK MODE';
+            }
+
+            root.style.setProperty('--primary', color);
+
+            themeButtons.forEach(button => {
+                const buttonColor = button.dataset.color;
+                if (buttonColor === color) {
+                    button.classList.add('border-black', 'dark:border-white');
+                    button.classList.remove('border-transparent');
+                } else {
+                    button.classList.remove('border-black', 'dark:border-white');
+                    button.classList.add('border-transparent');
+                }
+            });
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const isDarkMode = html.classList.contains('dark');
+            const newTheme = isDarkMode ? 'light' : 'dark';
+            const currentColor = localStorage.getItem('theme-color') || '255 77 0';
+            applyTheme(newTheme, currentColor);
+        });
+
+        themeButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const newColor = button.dataset.color;
+                const currentTheme = localStorage.getItem('theme') || 'light';
+                applyTheme(currentTheme, newColor);
+            });
+        });
+
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        const savedColor = localStorage.getItem('theme-color') || '255 77 0';
+        applyTheme(savedTheme, savedColor);
+    });
+</script>
 </body></html>
