@@ -1,0 +1,17 @@
+# LaTeX build intermediates
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+
+# Editor / OS
+.DS_Store
+*.bak
+*.swp
+*~
+
+# Node (if build pipeline added later)
+node_modules/
+dist/
