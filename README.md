@@ -19,7 +19,7 @@ What started as a lunar-phase visualizer grew into an industrial-themed resume, 
 - **3D Rigveda wheel** (`rigveda.html` + `src/main.js`) — a golden chariot wheel rendered with Three.js, DRACO/KTX2-compressed GLTF, an `EffectComposer` + `UnrealBloomPass` glow pipeline, animated star fields, and canvas-generated radial text sprites for all 10 Mandals.
 - **Manifest-driven content** (`assets/mandalas/manifest.json`) — each Mandal exposes a podcast, a video, the original Sanskrit text as a PDF, flashcards, and a cover image. Add a file, edit the JSON, done — no code changes required.
 - **Lunar phase visualizer** (`moon.html`) — a 3D moon that tracks the current phase, with a "Reset View" control.
-- **Chess vs Stockfish** (`chess.html`) — Human-vs-Human, Human-vs-AI, and AI-vs-AI modes running the real Stockfish engine in a Web Worker, with selectable search depth (5 / 10 / 15) and a pawn-promotion modal.
+- **Chess vs Stockfish** (`chess.html`) — Human-vs-Human, Human-vs-AI, and AI-vs-AI modes running the real Stockfish engine in a Web Worker, with selectable search depth (5 / 10 / 15 / 18 / 20) and a pawn-promotion modal.
 - **Sudoku solver & generator** (`sudoku.html` + `sudoku generator.js`) — classic backtracking to generate and solve full 9×9 boards.
 - **Resumable media** — the background audio player (`src/player.js`) ducks its volume per screen (100% / 20% / 10%) and saves playback position to `localStorage`.
 - **Accessible controls** — keyboard navigation (Enter to advance, Escape to back out, arrows to rotate) and an ARIA live region that announces Mandal changes.

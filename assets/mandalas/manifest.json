@@ -1,7 +1,4 @@
 {
-  "Rigveda": [
-    "./assets/mandalas/rigveda-1.jpg"
-  ],
   "OriginalText": {
     "1": "./assets/original_text/book1.pdf",
     "2": "./assets/original_text/book2.pdf",
