@@ -11,7 +11,9 @@ npm run build:css
 echo "==> Assembling dist-pages/"
 rm -rf dist-pages && mkdir -p dist-pages
 # All media lives in R2 (cdn.chaitanyamalhotra.com); deploy only the static site.
+# NOTE: --include for og-image.png must come before --exclude='*.png' (first match wins).
 rsync -a \
+  --include='assets/og-image.png' \
   --exclude='.git' --exclude='.github' --exclude='.githooks' --exclude='scripts' \
   --exclude='node_modules' --exclude='.wrangler' --exclude='dist-pages' --exclude='dist' \
   --exclude='cdn' --exclude='moon-app' \
