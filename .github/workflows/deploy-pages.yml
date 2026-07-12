@@ -1,0 +1,41 @@
+name: Deploy to Cloudflare Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run build:css
+      - name: Assemble deploy directory
+        run: |
+          mkdir -p dist-pages
+          rsync -a \
+            --exclude='.git' --exclude='.github' --exclude='node_modules' \
+            --exclude='.wrangler' --exclude='dist-pages' --exclude='dist' \
+            --exclude='cdn' --exclude='package.json' --exclude='package-lock.json' \
+            --exclude='tailwind.config.js' --exclude='CNAME' --exclude='.gitignore' \
+            --exclude='*.md' --exclude='*.tex' --exclude='*.pdf' --exclude='*.ttf' \
+            --exclude='*.bak' --exclude='*.aux' --exclude='*.log' --exclude='*.out' \
+            --exclude='*.fls' --exclude='*.fdb_latexmk' --exclude='*.synctex.gz' \
+            --exclude='*.sqlite' --exclude='*.sqlite-shm' --exclude='*.sqlite-wal' \
+            --exclude='.DS_Store' --exclude='src/app.css' \
+            ./ dist-pages/
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist-pages --project-name=moon-portfolio --branch=main

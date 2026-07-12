@@ -12,11 +12,27 @@
 *.swp
 *~
 
-# Node (if build pipeline added later)
+# Node
 node_modules/
 dist/
 dist-pages/
 .wrangler/
+
+# Media — now served from Cloudflare R2 (cdn.chaitanyamalhotra.com)
+/assets/videos/
+/assets/podcasts/
+/assets/original_text/
+/assets/flashcards/
+/assets/music/
+/assets/models/
+/assets/mandalas/mandala_*_cover_prompt.png
+/assets/NormalMap.png
+/assets/lroc_color_poles_2k.png
+/assets/server_image.png
+/assets/drone_image.png
+/chaitanya_malhotra_resume.pdf
+/chaitanya_malhotra_resume_embedded.pdf
+/website documentation moon.pdf
 
 # Working notes / audit docs (not part of deployed site)
 PORTFOLIO_IMPROVEMENT_PLAN.md

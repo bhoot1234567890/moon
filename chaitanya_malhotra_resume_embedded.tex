@@ -1,0 +1,143 @@
+%------------------------------------------------------------
+% Chaitanya Malhotra — Embedded Hardware Engineering resume
+% Tailored for TONEIF01 embedded hardware roles (Pune).
+% Portable preamble: compiles with a basic TeX Live install
+% (no titlesec / marvosym / enumitem / fullpage dependency).
+%------------------------------------------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage[letterpaper,margin=0.5in,footskip=0.25in]{geometry}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[colorlinks=true,urlcolor=black,linkcolor=black]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage{latexsym}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\setlength{\parindent}{0pt}
+\raggedright
+\setlength{\tabcolsep}{0in}
+\setlength{\leftmargini}{1.1em}
+
+% Section headings (portable replacement for titlesec)
+\makeatletter
+\renewcommand\section{\@startsection{section}{1}{\z@}%
+  {-3.2ex \@plus -1ex \@minus -.2ex}%
+  {1.1ex \@plus .2ex}%
+  {\normalfont\large\bfseries}}
+\makeatother
+
+% ATS-friendly glyph mapping
+\input{glyphtounicode}
+\pdfgentounicode=1
+
+%-------------------------
+% Custom commands
+%-------------------------
+\newcommand{\resumeItem}[2]{\item\small{\textbf{#1}{: #2 \vspace{-2pt}}}}
+\newcommand{\resumeSubheading}[4]{%
+  \vspace{-1pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-5pt}}
+\newcommand{\resumeSubItem}[2]{\resumeItem{#1}{#2}\vspace{-4pt}}
+\renewcommand{\labelitemii}{$\circ$}
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%-------------------------------------------
+\begin{document}
+
+%----------HEADING-----------------
+\begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}r}
+  \textbf{\href{http://chaitanyamalhotra.com/}{\Large Chaitanya Malhotra}} & \href{mailto:cm@chaitanyamalhotra.com}{cm@chaitanyamalhotra.com} \\
+  \href{http://chaitanyamalhotra.com/}{chaitanyamalhotra.com} \quad\textbar\quad Embedded Systems Engineer, India & \href{https://github.com/bhoot1234567890}{github.com/bhoot1234567890} \\
+\end{tabular*}
+
+%----------SUMMARY-----------------
+\section{Summary}
+\small Electronics \& Communication engineer with hands-on experience in microcontroller firmware, embedded system design, and PCB/hardware development across ESP32, RP2040, and nRF52 platforms. Work spans bare-metal C/C++ firmware, RTOS, serial interfaces (UART/SPI/I$^2$C/USB/BLE), and end-to-end IoT systems. Seeking embedded hardware engineering roles.
+
+%----------TECHNICAL SKILLS----------
+\section{Technical Skills}
+\resumeSubHeadingListStart
+\item \textbf{Languages}{: C, C++20, Python, SQL}
+\item \textbf{Microcontrollers \& SoCs}{: ESP32 / ESP8266, RP2040, nRF52832, ARM7TDMI, VideoCore IV VPU, Raspberry Pi, Arduino, NodeMCU}
+\item \textbf{Firmware \& RTOS}{: Bare-metal programming, Zephyr RTOS, USB HID / TinyUSB, DMA, SDRAM self-refresh, interrupt-driven I/O}
+\item \textbf{Hardware \& EDA}{: KiCad, Eagle, Proteus, schematic capture, PCB design, analog \& digital circuit design}
+\item \textbf{Interfaces}{: UART, SPI, I$^2$C, USB, BLE, Wi-Fi, Ethernet}
+\item \textbf{Validation \& Tools}{: Oscilloscopes, logic analyzers, bench testing, Git, CMake}
+\resumeSubHeadingListEnd
+
+%----------EDUCATION-----------------
+\section{Education}
+\resumeSubHeadingListStart
+\resumeSubheading
+{Manav Rachna International Institute of Research and Studies}{Faridabad, India}
+{Bachelor of Engineering --- Electronics \& Communication}{2016 - 2020}
+\resumeSubheading
+{Scaler Academy}{Online}
+{Certification, Computer Science}{2022 - 2023}
+\resumeSubHeadingListEnd
+
+%----------EXPERIENCE-----------------
+\section{Experience}
+\resumeSubHeadingListStart
+\resumeSubheading
+{Cactus Communication}{Mumbai, India}
+{Software Engineer}{Dec 2023 - Sep 2025}
+\resumeItemListStart
+\resumeItem{Production Engineering}
+{Built and shipped production data pipelines and deployed models to AWS Lambda / ECS; owned debugging, monitoring, and reliability of systems processing thousands of records monthly --- strong transferable rigor in testing, version control, and release discipline.}
+\resumeItemListEnd
+
+\resumeSubheading
+{NVIDIA High-Performance Computing Lab}{Bengaluru, India}
+{Machine Learning Intern}{Jul 2019 - Aug 2019}
+\resumeItemListStart
+\resumeItem{Edge Inference Deployment}
+{Retrained an SSD MobileNet object-detection model on the COCO dataset and deployed it on the NVIDIA Jetson Nano embedded platform for real-time edge inference.}
+\resumeItemListEnd
+
+\resumeSubheading
+{Texas Instruments Centre for Embedded Product Design}{New Delhi, India}
+{Embedded Systems Intern}{Jun 2019 - Jul 2019}
+\resumeItemListStart
+\resumeItem{Embedded System \& PCB Design}
+{Designed embedded systems and PCBs using ESP32, ESP8266, Arduino Uno, Raspberry Pi 3B+, and NodeMCU. Developed schematics and layouts in Eagle and Proteus; validated designs on the bench with oscilloscopes and lab equipment; exercised UART, SPI, and I$^2$C peripherals.}
+\resumeItemListEnd
+
+\resumeSubheading
+{Technoplanet Labs}{Faridabad, India}
+{R\&D Intern}{Sep 2018 - Feb 2019}
+\resumeItemListStart
+\resumeItem{Robotics \& Embedded Systems}
+{Developed embedded robotics projects on Arduino and Raspberry Pi; integrated sensors, actuators, and motor drivers in C.}
+\resumeItemListEnd
+\resumeSubHeadingListEnd
+
+%----------EMBEDDED PROJECTS----------
+\section{Embedded Systems Projects}
+\resumeSubHeadingListStart
+\resumeSubItem{\href{https://github.com/bhoot1234567890/vc4-suspend}{Pi Zero Suspend-to-RAM (VPU Firmware)}}
+{Custom VideoCore IV VPU firmware adding true suspend-to-RAM to the Raspberry Pi Zero 2W --- a feature absent from the stock platform. Drives SDRAM into self-refresh and resumes from a saved wake vector. Deep bare-metal engineering in C.}
+\resumeSubItem{\href{https://github.com/bhoot1234567890/gba-embedded}{GBA Emulator on ESP32-S3}}
+{Cycle-accurate Game Boy Advance emulator core in C++20, targeting an ESP32-S3 handheld. Hand-written ARM7TDMI CPU, PPU, and DMA --- 8 of 13 hardware test suites passing on bare metal.}
+\resumeSubItem{\href{https://github.com/bhoot1234567890/rinna-pcb}{Stitched Together --- BLE Wearable (nRF52832 / Zephyr)}}
+{Full-stack IoT device: a BLE haptic wearable on the nRF52832 running Zephyr RTOS, paired with mobile and cloud. Firmware handles BLE, haptic actuation, and end-to-end encryption with a zero-plaintext server.}
+\resumeSubItem{\href{https://github.com/bhoot1234567890/pico-lenny-key}{Pico Lenny Key (RP2040 USB HID)}}
+{RP2040 USB HID device in C --- debounce FSM, TinyUSB descriptors, and cross-platform Unicode entry. Demonstrates USB protocol design, state machines, and low-level peripheral control.}
+\resumeSubItem{\href{https://github.com/bhoot1234567890/StackFusion-ESP--}{StackFusion ESP --- RFID Parking Controller}}
+{ESP32 firmware for RFID-based FASTag parking: Wi-Fi polling, JSON parsing, cloud API integration, and contactless relay control.}
+\resumeSubHeadingListEnd
+
+\end{document}
