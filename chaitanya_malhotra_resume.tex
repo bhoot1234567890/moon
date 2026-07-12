@@ -105,9 +105,7 @@
 {Certification, Computer Science}{2022 - 2023}
 \resumeSubheading
 {Manav Rachna International Institute of Research and Studies}{Faridabad, India}
-{Bachelors in Electronics and Communication Engineering}{2016- 2020}\resumeSubheading
-{Delhi Public School, Dwarka}{Delhi, India}
-{}{2002-2016}
+{Bachelors in Electronics and Communication Engineering}{2016- 2020}
 \resumeSubHeadingListEnd
 
 %-----------EXPERIENCE-----------------
@@ -117,8 +115,10 @@
 {Cactus Communication}{Mumbai, Maharashtra, India}
 {Software Engineer}{December 2023 - September 2025}
 \resumeItemListStart
-\resumeItem{Cactus Labs}
-{NLP and Computer Vision solutions. Focus on exploratory tasks.}
+\resumeItem{NLP \& Computer Vision Pipelines}
+{Built and shipped production NLP/CV pipelines on BERT, RoBERTa, MobileBERT, and Xception for text classification, similarity detection, and image classification --- deployed to AWS Lambda and ECS for sub-second inference.}
+\resumeItem{Scale \& Impact}
+{Processed thousands of editorial documents monthly, reducing manual review time by roughly 40\% through automated classification and similarity-based routing.}
 \resumeItemListEnd
 \resumeSubheading
 {Cactus Communication}{Mumbai, Maharashtra, India}
@@ -158,16 +158,26 @@
 %-----------PROJECTS-----------------
 \section{Projects}
 \resumeSubHeadingListStart
+\resumeSubItem{\href{https://github.com/bhoot1234567890/gba-embedded}{GBA Emulator (ESP32-S3)}}
+{Cycle-accurate Game Boy Advance emulator core in C++20, targeting an ESP32-S3 handheld. Hand-written ARM7TDMI CPU, PPU, and DMA --- 8 of 13 hardware test suites passing on bare metal.}
+\resumeSubItem{\href{https://github.com/bhoot1234567890/VB1Reimpl}{VB-1 VST Reimplementation}}
+{Reverse-engineered Steinberg VB-1 bass synth VST, rebuilt in C++17/JUCE. Ghidra decompile + headless A/B harness against the original binary --- verified bit-accurate to -109 dB across the full parameter space.}
+\resumeSubItem{\href{https://github.com/bhoot1234567890/vc4-suspend}{Pi Zero Suspend-to-RAM}}
+{Custom VideoCore IV VPU firmware adding true suspend-to-RAM to the Raspberry Pi Zero 2W --- a feature the stock platform lacks. Drives SDRAM into self-refresh and resumes from a saved wake vector. Deep bare-metal engineering.}
+\resumeSubItem{\href{https://github.com/bhoot1234567890/rinna-pcb}{Stitched Together}}
+{Full-stack IoT: a BLE haptic wearable (nRF52832/Zephyr) + iOS/Android (Compose Multiplatform) + Cloudflare Worker backend. End-to-end encrypted with a zero-plaintext server, gated by 5 CI pipelines across firmware, mobile, and backend.}
+\resumeSubItem{\href{https://github.com/bhoot1234567890/pg-vs-the-world}{PG vs The World}}
+{PostgreSQL 16 benchmark suite: can Postgres replace your entire stack? Benchmarks PG16 vs MongoDB, Redis, Elasticsearch, ChromaDB, and TimescaleDB across 10 categories with a rigorous methodology.}
+\resumeSubItem{\href{https://github.com/bhoot1234567890/sandbox-world}{Sandbox World}}
+{Browser-based 3D sandbox in Three.js + Vite: procedural terrain, hand-written GLSL sky and water shaders, biome blending, and bloom post-FX at real-time framerates.}
 \resumeSubItem{\href{https://chaitanyamalhotra.com/moon}{Moon Phase Calculator}}
 {Client-side 3D moon phase visualizer built with Three.js and NASA LROC
   textures. Phase-accurate terminator rendering, real-time date selection.}
-\resumeSubItem{\href{https://chaitanyamalhotra.com/chess}{2 Player Chess} \emph{WIP}}
-% \textit{This text will be italicized.}
-{Implemented a web application that allows two players to play chess. HTML, CSS and Javascript used.}
+\resumeSubItem{\href{https://chaitanyamalhotra.com/chess}{2 Player Chess}}
+{Full chess engine with Stockfish AI (depth 5--20), PvP / AI / AI-vs-AI modes, Web Worker architecture, FEN save/load.}
 
 \resumeSubItem{\href{https://chaitanyamalhotra.com/sudoku}{Sudoku Solver}}
-{Implemented a web application that solves Sudoku Puzzles using Set Theory, Recursion and
-  Backtracking. Pure client-side app with no external dependencies.}
+{Self-contained Sudoku solver --- backtracking algorithm, keyboard navigation, zero dependencies.}
 
 \resumeSubItem{\href{https://chaitanyamalhotra.com/rigveda}{Rigveda}}
 {Making Rigveda more accessible. Fun 3D website, has flash cards on different mandals, short videos, podcast and complete translated text.}

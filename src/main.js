@@ -61,6 +61,46 @@ const app = document.getElementById("app");
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x000009);
 
+// P2.8 — Upfront WebGL availability check. If the browser cannot provide a
+// WebGL context, show a branded message over the canvas and stop, instead of
+// leaving the user staring at a black void. All renderer-dependent setup below
+// runs only inside the matching `else` branch (closed at the end of this file).
+function isWebGLAvailable() {
+  try {
+    const testCanvas = document.createElement("canvas");
+    return !!(testCanvas.getContext("webgl2") || testCanvas.getContext("webgl"));
+  } catch (e) {
+    return false;
+  }
+}
+function showFatalSceneMessage(message) {
+  const box = document.createElement("div");
+  box.setAttribute("role", "alert");
+  box.textContent = message;
+  Object.assign(box.style, {
+    position: "fixed",
+    inset: "0",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    padding: "2rem",
+    background: "#000009",
+    color: "#ff5a1f",
+    fontFamily: '"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace',
+    fontSize: "clamp(0.9rem, 2.5vw, 1.15rem)",
+    letterSpacing: "0.04em",
+    lineHeight: "1.6",
+    zIndex: "99999",
+  });
+  (document.body || document.documentElement).appendChild(box);
+}
+const WEBGL_UNAVAILABLE_MSG =
+  "WEBGL UNAVAILABLE — this experience requires a WebGL-capable browser.";
+
+if (!isWebGLAvailable()) {
+  showFatalSceneMessage(WEBGL_UNAVAILABLE_MSG);
+} else {
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -111,21 +151,6 @@ dirLight.position.set(10, 20, 18);
 scene.add(dirLight);
 
 // Helper functions
-function makeGlowMaterial(color, emissive, opacity = 0.92, size = 1.0) {
-  return new THREE.MeshPhysicalMaterial({
-    color: color,
-    emissive: emissive,
-    emissiveIntensity: 1.2,
-    roughness: 0.12,
-    metalness: 0.0,
-    transmission: 0.0,
-    transparent: true,
-    opacity: opacity,
-    depthWrite: true,
-    clearcoat: 0.85,
-    clearcoatRoughness: 0.08,
-  });
-}
 
 function generateRadialTexture(hex) {
   const size = 512;
@@ -156,29 +181,146 @@ function generateRadialTexture(hex) {
   return tex;
 }
 
-function makeStarSpheres(count, radiusMin, radiusMax, size, color, emissive) {
-  const group = new THREE.Group();
-  for (let i = 0; i < count; i++) {
-    const r = radiusMin + Math.random() * (radiusMax - radiusMin);
-    const theta = Math.random() * Math.PI * 2;
-    const phi = Math.acos(2 * Math.random() - 1);
-    const x = r * Math.sin(phi) * Math.cos(theta);
-    const y = r * Math.sin(phi) * Math.sin(theta);
-    const z = r * Math.cos(phi);
-    const mat = makeGlowMaterial(color, emissive, 0.92, size);
-    const mesh = new THREE.Mesh(new THREE.SphereGeometry(size, 16, 16), mat);
-    mesh.position.set(x, y, z);
-    mesh.userData.phase = Math.random() * Math.PI * 2;
-    group.add(mesh);
+// P1.4 — Star field. Previously this was 2,080 individual Mesh objects, each with
+// its own MeshPhysicalMaterial, and the animate loop rewrote all 2,080 materials
+// every frame for the twinkle. Now it is a SINGLE THREE.Points: one BufferGeometry
+// holding all 2,080 stars → one draw call. Twinkle + drift animate entirely on
+// the GPU via a custom ShaderMaterial driven by a single uTime uniform that the
+// animate loop writes once per frame. Count, distribution and color are preserved.
+const starSharedUniforms = {
+  uTime: { value: 0 },
+  uPixelRatio: { value: renderer.getPixelRatio() },
+  uSizeScale: { value: 0 }, // set below / on resize
+  uTex: { value: generateRadialTexture("#ffffff") }, // one shared soft-glow sprite
+  uFogColor: { value: new THREE.Color(0x0a0a1a) }, // synced to scene.fog below
+  uFogDensity: { value: 0.008 },
+};
+// Pixel diameter of a unit-radius sphere at unit distance — matches the apparent
+// size of the old sphere silhouette (diameter ≈ R * innerHeight / (dist * tan(fov/2))).
+function computeStarSizeScale() {
+  const fovRad = (camera.fov * Math.PI) / 180;
+  return window.innerHeight / Math.tan(fovRad / 2);
+}
+starSharedUniforms.uSizeScale.value = computeStarSizeScale();
+
+const starVertexShader = /* glsl */ `
+  attribute float aPhase;
+  attribute vec3 aGlow;
+  attribute float aGroup;
+  attribute float aSize;
+  uniform float uTime;
+  uniform float uPixelRatio;
+  uniform float uSizeScale;
+  varying vec3 vGlow;
+  varying float vIntensity;
+  varying float vAlpha;
+  varying float vFogDepth;
+  void main() {
+    float g = aGroup + 1.0;
+    // The old loop did position.x += sin(0.13*t+phase)*0.0007*g (and y with cos),
+    // accumulating every frame with dt = 0.0007. Integrated analytically so it
+    // matches at every t with zero per-frame JS work:
+    //   dx = g * (cos(phase) - cos(0.13*t + phase)) / 0.13
+    //   dy = g * (sin(0.11*t + phase) - sin(phase)) / 0.11
+    float dx = g * (cos(aPhase) - cos(uTime * 0.13 + aPhase)) / 0.13;
+    float dy = g * (sin(uTime * 0.11 + aPhase) - sin(aPhase)) / 0.11;
+    vec4 mvPosition = modelViewMatrix * vec4(position + vec3(dx, dy, 0.0), 1.0);
+    gl_Position = projectionMatrix * mvPosition;
+    float dist = max(-mvPosition.z, 0.001);
+    gl_PointSize = aSize * uSizeScale * uPixelRatio / dist;
+    // Twinkle — same factors the old JS loop wrote onto every material:
+    float opacity = 0.85 + 0.12 * sin(uTime * 0.7 + aPhase + aGroup * 1.3);
+    float emissive = 1.0 + 0.4 * sin(uTime * 0.8 + aPhase + aGroup * 1.1);
+    vGlow = aGlow;
+    vIntensity = emissive;
+    vAlpha = opacity;
+    vFogDepth = -mvPosition.z;
   }
-  return group;
+`;
+const starFragmentShader = /* glsl */ `
+  uniform sampler2D uTex;
+  uniform vec3 uFogColor;
+  uniform float uFogDensity;
+  varying vec3 vGlow;
+  varying float vIntensity;
+  varying float vAlpha;
+  varying float vFogDepth;
+  void main() {
+    vec4 texel = texture2D(uTex, gl_PointCoord);
+    vec3 col = vGlow * vIntensity * texel.rgb;
+    float alpha = texel.a * vAlpha;
+    if (alpha <= 0.001) discard;
+    // FogExp2 — matches scene.fog so distant stars fade exactly like the old spheres.
+    float fogFactor = 1.0 - exp(-uFogDensity * uFogDensity * vFogDepth * vFogDepth);
+    col = mix(col, uFogColor, clamp(fogFactor, 0.0, 1.0));
+    gl_FragColor = vec4(col, alpha);
+  }
+`;
+
+// Same count / radius / size / emissive color as the original three layers.
+const STAR_LAYERS = [
+  { count: 1200, radiusMin: 200, radiusMax: 700, size: 0.18, emissive: 0x7fdfff, group: 0 },
+  { count: 700, radiusMin: 60, radiusMax: 300, size: 0.32, emissive: 0x8ecaff, group: 1 },
+  { count: 180, radiusMin: 8, radiusMax: 120, size: 0.5, emissive: 0xffffff, group: 2 },
+];
+const STAR_TOTAL = STAR_LAYERS.reduce((n, layer) => n + layer.count, 0); // 2,080
+
+function makeStarField() {
+  const positions = new Float32Array(STAR_TOTAL * 3);
+  const phases = new Float32Array(STAR_TOTAL);
+  const glows = new Float32Array(STAR_TOTAL * 3);
+  const sizes = new Float32Array(STAR_TOTAL);
+  const groups = new Float32Array(STAR_TOTAL);
+  let i = 0;
+  for (const layer of STAR_LAYERS) {
+    const glow = new THREE.Color(layer.emissive);
+    for (let s = 0; s < layer.count; s++, i++) {
+      // Uniform distribution on a spherical shell — identical to makeStarSpheres.
+      const r = layer.radiusMin + Math.random() * (layer.radiusMax - layer.radiusMin);
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos(2 * Math.random() - 1);
+      positions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+      positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+      positions[i * 3 + 2] = r * Math.cos(phi);
+      phases[i] = Math.random() * Math.PI * 2;
+      glows[i * 3] = glow.r;
+      glows[i * 3 + 1] = glow.g;
+      glows[i * 3 + 2] = glow.b;
+      sizes[i] = layer.size;
+      groups[i] = layer.group;
+    }
+  }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+  geo.setAttribute("aPhase", new THREE.BufferAttribute(phases, 1));
+  geo.setAttribute("aGlow", new THREE.BufferAttribute(glows, 3));
+  geo.setAttribute("aSize", new THREE.BufferAttribute(sizes, 1));
+  geo.setAttribute("aGroup", new THREE.BufferAttribute(groups, 1));
+  const mat = new THREE.ShaderMaterial({
+    uniforms: {
+      // Shared uniform sub-objects — one .value update reaches every star.
+      uTime: starSharedUniforms.uTime,
+      uPixelRatio: starSharedUniforms.uPixelRatio,
+      uSizeScale: starSharedUniforms.uSizeScale,
+      uTex: starSharedUniforms.uTex,
+      uFogColor: starSharedUniforms.uFogColor,
+      uFogDensity: starSharedUniforms.uFogDensity,
+    },
+    vertexShader: starVertexShader,
+    fragmentShader: starFragmentShader,
+    transparent: true,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending,
+  });
+  const points = new THREE.Points(geo, mat);
+  // Stars span a huge volume; never let frustum culling drop the whole field.
+  points.frustumCulled = false;
+  return points;
 }
 
-// Scene decorations
-const farStars = makeStarSpheres(1200, 200, 700, 0.18, 0x223344, 0x7fdfff);
-const midStars = makeStarSpheres(700, 60, 300, 0.32, 0x222233, 0x8ecaff);
-const nearStars = makeStarSpheres(180, 8, 120, 0.5, 0x333344, 0xffffff);
-scene.add(farStars, midStars, nearStars);
+// Scene decorations — a single Points object, one draw call for all 2,080 stars.
+const starField = makeStarField();
+scene.add(starField);
 
 function makeNebula(colorHex, size = 160, depth = 0, opacity = 0.55) {
   const tex = generateRadialTexture(colorHex);
@@ -234,6 +376,9 @@ scene.add(makeFogPlane("#2f6fb6", 900, 260, -60, 0.08));
 scene.add(makeFogPlane("#6a4fb5", 900, 200, -20, 0.06));
 scene.add(makeFogPlane("#3fb8a2", 900, 320, 40, 0.05));
 scene.fog = new THREE.FogExp2(0x0a0a1a, 0.008);
+// Keep the GPU star shader's manual fog in sync with the scene fog.
+starSharedUniforms.uFogColor.value.copy(scene.fog.color);
+starSharedUniforms.uFogDensity.value = scene.fog.density;
 
 let time = 0;
 
@@ -1083,7 +1228,14 @@ function updateHighlightedMandalSprite() {
   if (!wheelRef || !wheelRef.userData.textSprites) return;
   wheelRef.userData.textSprites.forEach((sprite, idx) => {
     if (sprite.userData.glowSprite) {
-      scene.remove(sprite.userData.glowSprite);
+      // P3.10 — dispose the previous CanvasTexture + SpriteMaterial so ◀/▶
+      // navigation between mandalas doesn't leak GPU memory each call.
+      const oldGlow = sprite.userData.glowSprite;
+      scene.remove(oldGlow);
+      if (oldGlow.material) {
+        if (oldGlow.material.map) oldGlow.material.map.dispose();
+        oldGlow.material.dispose();
+      }
       sprite.userData.glowSprite = null;
     }
     if (idx === highlightedMandalIndex) {
@@ -1259,6 +1411,10 @@ gltfLoader.load(
   undefined,
   (err) => {
     console.error("Failed to load wheel model:", err);
+    // P2.8 — show a user-facing branded message instead of a silent black void.
+    showFatalSceneMessage(
+      "3D MODEL FAILED TO LOAD — the golden chariot wheel could not be loaded. Please reload the page."
+    );
   }
 );
 
@@ -1289,17 +1445,9 @@ function animate() {
       }
     }
   }
-  [farStars, midStars, nearStars].forEach((starGroup, idx) => {
-    starGroup.children.forEach((mesh) => {
-      const phase = mesh.userData.phase || 0;
-      mesh.position.x += Math.sin(time * 0.13 + phase) * 0.0007 * (idx + 1);
-      mesh.position.y += Math.cos(time * 0.11 + phase) * 0.0007 * (idx + 1);
-      mesh.material.opacity =
-        0.85 + 0.12 * Math.sin(time * 0.7 + phase + idx * 1.3);
-      mesh.material.emissiveIntensity =
-        1.0 + 0.4 * Math.sin(time * 0.8 + phase + idx * 1.1);
-    });
-  });
+  // P1.4 — twinkle + drift now animate on the GPU; one uniform write per frame
+  // replaces the old loop over all 2,080 star materials.
+  starSharedUniforms.uTime.value = time;
   const wheel = wheelRef;
   if (wheel && wheel.userData.auras) {
     wheel.userData.auras.forEach((aura, idx) => {
@@ -1380,6 +1528,7 @@ window.addEventListener("resize", () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
   composer.setSize(window.innerWidth, window.innerHeight);
   bloomPass.setSize(window.innerWidth, window.innerHeight);
+  starSharedUniforms.uSizeScale.value = computeStarSizeScale();
 });
 
 // UI keyboard handlers (top-level, so overlay functions are available)
@@ -1422,17 +1571,8 @@ document.addEventListener("keydown", (e) => {
       return;
     }
     if (currentScreen === "main") {
-      if (cameraAnimating) return;
-      cameraAnimating = true;
-      cameraDirection = "backward";
-      camStart = camera.position.clone();
-      camTarget = camInitial.clone();
-      overlayShouldShow = true;
-      if (wheelRef) wheelRef.userData.spinning = true;
-      /* reset highlighted mandal to first when returning to start */ highlightedMandalIndex = 0;
-      updateHighlightedMandalSprite();
-      currentScreen = "start";
-      updateMainCloseBtnVisibility();
+      // P3.11 — reuse the shared helper instead of re-implementing it inline.
+      returnToStart();
       return;
     }
   }
@@ -1494,3 +1634,7 @@ window.addEventListener('unload', () => {
     if (mo && mo.parentNode) mo.parentNode.removeChild(mo);
   } catch (e) {}
 });
+
+// P2.8 — closes the `else { WebGL-available }` branch opened just before the
+// renderer is created. Everything above runs only when WebGL is available.
+}

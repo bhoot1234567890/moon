@@ -1,30 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chess - Play vs Stockfish AI</title>
+  <meta name="description" content="Play chess in your browser against a friend or the Stockfish AI engine. Full rules including castling, en passant, pawn promotion, check and checkmate.">
+  <meta property="og:title" content="Chess — Play vs Stockfish AI">
+  <meta property="og:description" content="Play chess in your browser against a friend or the Stockfish AI engine. Full rules: castling, en passant, promotion, check and checkmate.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://chaitanyamalhotra.com/chess">
+  <link rel="canonical" href="https://chaitanyamalhotra.com/chess">
+  <link rel="stylesheet" href="/assets/site.css">
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    /* ============================================================
+       Chess — scoped layout only. Palette / typography come from the
+       shared /assets/site.css tokens. This page is always dark so the
+       board reads as a focused industrial surface.
+       ============================================================ */
     body {
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      align-items: center;
       min-height: 100vh;
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-      color: #eee;
+      font-family: var(--font-display);
+      background: var(--paper);
+      color: var(--ink);
       user-select: none;
     }
     .game-container {
+      flex: 1 1 auto;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 20px;
+      justify-content: center;
+      gap: 18px;
+      width: 100%;
+      padding: 1.5rem 1rem 3rem;
     }
     .game-info {
       display: flex;
@@ -32,28 +43,32 @@
       align-items: center;
       width: 100%;
       max-width: 500px;
-      padding: 15px 20px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
-      backdrop-filter: blur(10px);
+      padding: 14px 18px;
+      background: var(--surface-2);
+      border: var(--border-w) solid var(--ink);
+      box-shadow: 4px 4px 0 var(--ink);
     }
     .turn-indicator {
-      font-size: 1.2rem;
-      font-weight: bold;
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
     }
     .turn-indicator .white-turn {
-      color: #a5ff9a;
-      text-shadow: 0 0 10px rgba(165, 255, 154, 0.5);
+      color: var(--primary);
     }
     .turn-indicator .black-turn {
-      color: #333;
-      background: #eee;
+      color: var(--ink);
+      background: var(--surface-3);
       padding: 2px 8px;
-      border-radius: 4px;
+      border: var(--border-w) solid var(--ink);
     }
     .status {
-      font-size: 0.9rem;
-      opacity: 0.8;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      opacity: 0.85;
+      text-align: right;
     }
     .controls {
       display: flex;
@@ -63,47 +78,53 @@
       max-width: 500px;
     }
     .btn {
-      padding: 10px 20px;
-      font-size: 0.9rem;
-      font-weight: bold;
-      border: none;
-      border-radius: 8px;
+      padding: 9px 16px;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border: var(--border-w) solid var(--ink);
+      border-radius: 0;
+      background: var(--surface-1);
+      color: var(--ink);
       cursor: pointer;
-      transition: all 0.2s;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+    }
+    .btn:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 3px 3px 0 var(--ink);
     }
     .btn-reset {
-      background: #e94560;
-      color: white;
-    }
-    .btn-reset:hover {
-      background: #ff6b6b;
-      transform: translateY(-2px);
+      background: var(--primary);
+      color: #fff;
     }
     .btn-mode {
-      background: #4a90d9;
-      color: white;
-    }
-    .btn-mode:hover {
-      background: #5ba3ff;
-      transform: translateY(-2px);
+      background: var(--surface-1);
+      color: var(--ink);
     }
     .btn-mode.active {
-      background: #f1c40f;
-      color: #000;
+      background: var(--primary);
+      color: #fff;
     }
     .mode-selector {
       display: flex;
       gap: 10px;
       align-items: center;
+      flex-wrap: wrap;
       width: 100%;
       max-width: 500px;
-      padding: 10px 20px;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 10px;
+      padding: 12px 16px;
+      background: var(--surface-2);
+      border: var(--border-w) solid var(--ink);
+      box-shadow: 4px 4px 0 var(--ink);
     }
     .mode-selector label {
-      font-weight: bold;
-      font-size: 0.9rem;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
     .difficulty-selector {
       display: flex;
@@ -112,31 +133,37 @@
     }
     .difficulty-selector select {
       padding: 8px 12px;
-      font-size: 0.9rem;
-      font-weight: bold;
-      border: none;
-      border-radius: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      border: var(--border-w) solid var(--ink);
+      border-radius: 0;
       cursor: pointer;
-      background: rgba(255, 255, 255, 0.1);
-      color: #eee;
+      background: var(--surface-1);
+      color: var(--ink);
     }
     .difficulty-selector select:hover {
-      background: rgba(255, 255, 255, 0.2);
+      background: var(--surface-3);
     }
     .difficulty-selector select option {
-      background: #1a1a2e;
-      color: #eee;
+      background: var(--surface-1);
+      color: var(--ink);
     }
     .ai-thinking {
       visibility: hidden;
       padding: 10px 20px;
-      background: rgba(241, 196, 15, 0.2);
-      border: 2px solid #f1c40f;
-      border-radius: 8px;
-      font-weight: bold;
-      color: #f1c40f;
+      background: var(--surface-2);
+      border: var(--border-w) solid var(--primary);
+      color: var(--primary);
+      font-family: var(--font-mono);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-size: 0.8rem;
       animation: pulse 1.5s infinite;
-      min-height: 46px;
+      min-height: 44px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -146,7 +173,7 @@
     }
     @keyframes pulse {
       0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
+      50% { opacity: 0.55; }
     }
     .chess-board {
       display: grid;
@@ -155,9 +182,12 @@
       max-width: 500px;
       height: 90vw;
       max-height: 500px;
-      border: 4px solid #333;
-      border-radius: 4px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+      border: var(--border-w) solid var(--ink);
+      box-shadow: 6px 6px 0 var(--ink);
+    }
+    .chess-board:focus-visible {
+      outline: 3px solid var(--primary);
+      outline-offset: 2px;
     }
     .square {
       width: 100%;
@@ -167,18 +197,18 @@
       align-items: center;
       font-size: clamp(2rem, 8vw, 3.5rem);
       cursor: pointer;
-      transition: all 0.15s;
+      transition: filter 0.15s;
       position: relative;
     }
     .square.white {
-      background-color: #a5ff9a;
+      background-color: #c8c8c8;
     }
     .square.black {
-      background-color: #185a12;
+      background-color: #4a4a4a;
     }
     .square.selected {
-      background-color: #f1c40f !important;
-      box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.3);
+      background-color: var(--primary) !important;
+      box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.25);
     }
     .square.valid-move {
       position: relative;
@@ -186,51 +216,63 @@
     .square.valid-move::after {
       content: '';
       position: absolute;
-      width: 30%;
-      height: 30%;
-      background: rgba(0, 0, 0, 0.2);
+      width: 28%;
+      height: 28%;
+      background: var(--primary);
       border-radius: 50%;
+      opacity: 0.85;
+    }
+    .square.valid-capture {
+      position: relative;
     }
     .square.valid-capture::after {
-      width: 100%;
-      height: 100%;
+      content: '';
+      position: absolute;
+      width: 86%;
+      height: 86%;
       background: transparent;
-      border: 4px solid rgba(231, 76, 60, 0.7);
-      border-radius: 0;
+      border: 4px solid var(--primary);
+      border-radius: 50%;
       box-sizing: border-box;
     }
     .square:hover {
-      filter: brightness(1.1);
+      filter: brightness(1.08);
+    }
+    .square.kbd-focus {
+      outline: 3px solid var(--primary);
+      outline-offset: -3px;
+      z-index: 2;
     }
     .square.ai-turn {
       cursor: wait;
-      opacity: 0.7;
+      opacity: 0.75;
     }
     .piece {
       z-index: 1;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
       transition: transform 0.1s;
       pointer-events: none;
+      line-height: 1;
     }
     .piece:hover {
-      transform: scale(1.1);
+      transform: scale(1.08);
     }
     .white-piece {
       color: #fff;
-      text-shadow: 0 0 3px #000, 0 0 10px rgba(255, 255, 255, 0.5);
+      text-shadow: 0 0 2px #000, 1px 1px 2px #000, -1px -1px 2px #000, 1px -1px 2px #000, -1px 1px 2px #000;
     }
     .black-piece {
       color: #000;
-      text-shadow: 0 0 3px #fff, 0 0 5px rgba(0, 0, 0, 0.8);
+      text-shadow: 0 0 2px #fff, 1px 1px 2px #fff, -1px -1px 2px #fff, 1px -1px 2px #fff, -1px 1px 2px #fff;
     }
     .captured-pieces {
       display: flex;
       gap: 20px;
       width: 100%;
       max-width: 500px;
-      padding: 10px 20px;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 10px;
+      padding: 10px 18px;
+      background: var(--surface-2);
+      border: var(--border-w) solid var(--ink);
+      box-shadow: 4px 4px 0 var(--ink);
     }
     .captured-side {
       flex: 1;
@@ -248,13 +290,16 @@
       top: 20px;
       left: 50%;
       transform: translateX(-50%);
-      background: #e74c3c;
-      color: white;
-      padding: 15px 30px;
-      border-radius: 10px;
-      font-weight: bold;
-      font-size: 1.2rem;
-      box-shadow: 0 5px 20px rgba(231, 76, 60, 0.5);
+      background: var(--primary);
+      color: #fff;
+      padding: 14px 28px;
+      border: var(--border-w) solid var(--ink);
+      box-shadow: 6px 6px 0 var(--ink);
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 1.05rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
       animation: slideDown 0.3s ease;
       z-index: 100;
     }
@@ -277,7 +322,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(26, 26, 26, 0.82);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -287,35 +332,66 @@
       display: none;
     }
     .promotion-content {
-      background: #2a2a3e;
-      padding: 30px;
-      border-radius: 15px;
+      background: var(--surface-2);
+      padding: 28px;
+      border: var(--border-w) solid var(--ink);
+      box-shadow: 8px 8px 0 var(--ink);
       text-align: center;
     }
     .promotion-content h3 {
-      margin: 0 0 20px 0;
+      margin: 0 0 18px 0;
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--ink);
     }
     .promotion-options {
       display: flex;
-      gap: 15px;
+      gap: 14px;
     }
     .promotion-option {
+      font-family: var(--font-mono);
       font-size: 3rem;
-      padding: 10px 20px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 2px solid transparent;
-      border-radius: 10px;
+      line-height: 1;
+      padding: 12px 18px;
+      background: var(--surface-1);
+      color: var(--ink);
+      border: var(--border-w) solid var(--ink);
+      border-radius: 0;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease, color 0.1s ease;
     }
-    .promotion-option:hover {
-      background: rgba(255, 255, 255, 0.2);
-      border-color: #f1c40f;
-      transform: scale(1.1);
+    .promotion-option:hover,
+    .promotion-option:focus-visible {
+      background: var(--primary);
+      color: #fff;
+      transform: translate(-2px, -2px);
+      box-shadow: 4px 4px 0 var(--ink);
+      outline: none;
+    }
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
   </style>
 </head>
 <body>
+<header class="site-nav">
+  <a class="site-nav__brand" href="/">CHAITANYA_MALHOTRA</a>
+  <nav class="site-nav__links">
+    <a href="/">← HOME</a>
+    <a href="https://github.com/bhoot1234567890" target="_blank" rel="noopener">GITHUB ↗</a>
+  </nav>
+</header>
+<h1 class="sr-only">Chess — play versus a friend or the Stockfish AI</h1>
   <div class="game-container">
     <div class="game-info">
       <div class="turn-indicator" id="turn-indicator">
@@ -352,10 +428,10 @@
       <div class="captured-side" id="captured-black"></div>
     </div>
 
-    <div id="chess-board" class="chess-board"></div>
+    <div id="chess-board" class="chess-board" role="grid" aria-label="Chess board" tabindex="0"></div>
   </div>
 
-  <div id="check-alert" class="check-alert hidden">CHECK!</div>
+  <div id="check-alert" class="check-alert hidden" role="status" aria-live="assertive">CHECK!</div>
 
   <div id="promotion-modal" class="promotion-modal hidden">
     <div class="promotion-content">
@@ -774,8 +850,11 @@
         for (let col = 0; col < 8; col++) {
           const square = document.createElement('div');
           square.className = `square ${(row + col) % 2 === 0 ? 'white' : 'black'}`;
+          square.id = `sq-${row}-${col}`;
           square.dataset.row = row;
           square.dataset.col = col;
+          square.setAttribute('role', 'gridcell');
+          square.setAttribute('aria-label', squareLabel(row, col, null));
           square.addEventListener('click', () => onSquareClick(row, col));
           boardElement.appendChild(square);
         }
@@ -789,6 +868,9 @@
       squares.forEach(square => {
         square.innerHTML = '';
         square.classList.remove('selected', 'valid-move', 'valid-capture');
+        const r = parseInt(square.dataset.row, 10);
+        const c = parseInt(square.dataset.col, 10);
+        square.setAttribute('aria-label', squareLabel(r, c, board[r][c]));
       });
 
       // Place pieces
@@ -829,6 +911,86 @@
     // Get square element by position
     function getSquareElement(row, col) {
       return document.querySelector(`.square[data-row="${row}"][data-col="${col}"]`);
+    }
+
+    // ---- Accessibility helpers (P3.4) ----
+    const PIECE_NAME = {
+      PAWN: 'pawn', ROOK: 'rook', KNIGHT: 'knight',
+      BISHOP: 'bishop', QUEEN: 'queen', KING: 'king'
+    };
+    function coordName(row, col) {
+      return String.fromCharCode(97 + col) + (8 - row);
+    }
+    function squareLabel(row, col, piece) {
+      const coord = coordName(row, col);
+      if (piece) {
+        return piece.color + ' ' + (PIECE_NAME[piece.type] || piece.type.toLowerCase()) + ', ' + coord;
+      }
+      return 'empty, ' + coord;
+    }
+
+    // ---- Keyboard navigation on the board (P3.4) ----
+    let kbdFocus = { row: 0, col: 0 };
+    function updateKbdFocus() {
+      document.querySelectorAll('.square.kbd-focus').forEach(s => s.classList.remove('kbd-focus'));
+      const el = getSquareElement(kbdFocus.row, kbdFocus.col);
+      const boardEl = document.getElementById('chess-board');
+      if (el) {
+        el.classList.add('kbd-focus');
+        if (boardEl) boardEl.setAttribute('aria-activedescendant', el.id);
+      }
+    }
+    function clearKbdFocus() {
+      document.querySelectorAll('.square.kbd-focus').forEach(s => s.classList.remove('kbd-focus'));
+    }
+    function initBoardKeyboard() {
+      const boardEl = document.getElementById('chess-board');
+      if (!boardEl) return;
+      boardEl.setAttribute('aria-activedescendant', 'sq-0-0');
+      boardEl.addEventListener('keydown', (e) => {
+        if (isAiThinking || pendingPromotion) return;
+        if (gameMode === 'ai' && currentPlayer === BLACK) return;
+        if (gameMode === 'ai-v-ai') return;
+        let row = kbdFocus.row;
+        let col = kbdFocus.col;
+        let handled = true;
+        switch (e.key) {
+          case 'ArrowUp': row = Math.max(0, row - 1); break;
+          case 'ArrowDown': row = Math.min(7, row + 1); break;
+          case 'ArrowLeft': col = Math.max(0, col - 1); break;
+          case 'ArrowRight': col = Math.min(7, col + 1); break;
+          case 'Enter':
+          case ' ':
+            onSquareClick(kbdFocus.row, kbdFocus.col);
+            break;
+          default:
+            handled = false;
+        }
+        if (handled) {
+          e.preventDefault();
+          if (row !== kbdFocus.row || col !== kbdFocus.col) {
+            kbdFocus = { row, col };
+            updateKbdFocus();
+          }
+        }
+      });
+      boardEl.addEventListener('focus', updateKbdFocus);
+      boardEl.addEventListener('blur', clearKbdFocus);
+    }
+
+    // ---- Promotion modal focus trap (P3.4) ----
+    let promotionTrapHandler = null;
+    let promotionLastFocus = null;
+    function closePromotionTrap() {
+      const modal = document.getElementById('promotion-modal');
+      if (promotionTrapHandler && modal) {
+        modal.removeEventListener('keydown', promotionTrapHandler);
+      }
+      promotionTrapHandler = null;
+      if (promotionLastFocus && typeof promotionLastFocus.focus === 'function') {
+        try { promotionLastFocus.focus(); } catch (e) { /* ignore */ }
+      }
+      promotionLastFocus = null;
     }
 
     // Check if position is on board
@@ -1349,15 +1511,42 @@
       options.innerHTML = '';
 
       const pieces = ['QUEEN', 'ROOK', 'BISHOP', 'KNIGHT'];
+      const btns = [];
       pieces.forEach(pieceType => {
-        const option = document.createElement('div');
+        const option = document.createElement('button');
+        option.type = 'button';
         option.className = 'promotion-option';
+        option.setAttribute('aria-label', 'Promote to ' + pieceType.toLowerCase());
         option.textContent = PIECES[pieceType][color];
         option.addEventListener('click', () => promotePawn(pieceType));
         options.appendChild(option);
+        btns.push(option);
       });
 
       modal.classList.remove('hidden');
+      promotionLastFocus = document.activeElement;
+
+      promotionTrapHandler = function (e) {
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          promotePawn('QUEEN'); // Escape = default promotion (Queen), closes modal
+        } else if (e.key === 'Tab') {
+          e.preventDefault();
+          const current = btns.indexOf(document.activeElement);
+          const idx = current < 0 ? 0 : current;
+          let next;
+          if (e.shiftKey) {
+            next = idx <= 0 ? btns.length - 1 : idx - 1;
+          } else {
+            next = (idx + 1) % btns.length;
+          }
+          if (btns[next]) btns[next].focus();
+        }
+      };
+      modal.addEventListener('keydown', promotionTrapHandler);
+
+      // Move focus into the modal (default = Queen)
+      setTimeout(function () { if (btns[0]) btns[0].focus(); }, 0);
     }
 
     // Promote pawn
@@ -1371,6 +1560,7 @@
 
       const modal = document.getElementById('promotion-modal');
       modal.classList.add('hidden');
+      closePromotionTrap();
       pendingPromotion = null;
 
       endTurn();
@@ -1394,6 +1584,7 @@
       showStatus('');
       hideAiThinking();
       document.getElementById('promotion-modal').classList.add('hidden');
+      closePromotionTrap();
 
       initializeBoard();
       renderPieces();
@@ -1408,6 +1599,7 @@
     // Initialize game
     generateBoard();
     resetGame();
+    initBoardKeyboard();
 
     // Check for saved game on load
     window.addEventListener('load', () => {

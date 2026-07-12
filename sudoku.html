@@ -3,91 +3,255 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sudoku</title>
+    <title>Sudoku — Chaitanya Malhotra</title>
+    <meta
+      name="description"
+      content="A brutalist in-browser Sudoku: type a puzzle and solve it, or generate a fresh random one. Built with vanilla JavaScript."
+    />
+
+    <!-- Open Graph / social (P2.10) -->
+    <meta property="og:title" content="Sudoku — Chaitanya Malhotra" />
+    <meta
+      property="og:description"
+      content="A brutalist in-browser Sudoku: type a puzzle and solve it, or generate a fresh random one."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://chaitanyamalhotra.com/sudoku" />
+
+    <link rel="canonical" href="https://chaitanyamalhotra.com/sudoku" />
+
+    <!-- Prevent dark-mode flash (must run before the stylesheet) -->
+    <script>
+      (function(){var t=localStorage.getItem('theme');if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';if(t==='dark')document.documentElement.classList.add('dark');})();
+    </script>
+
+    <!-- Shared brand system (tokens, nav, fonts: Space Grotesk + JetBrains Mono) -->
+    <link rel="stylesheet" href="/assets/site.css" />
+
     <link
       rel="icon"
       type="image/svg+xml"
       href="data:image/svg+xml,[%3Csvg fill='%23000000' height='100px' width='100px' version='1.1' id='Capa_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 445.049 445.049' xml:space='preserve'%3E%3Cpath id='XMLID_176_' d='M56.507,73.548c-3.393-3.632-3.2-9.327,0.433-12.72l26.938-25.166c2.619-2.447,6.44-3.106,9.729-1.679 c3.288,1.428,5.415,4.67,5.415,8.255v70.863c0,4.971-4.029,9-9,9s-9-4.029-9-9V62.963L69.228,73.98 C65.595,77.374,59.9,77.181,56.507,73.548z M437.533,9v170.012c0,4.971-4.029,9-9,9s-9-4.029-9-9v-23.673H300.193v119.338h25.329 c4.971,0,9,4.029,9,9s-4.029,9-9,9h-25.329v119.338h25.329c4.971,0,9,4.029,9,9s-4.029,9-9,9h-34.138 c-0.063,0.001-0.127,0.002-0.191,0.002c-0.063,0-0.127-0.001-0.191-0.002H154.048c-0.125,0.003-0.254,0.003-0.382,0H16.546 c-4.97,0-9-4.029-9-8.999L7.536,284.28c-0.013-0.2-0.02-0.4-0.02-0.604c0-0.202,0.007-0.402,0.02-0.602l-0.01-136.31 c-0.006-0.142-0.01-0.283-0.01-0.427c0-0.143,0.003-0.284,0.01-0.426L7.516,9.001c0-2.388,0.948-4.677,2.636-6.364 C11.84,0.948,14.129,0,16.516,0h412.017C433.503,0,437.533,4.029,437.533,9z M144.857,292.677H25.537l0.009,119.338h119.312V292.677 z M144.857,155.339H25.527l0.008,119.338h119.322V155.339z M144.857,18H25.517l0.009,119.339h119.332V18z M282.193,292.677H162.857 v119.338h119.336V292.677z M282.193,155.339H162.857v119.338h119.336V155.339z M282.193,18H162.857v119.339h119.336V18z M419.533,18 H300.193v119.339h119.339V18z M435.378,231.685c1.39,1.629,2.154,3.701,2.154,5.843v198.521c0,4.971-4.029,9-9,9H371.8 c-4.971,0-9-4.029-9-9V237.527c0-2.142,0.764-4.214,2.154-5.843l28.366-33.234c1.71-2.004,4.212-3.157,6.846-3.157 s5.136,1.153,6.846,3.157L435.378,231.685z M419.533,408.026H380.8v19.022h38.733V408.026z M419.533,261.238H380.8v128.788h38.733 V261.238z M419.533,240.846l-19.367-22.689L380.8,240.846v2.393h38.733V240.846z M238.798,238.695H189.91c-4.971,0-9,4.029-9,9 s4.029,9,9,9h48.888c13.974,0,25.342-11.369,25.342-25.344c0-6.223-2.254-11.928-5.988-16.344 c3.734-4.416,5.988-10.121,5.988-16.344c0-13.975-11.369-25.344-25.342-25.344H189.91c-4.971,0-9,4.029-9,9s4.029,9,9,9h48.888 c4.048,0,7.342,3.295,7.342,7.345c0,4.049-3.294,7.343-7.342,7.343h-28.77c-4.971,0-9,4.029-9,9s4.029,9,9,9h28.77 c4.048,0,7.342,3.295,7.342,7.345C246.14,235.401,242.846,238.695,238.798,238.695z'/%3E%3C/svg%3E]"
     />
+
     <style>
+      /* ---- Sudoku-page chrome, layered on the shared brand system ---- */
+      :root {
+        color-scheme: light dark;
+      }
+
+      /* hide number-input spinners (kept from original) */
       input[type="number"]::-webkit-inner-spin-button,
       input[type="number"]::-webkit-outer-spin-button {
         -webkit-appearance: none;
         margin: 0;
       }
-
       input[type="number"] {
         -moz-appearance: textfield;
       }
-      .alternate {
-        background-color: #ddd;
-      }
 
-      .alternate input {
-        background-color: #ddd;
-      }
-
-      /* New CSS to center the Sudoku grid and buttons */
       body {
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        height: 100vh;
-        width: 100vw;
+        min-height: 100vh;
         margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+        padding: 0 1rem 3rem;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--font-display);
       }
-      table {
-        max-width: 90vw;
-        max-height: 90vh;
-        width: auto;
-        height: auto;
+
+      .app-title {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: clamp(1.6rem, 5vw, 2.4rem);
+        letter-spacing: -0.03em;
+        text-transform: uppercase;
+        margin: 1.75rem 0 0.4rem;
+        text-align: center;
+      }
+
+      #toptext {
+        font-family: var(--font-mono);
+        font-size: 0.82rem;
+        line-height: 1.55;
+        max-width: 40rem;
+        margin: 0 auto 1.5rem;
+        text-align: center;
+        color: var(--ink);
+      }
+      #toptext strong {
+        color: var(--primary);
+      }
+
+      /* ---- The grid: 2px brutalist borders, orange offset shadow ---- */
+      .board-wrap {
+        position: relative;
+        margin: 0 auto;
+      }
+      #sudoku {
+        border-collapse: collapse;
+        background: var(--surface-1);
+        box-shadow: 6px 6px 0 var(--primary);
+      }
+      #sudoku,
+      #sudoku td {
+        border: var(--border-w) solid var(--ink);
+      }
+      #sudoku td {
+        width: 3rem;
+        height: 3rem;
+        padding: 0;
+        /* faint inner cell grid via a hairline; collapse keeps block edges bold */
+        border-width: 0;
+        box-shadow: inset 0 0 0 1px var(--surface-4);
+      }
+      /* thick separators between the nine 3x3 blocks */
+      #sudoku td:nth-child(3n) {
+        box-shadow: inset -1px 0 0 var(--ink), inset 0 0 0 1px var(--surface-4);
+      }
+      #sudoku tr:nth-child(3n) td {
+        box-shadow: inset 0 -1px 0 var(--ink), inset 0 0 0 1px var(--surface-4);
+      }
+      #sudoku tr:nth-child(3n) td:nth-child(3n) {
+        box-shadow: inset -1px 0 0 var(--ink), inset 0 -1px 0 var(--ink),
+          inset 0 0 0 1px var(--surface-4);
+      }
+
+      /* checkerboard tint of 3x3 blocks (kept from original logic) */
+      #sudoku .alternate {
+        background: var(--surface-2);
+      }
+
+      #sudoku input {
+        width: 100%;
+        height: 100%;
+        border: 0;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+        font-family: var(--font-mono);
+        font-size: 1.2rem;
+        font-weight: 500;
+        color: var(--ink);
+        background: transparent;
+        outline: none;
+        appearance: none;
+      }
+      /* locked clue cells read bolder */
+      #sudoku input:read-only {
+        font-weight: 700;
+        color: var(--ink);
+      }
+      /* active cell: orange fill, WHITE text-on-primary (P2.13) */
+      #sudoku input:focus {
+        background: var(--primary);
+        color: #fff;
+      }
+
+      /* ---- Controls: brutalist buttons ---- */
+      .controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        justify-content: center;
+        margin-top: 1.75rem;
       }
       button {
-        font-family: "Courier New", monospace;
-        background-color: #ffffff;
-        border: 1px solid #000000;
-        color: #000000;
-        padding: 10px 20px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 4px 2px;
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 0.78rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        background: var(--surface-1);
+        color: var(--ink);
+        border: var(--border-w) solid var(--ink);
+        padding: 0.6rem 1.1rem;
         cursor: pointer;
-        transition-duration: 0.4s;
+        box-shadow: 4px 4px 0 var(--ink);
+        transition: transform 0.08s ease, box-shadow 0.08s ease,
+          background 0.12s ease, color 0.12s ease;
       }
       button:hover {
-        background-color: #000000;
-        color: #ffffff;
+        background: var(--primary);
+        color: #fff; /* WHITE text-on-primary (P2.13) */
       }
-      #toptext {
-        font-family: "Courier New", Courier, monospace;
-        font-size: 2vh;
-        margin-bottom: 20px;
-        text-align: center;
+      button:active {
+        transform: translate(4px, 4px);
+        box-shadow: 0 0 0 var(--ink);
       }
-      input {
-        width: 2em;
-        height: 2em;
-        text-align: center;
+      button:focus-visible {
+        outline: var(--border-w) solid var(--primary);
+        outline-offset: 2px;
+      }
+      /* primary action starts filled with the accent */
+      button.primary {
+        background: var(--primary);
+        color: #fff;
+      }
+      button.primary:hover {
+        background: var(--primary-strong);
+        color: #fff;
+      }
+
+      /* ---- Responsive ---- */
+      @media (max-width: 540px) {
+        #sudoku td {
+          width: 2.4rem;
+          height: 2.4rem;
+        }
+        #sudoku input {
+          font-size: 1rem;
+        }
+        .app-title {
+          margin-top: 1.25rem;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        button {
+          transition: none;
+        }
+        button:active {
+          transform: none;
+        }
       }
     </style>
   </head>
   <body>
-    <!-- Sudoku grid -->
+    <!-- Canonical shared navigation (P2.1, P2.2) — no dead ends -->
+    <header class="site-nav">
+      <a class="site-nav__brand" href="/">CHAITANYA_MALHOTRA</a>
+      <nav class="site-nav__links">
+        <a href="/">&larr; HOME</a>
+        <a href="https://github.com/bhoot1234567890" target="_blank" rel="noopener">GITHUB &#8599;</a>
+      </nav>
+    </header>
+
+    <h1 class="app-title">SUDOKU</h1>
     <span id="toptext">
-      Start by entering the numbers in the grid. Then click the Solve Sudoku
-      button to solve the Sudoku. 0 represents an empty cell.
+      Enter a puzzle and hit <strong>Solve</strong>, or generate a fresh one.
+      Generated clues are locked &mdash; fill the rest. Empty cells are blanks.
     </span>
 
-    <table id="sudoku"></table>
-    <button id="solve">Solve Sudoku</button>
-    <button id="clear">Clear Grid</button>
+    <div class="board-wrap">
+      <!-- Sudoku grid -->
+      <table id="sudoku"></table>
+    </div>
+
+    <div class="controls">
+      <button id="generate" class="primary" type="button">Generate New Puzzle</button>
+      <button id="solve" type="button">Solve Sudoku</button>
+      <button id="clear" type="button">Clear Grid</button>
+    </div>
+
+    <!-- Puzzle generator: classic script, exposes window.SudokuGenerator (P4.7) -->
+    <script src="sudoku%20generator.js"></script>
+
     <script>
-      // JavaScript code for generating the Sudoku grid, solving the Sudoku, and clearing the grid
+      // JavaScript code for generating the Sudoku grid, solving the Sudoku,
+      // generating a new puzzle, and clearing the grid.
 
       /**
        * Generates the Sudoku grid and adds it to the HTML table.
@@ -264,11 +428,33 @@
       document.getElementById("clear").addEventListener("click", function () {
         for (let i = 0; i < 9; i++) {
           for (let j = 0; j < 9; j++) {
-            document.getElementById(`cell-${i}-${j}`).value = "";
+            const cell = document.getElementById(`cell-${i}-${j}`);
+            cell.value = "";
+            cell.readOnly = false; // unlock clues so manual entry works again
           }
         }
         document.getElementById("cell-0-0").focus();
       });
+
+      // Generate a fresh random puzzle using the (now-fixed) generator (P4.7).
+      document
+        .getElementById("generate")
+        .addEventListener("click", function () {
+          if (!window.SudokuGenerator) {
+            alert("Puzzle generator failed to load.");
+            return;
+          }
+          const puzzle = window.SudokuGenerator.generatePuzzle();
+          for (let i = 0; i < 9; i++) {
+            for (let j = 0; j < 9; j++) {
+              const cell = document.getElementById(`cell-${i}-${j}`);
+              const value = puzzle[i][j];
+              cell.value = value ? value : "";
+              cell.readOnly = value !== 0; // lock generated clues
+            }
+          }
+          document.getElementById("cell-0-0").focus();
+        });
     </script>
   </body>
 </html>

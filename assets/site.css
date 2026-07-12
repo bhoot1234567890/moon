@@ -1,0 +1,104 @@
+/* ============================================================ */
+/* SHARED BRAND SYSTEM — chaitanyamalhotra.com sub-pages         */
+/* Link via: <link rel="stylesheet" href="/assets/site.css">     */
+/* Every sub-page (chess, sudoku, rigveda, moon) must use this.  */
+/* ============================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap");
+
+/* ---- Design tokens ---- */
+:root {
+  --primary: #d63d00;          /* burnt-orange industrial accent */
+  --primary-strong: #b83300;   /* darker, for text contexts (P2.13) */
+  --ink: #1a1a1a;
+  --paper: #cccccc;
+  --surface-1: #ffffff;
+  --surface-2: #f0f0f0;
+  --surface-3: #e0e0e0;
+  --surface-4: #dcdcdc;
+  --font-display: "Space Grotesk", ui-monospace, monospace;
+  --font-mono: "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace;
+  --border-w: 2px;
+}
+
+html.dark {
+  --ink: #f0f0f0;
+  --paper: #212121;
+  --surface-1: #212121;
+  --surface-2: #2a2a2a;
+  --surface-3: #252525;
+  --surface-4: #1a1a1a;
+}
+
+/* ---- Minimal reset so sub-pages match index ---- */
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: var(--font-display);
+  background: var(--paper);
+  color: var(--ink);
+}
+
+/* ---- Shared top navigation bar (P2.1, P2.2) ---- */
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.6rem 1rem;
+  background: var(--paper);
+  border-bottom: var(--border-w) solid var(--ink);
+  font-family: var(--font-display);
+}
+.site-nav__brand {
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+}
+.site-nav__links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.site-nav__links a {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--primary);
+  text-decoration: none;
+  padding: 0.25rem 0.5rem;
+  border: var(--border-w) solid transparent;
+}
+.site-nav__links a:hover {
+  border-color: var(--ink);
+}
+
+/* ---- Industrial card language (2px borders) ---- */
+.site-card {
+  border: var(--border-w) solid var(--ink);
+  background: var(--surface-1);
+  padding: 1rem;
+}
+
+/* ---- Focus + reduced motion (P3.3) ---- */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

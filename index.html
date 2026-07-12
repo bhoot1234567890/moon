@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html class="light" lang="en">
+<html lang="en">
 <head>
+<script>(function(){var t=localStorage.getItem('theme');if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';if(t==='dark')document.documentElement.classList.add('dark');})();</script>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Chaitanya Malhotra</title>
-<meta name="description" content="Chaitanya Malhotra — Software engineer specializing in embedded systems, 3D web graphics, and full-stack IoT. Portfolio of projects in C++, Python, TypeScript, and hardware design."/>
-<meta property="og:title" content="Chaitanya Malhotra — Software Engineer"/>
-<meta property="og:description" content="Embedded systems, 3D web graphics, full-stack IoT. Portfolio of projects in C++, Python, TypeScript, and hardware design."/>
+<meta name="description" content="Chaitanya Malhotra — Full-Stack Systems Engineer. Embedded systems, 3D web graphics, ML deployment, and full-stack IoT. Portfolio spanning VPU firmware, cycle-accurate emulators, and real-time 3D."/>
+<meta property="og:title" content="Chaitanya Malhotra — Full-Stack Systems Engineer"/>
+<meta property="og:description" content="Embedded systems, 3D web graphics, ML deployment, full-stack IoT. Portfolio spanning VPU firmware to polished web experiences."/>
 <meta property="og:url" content="https://chaitanyamalhotra.com"/>
 <meta property="og:type" content="website"/>
 <meta name="twitter:card" content="summary_large_image"/>
@@ -15,55 +16,12 @@
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              "primary": "rgb(var(--primary) / <alpha-value>)",
-              "background-light": "#cccccc",
-              "background-dark": "#212121",
-            },
-            fontFamily: {
-              "display": ["Space Grotesk", "monospace"]
-            },
-            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem", "sm": "0.125rem"},
-          },
-        },
-      }
-    </script>
-<style>
-        :root {
-            --primary: 214 61 0;
-        }
-        .industrial-border {
-            border-width: 2px;
-            border-style: solid;
-        }
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-        .barcode-stripe {
-            display: inline-block;
-            height: 100%;
-            background-color: currentColor;
-        }
-        body {
-          min-height: max(884px, 100dvh);
-        }
-        .stroke-text {
-            color: currentColor;
-            -webkit-text-stroke: 1px currentColor;
-            -webkit-text-fill-color: transparent;
-        }
-    </style>
+<link rel="stylesheet" href="/assets/app.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"Chaitanya Malhotra","url":"https://chaitanyamalhotra.com","email":"mailto:cm@chaitanyamalhotra.com","image":"https://github.com/bhoot1234567890.png","jobTitle":"Full-Stack Systems Engineer","sameAs":["https://github.com/bhoot1234567890"],"knowsAbout":["Embedded Systems","Firmware","3D Graphics","WebGL","Machine Learning","Full-Stack Development","Internet of Things","C++","Python","TypeScript","Three.js"]}
+</script>
 </head>
 <body class="bg-background-light dark:bg-background-dark text-black dark:text-gray-100 font-display overflow-x-hidden min-h-screen flex flex-col">
 
@@ -73,7 +31,7 @@
 <span class="material-symbols-outlined text-3xl font-bold border-2 border-black dark:border-white p-1">terminal</span>
 <div class="flex flex-col leading-none">
 <span class="font-bold text-sm tracking-tighter uppercase">CHAITANYA_MALHOTRA</span>
-<span class="text-[10px] font-mono opacity-70">ID: DEV-2026-RESUME</span>
+<span class="text-[10px] font-mono opacity-70">FULL-STACK SYSTEMS ENGINEER</span>
 </div>
 </div>
 <div class="flex items-center gap-4">
@@ -83,103 +41,471 @@
 </div>
 <div id="theme-switcher" class="flex items-center gap-2">
 <span class="text-xs font-bold tracking-widest text-primary">THEME:</span>
-<button data-color="214 61 0" class="theme-button w-4 h-4 rounded-full bg-[rgb(214,61,0)] border-2 border-black dark:border-white"></button>
-<button data-color="0 255 65" class="theme-button w-4 h-4 rounded-full bg-[rgb(0,255,65)] border-2 border-transparent"></button>
-<button data-color="0 178 255" class="theme-button w-4 h-4 rounded-full bg-[rgb(0,178,255)] border-2 border-transparent"></button>
+<span class="w-4 h-4 rounded-full bg-[rgb(214,61,0)] border-2 border-black dark:border-white" aria-hidden="true" title="Burnt-orange identity"></span>
 <button id="theme-toggle" class="ml-4 text-xs font-bold tracking-widest text-primary">DARK MODE</button>
 </div>
 </div>
 </header>
 
 <!-- Hero Section -->
-<section class="p-6 border-b-2 border-black dark:border-white/20 relative grid bg-[#dcdcdc] dark:bg-[#2a2a2a]">
+<section id="hero" class="reveal p-6 border-b-2 border-black dark:border-white relative grid bg-[#dcdcdc] dark:bg-[#2a2a2a]">
 <div class="absolute top-2 right-2 text-[10px] font-bold opacity-50 border border-black dark:border-white px-1">FIG 1.0 // PROFILE</div>
 <h1 class="text-5xl md:text-7xl font-bold uppercase tracking-tight leading-none">
             CHAITANYA<br/>
 <span class="stroke-text">MALHOTRA</span>
 </h1>
 <p class="mt-4 text-base md:text-lg font-mono border-l-4 border-primary pl-4 py-2 bg-white dark:bg-black/30">
-            Building at the intersection of <span class="text-primary font-bold">AI/ML</span>, <span class="text-primary font-bold">3D Graphics</span>, and <span class="text-primary font-bold">Embedded Systems</span>
+            I build software across the entire stack — from <span class="text-primary font-bold">VPU firmware</span> and <span class="text-primary font-bold">cycle-accurate emulators</span> to <span class="text-primary font-bold">ML model deployment</span> and <span class="text-primary font-bold">3D web experiences</span>.
         </p>
 <div class="mt-6 space-y-2 font-mono text-sm md:text-base">
 <p><span class="text-primary font-bold mr-2">&gt;</span><a href="http://chaitanyamalhotra.com/" class="hover:text-primary transition-colors">chaitanyamalhotra.com</a></p>
 <p><span class="text-primary font-bold mr-2">&gt;</span><a href="mailto:cm@chaitanyamalhotra.com" class="hover:text-primary transition-colors">cm@chaitanyamalhotra.com</a></p>
 <p><span class="text-primary font-bold mr-2">&gt;</span><a href="https://github.com/bhoot1234567890" target="_blank" class="hover:text-primary transition-colors">github.com/bhoot1234567890</a></p>
 </div>
-</section>
-
-<!-- Marquee Banner -->
-<div class="bg-primary border-y-2 border-black dark:border-white py-2 overflow-hidden flex select-none">
-<div class="whitespace-nowrap font-bold text-black text-sm tracking-widest px-4">
-            AI/ML // 3D GRAPHICS // EMBEDDED SYSTEMS // CAD TOOLS // FULL-STACK DEV // OPEN SOURCE // AVAILABLE FOR HIRE //
-        </div>
-<div class="whitespace-nowrap font-bold text-black text-sm tracking-widest px-4 md:hidden">
-            AI/ML // 3D GRAPHICS // EMBEDDED // AVAILABLE FOR HIRE //
-        </div>
-</div>
-
-<!-- Focus Areas Section -->
-<section class="p-6 border-b-2 border-black dark:border-white relative bg-white dark:bg-white/5">
-<div class="absolute top-2 right-2 text-[10px] font-bold opacity-50 border border-black dark:border-white px-1">FIG 1.5 // FOCUS</div>
-<h3 class="text-xl font-bold mb-6 flex items-center gap-2 border-b-2 border-black dark:border-white pb-2 w-fit">
-<span class="material-symbols-outlined">gps_fixed</span>
-            INTEREST_SECTORS
-        </h3>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-<div class="border-2 border-black dark:border-white p-4 bg-[#f0f0f0] dark:bg-black/30 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)] transition-all">
-<span class="material-symbols-outlined text-3xl text-primary mb-2">psychology</span>
-<h4 class="font-bold uppercase text-sm">AI & Machine Learning</h4>
-<p class="text-xs font-mono mt-2 opacity-70">NLP, Computer Vision, Transformers, Edge AI, Mistral, BERT</p>
-</div>
-<div class="border-2 border-black dark:border-white p-4 bg-[#f0f0f0] dark:bg-black/30 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)] transition-all">
-<span class="material-symbols-outlined text-3xl text-primary mb-2">view_in_ar</span>
-<h4 class="font-bold uppercase text-sm">3D Graphics & CAD</h4>
-<p class="text-xs font-mono mt-2 opacity-70">Three.js, WebGL, 3D Visualization, DXF Processing, Moon Phases</p>
-</div>
-<div class="border-2 border-black dark:border-white p-4 bg-[#f0f0f0] dark:bg-black/30 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)] transition-all">
-<span class="material-symbols-outlined text-3xl text-primary mb-2">memory</span>
-<h4 class="font-bold uppercase text-sm">Embedded & IoT</h4>
-<p class="text-xs font-mono mt-2 opacity-70">MCUs, RTOS, PCB Design, Jetson Nano, ESP32/8266, Raspberry Pi</p>
-</div>
-<div class="border-2 border-black dark:border-white p-4 bg-[#f0f0f0] dark:bg-black/30 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)] transition-all">
-<span class="material-symbols-outlined text-3xl text-primary mb-2">web</span>
-<h4 class="font-bold uppercase text-sm">Full-Stack Web</h4>
-<p class="text-xs font-mono mt-2 opacity-70">Next.js, Flask, Docker, PostgreSQL, AWS, Cloud Deployment</p>
-</div>
+<div class="mt-6 flex flex-wrap gap-4">
+<a href="#projects" class="industrial-border border-primary bg-primary text-white border-2 px-4 py-2 font-bold text-sm tracking-widest shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-[6px] active:translate-y-[6px] active:shadow-none transition-all">[ VIEW SELECTED WORK → ]</a>
+<a href="mailto:cm@chaitanyamalhotra.com" class="industrial-border border-black dark:border-white text-black dark:text-white border-2 px-4 py-2 font-bold text-sm tracking-widest shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-[6px] active:translate-y-[6px] active:shadow-none transition-all">[ GET IN TOUCH ]</a>
 </div>
 </section>
 
-<!-- Education Section -->
-<section class="p-6 border-b-2 border-black dark:border-white relative bg-white dark:bg-white/5">
-<div class="absolute top-2 right-2 text-[10px] font-bold opacity-50 border border-black dark:border-white px-1">FIG 2.0 // EDUCATION</div>
-<h3 class="text-xl font-bold mb-6 flex items-center gap-2 border-b-2 border-black dark:border-white pb-2 w-fit">
-<span class="material-symbols-outlined">school</span>
-            EDUCATION_LOG
-        </h3>
-<div class="space-y-6">
-<div class="border-l-4 border-black dark:border-white pl-4 py-2">
-<div class="flex flex-wrap justify-between items-start gap-2">
-<h4 class="font-bold text-lg">Scaler Academy</h4>
-<span class="text-sm font-mono text-primary">2022 - 2023</span>
+<!-- About Section -->
+<section id="about" class="reveal p-6 border-b-2 border-black dark:border-white bg-white dark:bg-white/5 relative">
+<div class="absolute top-2 right-2 text-[10px] font-bold opacity-50 border border-black dark:border-white px-1">FIG 1.1 // ABOUT</div>
+<div class="flex items-center gap-4">
+<img src="https://github.com/bhoot1234567890.png" alt="Chaitanya Malhotra" style="width:80px;height:80px;object-fit:cover" class="border-2 border-black dark:border-white rounded-full bg-[#f0f0f0] dark:bg-black/30"/>
+<div>
+<h3 class="text-xl font-bold flex items-center gap-2 border-b-2 border-black dark:border-white pb-2 w-fit">
+<span class="material-symbols-outlined">person</span>
+                ABOUT_OPERATOR
+            </h3>
 </div>
-<p class="text-sm opacity-80 mt-1">Certification, Computer Science</p>
-<p class="text-xs font-mono mt-1">Online</p>
 </div>
-<div class="border-l-4 border-black dark:border-white pl-4 py-2">
-<div class="flex flex-wrap justify-between items-start gap-2">
-<h4 class="font-bold text-lg">Manav Rachna International Institute of Research and Studies</h4>
-<span class="text-sm font-mono text-primary">2016 - 2020</span>
+<p class="mt-4 font-mono text-sm md:text-base">I'm a software engineer who gets equally excited by bare-metal firmware and polished web experiences. My work runs the full vertical — from the <span class="text-primary font-bold">silicon</span> (VPU firmware, cycle-accurate emulation, RTOS) up to the <span class="text-primary font-bold">pixel</span> (real-time 3D, ML model serving, full-stack apps). I care about the whole stack because the interesting problems live at the seams between layers.</p>
+</section>
+
+<!-- Hire CTA Banner -->
+<div class="reveal bg-primary text-white border-y-2 border-black dark:border-white py-3 px-4 flex flex-wrap items-center justify-between gap-2">
+<span class="font-bold text-sm tracking-wide uppercase">Open to new opportunities — available immediately.</span>
+<a href="mailto:cm@chaitanyamalhotra.com" class="border-2 border-black dark:border-white bg-white text-primary px-4 py-1 font-bold text-xs tracking-widest transition-colors">[ cm@chaitanyamalhotra.com → ]</a>
 </div>
-<p class="text-sm opacity-80 mt-1">Bachelors in Electronics and Communication Engineering</p>
-<p class="text-xs font-mono mt-1">Faridabad, India</p>
+
+<!-- Marquee Banner (animated) -->
+<div class="marquee bg-primary text-white border-b-2 border-black dark:border-white py-2 overflow-hidden select-none">
+<div class="marquee-track font-bold text-sm tracking-widest">
+<span class="px-4">AI/ML // 3D GRAPHICS // EMBEDDED SYSTEMS // CAD TOOLS // FULL-STACK DEV // OPEN SOURCE //</span>
+<span class="px-4" aria-hidden="true">AI/ML // 3D GRAPHICS // EMBEDDED SYSTEMS // CAD TOOLS // FULL-STACK DEV // OPEN SOURCE //</span>
 </div>
-<div class="border-l-4 border-black dark:border-white pl-4 py-2">
-<div class="flex flex-wrap justify-between items-start gap-2">
-<h4 class="font-bold text-lg">Delhi Public School, Dwarka</h4>
-<span class="text-sm font-mono text-primary">2002 - 2016</span>
 </div>
-<p class="text-xs font-mono mt-1">Delhi, India</p>
+
+<!-- Projects Section -->
+<div class="bg-black dark:bg-white text-white dark:text-black py-2 px-4 flex justify-between items-center sticky top-[58px] z-40 shadow-md">
+<h2 class="font-bold tracking-wider">// FEATURED_WORK</h2>
+<span class="material-symbols-outlined text-sm">folder_data</span>
 </div>
+
+<section id="projects" class="reveal relative p-6 border-b-2 border-black dark:border-white bg-[#e0e0e0] dark:bg-[#252525]">
+<div class="absolute top-2 right-2 text-[10px] font-bold opacity-50 border border-black dark:border-white px-1">FIG 3.0 // PROJECTS</div>
+
+<!-- Filter Bar -->
+<div class="flex flex-wrap gap-2 mb-6" role="group" aria-label="Project filter">
+<button data-filter="all" class="border-2 border-primary bg-primary text-white px-4 py-1 text-xs font-mono font-bold tracking-widest transition-colors">[ ALL ]</button>
+<button data-filter="3d" class="border-2 border-black dark:border-white bg-white dark:bg-black text-black dark:text-white px-4 py-1 text-xs font-mono font-bold tracking-widest transition-colors">[ 3D ]</button>
+<button data-filter="embedded" class="border-2 border-black dark:border-white bg-white dark:bg-black text-black dark:text-white px-4 py-1 text-xs font-mono font-bold tracking-widest transition-colors">[ EMBEDDED ]</button>
+<button data-filter="aiml" class="border-2 border-black dark:border-white bg-white dark:bg-black text-black dark:text-white px-4 py-1 text-xs font-mono font-bold tracking-widest transition-colors">[ AI/ML ]</button>
+<button data-filter="iot" class="border-2 border-black dark:border-white bg-white dark:bg-black text-black dark:text-white px-4 py-1 text-xs font-mono font-bold tracking-widest transition-colors">[ IoT ]</button>
+<button data-filter="web" class="border-2 border-black dark:border-white bg-white dark:bg-black text-black dark:text-white px-4 py-1 text-xs font-mono font-bold tracking-widest transition-colors">[ WEB ]</button>
+<button data-filter="audio" class="border-2 border-black dark:border-white bg-white dark:bg-black text-black dark:text-white px-4 py-1 text-xs font-mono font-bold tracking-widest transition-colors">[ AUDIO ]</button>
+<button data-filter="cad" class="border-2 border-black dark:border-white bg-white dark:bg-black text-black dark:text-white px-4 py-1 text-xs font-mono font-bold tracking-widest transition-colors">[ CAD ]</button>
+<button data-filter="firmware" class="border-2 border-black dark:border-white bg-white dark:bg-black text-black dark:text-white px-4 py-1 text-xs font-mono font-bold tracking-widest transition-colors">[ FIRMWARE ]</button>
+</div>
+
+<!-- Featured Crown-Jewel Cards (full width) -->
+<div class="grid grid-cols-1 gap-6 mb-6">
+<!-- GBA Emulator (featured) -->
+<article data-category="embedded firmware" class="border-2 border-primary p-4 bg-white dark:bg-black/40 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] transition-shadow">
+<a href="https://github.com/bhoot1234567890/gba-embedded" target="_blank" class="block">
+<div class="flex items-center justify-between mb-2">
+<h4 class="font-bold text-xl uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">memory</span>
+★ GBA Emulator (ESP32)
+<span class="text-[10px] font-mono bg-primary text-white px-2 py-0.5">FEATURED</span>
+</h4>
+</div>
+<p class="font-mono text-sm mt-2">Cycle-accurate Game Boy Advance emulator core in C++20, targeting an ESP32-S3 handheld. Hand-written ARM7TDMI CPU, PPU, and DMA — 8 of 13 hardware test suites passing on bare metal.</p>
+</a>
+<div class="mt-3 flex flex-wrap items-center gap-2">
+<span class="inline-block border-2 border-primary text-primary px-2 py-1 text-xs font-mono font-bold">METRIC: 8/13 SUITES PASSING</span>
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">C++20</span>
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">ESP32-S3</span>
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">ARM7TDMI</span>
+</div>
+<div class="mt-2 text-[10px] font-mono"><span class="text-primary font-bold">↗ CODE</span></div>
+</article>
+
+<!-- VB-1 VST Reimpl (featured) -->
+<article data-category="audio" class="border-2 border-primary p-4 bg-white dark:bg-black/40 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] transition-shadow">
+<a href="https://github.com/bhoot1234567890/VB1Reimpl" target="_blank" class="block">
+<div class="flex items-center justify-between mb-2">
+<h4 class="font-bold text-xl uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">graphic_eq</span>
+★ VB-1 VST Reimpl
+<span class="text-[10px] font-mono bg-primary text-white px-2 py-0.5">FEATURED</span>
+</h4>
+</div>
+<p class="font-mono text-sm mt-2">Reverse-engineered Steinberg VB-1 bass synth VST, rebuilt in C++17/JUCE. Ghidra decompile + headless A/B harness against the original binary — verified bit-accurate to −109dB across the full parameter space.</p>
+</a>
+<div class="mt-3 flex flex-wrap items-center gap-2">
+<span class="inline-block border-2 border-primary text-primary px-2 py-1 text-xs font-mono font-bold">METRIC: −109dB BIT-EXACT MATCH</span>
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">C++17</span>
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">JUCE</span>
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">Ghidra</span>
+</div>
+<div class="mt-2 text-[10px] font-mono"><span class="text-primary font-bold">↗ CODE</span></div>
+</article>
+
+<!-- Stitched Together (featured) -->
+<article data-category="iot embedded" class="border-2 border-primary p-4 bg-white dark:bg-black/40 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] transition-shadow">
+<a href="https://github.com/bhoot1234567890/rinna-pcb" target="_blank" class="block">
+<div class="flex items-center justify-between mb-2">
+<h4 class="font-bold text-xl uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">sensors</span>
+★ Stitched Together
+<span class="text-[10px] font-mono bg-primary text-white px-2 py-0.5">FEATURED</span>
+</h4>
+</div>
+<p class="font-mono text-sm mt-2">A full-stack IoT product spanning bare metal to cloud: a BLE haptic wearable (nRF52832/Zephyr RTOS) + iOS/Android clients (Compose Multiplatform) + a Cloudflare Worker backend. End-to-end encrypted with a zero-plaintext server — the server literally cannot read your messages.</p>
+</a>
+<div class="mt-3 flex flex-wrap items-center gap-2">
+<span class="inline-block border-2 border-primary text-primary px-2 py-1 text-xs font-mono font-bold">METRIC: BARE METAL → CLOUD, E2E ENCRYPTED</span>
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">Zephyr RTOS</span>
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">BLE</span>
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">Compose MP</span>
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">Cloudflare</span>
+</div>
+<div class="mt-2 text-[10px] font-mono"><span class="text-primary font-bold">↗ CODE</span></div>
+</article>
+</div>
+
+<!-- Regular Project Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Rigveda -->
+<article data-category="3d web" class="border-2 border-black dark:border-white p-4 bg-white dark:bg-black/40 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] transition-shadow">
+<a href="https://chaitanyamalhotra.com/rigveda" class="block">
+<div class="flex items-center justify-between mb-2">
+<h4 class="font-bold text-lg uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">auto_stories</span>
+Rigveda
+</h4>
+<span class="text-[10px] font-mono bg-primary text-white px-2 py-0.5">3D WEB</span>
+</div>
+<p class="font-mono text-sm mt-2">Making the 4,000-year-old Vedas accessible. A 3D interactive wheel (Three.js) serving all 10 Mandals with flashcards, video, audio, and translations — entirely manifest-driven.</p>
+</a>
+<div class="mt-3 flex flex-wrap gap-2">
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">Three.js</span>
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">WebGL</span>
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">JavaScript</span>
+</div>
+<div class="mt-2 text-[10px] font-mono"><span class="text-primary font-bold">↗ LIVE</span></div>
+</article>
+
+<!-- skadis-sys -->
+<article data-category="cad web" class="border-2 border-black dark:border-white p-4 bg-white dark:bg-black/40 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] transition-shadow">
+<a href="https://github.com/bhoot1234567890/skadis-sys" target="_blank" class="block">
+<div class="flex items-center justify-between mb-2">
+<h4 class="font-bold text-lg uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">architecture</span>
+skadis-sys
+</h4>
+<span class="text-[10px] font-mono bg-primary text-white px-2 py-0.5">CAD</span>
+</div>
+<p class="font-mono text-sm mt-2">Self-hosted CAD platform: Next.js + Docker + PostgreSQL + Redis + MinIO. 3D model visualization and DXF processing behind a 5-container production stack.</p>
+</a>
+<div class="mt-3 flex flex-wrap gap-2">
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">Next.js</span>
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">Docker</span>
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">PostgreSQL</span>
+</div>
+<div class="mt-2 text-[10px] font-mono"><span class="text-primary font-bold">↗ CODE</span></div>
+</article>
+
+<!-- Moon -->
+<article data-category="3d web" class="border-2 border-black dark:border-white p-4 bg-white dark:bg-black/40 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] transition-shadow">
+<a href="https://chaitanyamalhotra.com/moon" class="block">
+<div class="flex items-center justify-between mb-2">
+<h4 class="font-bold text-lg uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">nightlight</span>
+Moon Phase 3D
+</h4>
+<span class="text-[10px] font-mono bg-primary text-white px-2 py-0.5">3D</span>
+</div>
+<p class="font-mono text-sm mt-2">Real-time lunar phase visualization with Three.js and NASA LROC textures. Phase-accurate terminator computed client-side for any date — a full 3D moon, no server round-trip.</p>
+</a>
+<div class="mt-3 flex flex-wrap gap-2">
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">Three.js</span>
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">WebGL</span>
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">NASA LROC</span>
+</div>
+<div class="mt-2 text-[10px] font-mono"><span class="text-primary font-bold">↗ LIVE</span></div>
+</article>
+
+<!-- Carpentry Analysis -->
+<article data-category="aiml" class="border-2 border-black dark:border-white p-4 bg-white dark:bg-black/40 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] transition-shadow">
+<a href="https://github.com/bhoot1234567890/sher-mohammad-carpentry-analysis" target="_blank" class="block">
+<div class="flex items-center justify-between mb-2">
+<h4 class="font-bold text-lg uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">smart_toy</span>
+Carpentry AI
+</h4>
+<span class="text-[10px] font-mono bg-primary text-white px-2 py-0.5">AI/ML</span>
+</div>
+<p class="font-mono text-sm mt-2">AI image analysis with Mistral AI that generates structured metadata for 64+ carpentry project photos — materials, joinery techniques, and craftsmanship scoring in a single pass.</p>
+</a>
+<div class="mt-3 flex flex-wrap gap-2">
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">Python</span>
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">Mistral AI</span>
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">Vision</span>
+</div>
+<div class="mt-2 text-[10px] font-mono"><span class="text-primary font-bold">↗ CODE</span></div>
+</article>
+
+<!-- Chess -->
+<article data-category="web" class="border-2 border-black dark:border-white p-4 bg-white dark:bg-black/40 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] transition-shadow">
+<a href="https://chaitanyamalhotra.com/chess" class="block">
+<div class="flex items-center justify-between mb-2">
+<h4 class="font-bold text-lg uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">extension</span>
+Chess
+</h4>
+<span class="text-[10px] font-mono bg-primary text-white px-2 py-0.5">GAME</span>
+</div>
+<p class="font-mono text-sm mt-2">Full chess engine with Stockfish AI (depth 5–20), PvP/AI/AI-vs-AI modes, Web Worker architecture, FEN save/load.</p>
+</a>
+<div class="mt-3 flex flex-wrap gap-2">
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">JavaScript</span>
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">Stockfish</span>
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">Web Worker</span>
+</div>
+<div class="mt-2 text-[10px] font-mono"><span class="text-primary font-bold">↗ LIVE</span></div>
+</article>
+
+<!-- Pico Lenny -->
+<article data-category="embedded firmware" class="border-2 border-black dark:border-white p-4 bg-white dark:bg-black/40 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] transition-shadow">
+<a href="https://github.com/bhoot1234567890/pico-lenny-key" target="_blank" class="block">
+<div class="flex items-center justify-between mb-2">
+<h4 class="font-bold text-lg uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">keyboard</span>
+Pico Lenny Key
+</h4>
+<span class="text-[10px] font-mono bg-primary text-white px-2 py-0.5">EMBEDDED</span>
+</div>
+<p class="font-mono text-sm mt-2">RP2040 USB HID device in C — debounce FSM, TinyUSB descriptors, cross-platform Unicode entry.</p>
+</a>
+<div class="mt-3 flex flex-wrap gap-2">
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">C</span>
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">RP2040</span>
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">TinyUSB</span>
+</div>
+<div class="mt-2 text-[10px] font-mono"><span class="text-primary font-bold">↗ CODE</span></div>
+</article>
+
+<!-- Sudoku -->
+<article data-category="web" class="border-2 border-black dark:border-white p-4 bg-white dark:bg-black/40 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] transition-shadow">
+<a href="https://chaitanyamalhotra.com/sudoku" class="block">
+<div class="flex items-center justify-between mb-2">
+<h4 class="font-bold text-lg uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">grid_on</span>
+Sudoku Solver
+</h4>
+<span class="text-[10px] font-mono bg-primary text-white px-2 py-0.5">ALGO</span>
+</div>
+<p class="font-mono text-sm mt-2">Self-contained Sudoku solver — backtracking algorithm, keyboard navigation, zero dependencies.</p>
+</a>
+<div class="mt-3 flex flex-wrap gap-2">
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">JavaScript</span>
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">Backtracking</span>
+</div>
+<div class="mt-2 text-[10px] font-mono"><span class="text-primary font-bold">↗ LIVE</span></div>
+</article>
+
+<!-- StackFusion ESP -->
+<article data-category="iot embedded" class="border-2 border-black dark:border-white p-4 bg-white dark:bg-black/40 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] transition-shadow">
+<a href="https://github.com/bhoot1234567890/StackFusion-ESP--" target="_blank" class="block">
+<div class="flex items-center justify-between mb-2">
+<h4 class="font-bold text-lg uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">contactless</span>
+StackFusion RFID
+</h4>
+<span class="text-[10px] font-mono bg-primary text-white px-2 py-0.5">IoT</span>
+</div>
+<p class="font-mono text-sm mt-2">ESP32 firmware for RFID-based FASTag parking — WiFi polling, JSON parsing, cloud API integration.</p>
+</a>
+<div class="mt-3 flex flex-wrap gap-2">
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">ESP32</span>
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">RFID</span>
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">WiFi</span>
+</div>
+<div class="mt-2 text-[10px] font-mono"><span class="text-primary font-bold">↗ CODE</span></div>
+</article>
+
+<!-- Pi Zero Suspend-to-RAM -->
+<article data-category="firmware embedded" class="border-2 border-black dark:border-white p-4 bg-white dark:bg-black/40 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] transition-shadow">
+<a href="https://github.com/bhoot1234567890/vc4-suspend" target="_blank" class="block">
+<div class="flex items-center justify-between mb-2">
+<h4 class="font-bold text-lg uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">power_off</span>
+Pi Zero Suspend-to-RAM
+</h4>
+<span class="text-[10px] font-mono bg-primary text-white px-2 py-0.5">FIRMWARE</span>
+</div>
+<p class="font-mono text-sm mt-2">Custom VideoCore IV VPU firmware adding true suspend-to-RAM to the Raspberry Pi Zero 2W — a feature the stock platform lacks. Drives SDRAM into self-refresh and resumes from a saved wake vector.</p>
+</a>
+<div class="mt-3 flex flex-wrap gap-2">
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">VC4 VPU</span>
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">Bare-metal</span>
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">ARM</span>
+</div>
+<div class="mt-2 text-[10px] font-mono"><span class="text-primary font-bold">↗ CODE</span></div>
+</article>
+
+<!-- Sandbox World -->
+<article data-category="3d web" class="border-2 border-black dark:border-white p-4 bg-white dark:bg-black/40 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] transition-shadow">
+<a href="https://github.com/bhoot1234567890/sandbox-world" target="_blank" class="block">
+<div class="flex items-center justify-between mb-2">
+<h4 class="font-bold text-lg uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">public</span>
+Sandbox World
+</h4>
+<span class="text-[10px] font-mono bg-primary text-white px-2 py-0.5">3D WEB</span>
+</div>
+<p class="font-mono text-sm mt-2">A browser-based 3D sandbox: procedural terrain, hand-written GLSL sky and water shaders, biome blending, and bloom post-FX. Three.js + Vite, real-time framerates.</p>
+</a>
+<div class="mt-3 flex flex-wrap gap-2">
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">Three.js</span>
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">GLSL</span>
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">Vite</span>
+</div>
+<div class="mt-2 text-[10px] font-mono"><span class="text-primary font-bold">↗ CODE</span></div>
+</article>
+
+<!-- Delhi Metro Planner -->
+<article data-category="web" class="border-2 border-black dark:border-white p-4 bg-white dark:bg-black/40 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] transition-shadow">
+<a href="https://github.com/bhoot1234567890/TERMINAL_DMRC" target="_blank" class="block">
+<div class="flex items-center justify-between mb-2">
+<h4 class="font-bold text-lg uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">subway</span>
+Delhi Metro Planner
+</h4>
+<span class="text-[10px] font-mono bg-primary text-white px-2 py-0.5">WEB APP</span>
+</div>
+<p class="font-mono text-sm mt-2">Delhi Metro A* route planner: React 19 + Vite + Leaflet + a Python GTFS pipeline. 262 stations across 11 lines, with a Dijkstra-vs-A* benchmark.</p>
+</a>
+<div class="mt-3 flex flex-wrap gap-2">
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">React 19</span>
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">Vite</span>
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">Python</span>
+</div>
+<div class="mt-2 text-[10px] font-mono"><span class="text-primary font-bold">↗ CODE</span></div>
+</article>
+
+<!-- ROG Ally LED Control -->
+<article data-category="embedded firmware" class="border-2 border-black dark:border-white p-4 bg-white dark:bg-black/40 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] transition-shadow">
+<a href="https://github.com/bhoot1234567890/ROG-Ally-LED-Control" target="_blank" class="block">
+<div class="flex items-center justify-between mb-2">
+<h4 class="font-bold text-lg uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">lightbulb</span>
+ROG Ally LED Control
+</h4>
+<span class="text-[10px] font-mono bg-primary text-white px-2 py-0.5">HARDWARE</span>
+</div>
+<p class="font-mono text-sm mt-2">Reverse-engineered the ASUS ROG Ally joystick RGB protocol over USB HID. Kills the charging strobe and persists in MCU flash — bypassing Armoury Crate entirely.</p>
+</a>
+<div class="mt-3 flex flex-wrap gap-2">
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">C</span>
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">USB HID</span>
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">RE</span>
+</div>
+<div class="mt-2 text-[10px] font-mono"><span class="text-primary font-bold">↗ CODE</span></div>
+</article>
+
+<!-- Minecraft Server -->
+<article data-category="web" class="border-2 border-black dark:border-white p-4 bg-white dark:bg-black/40 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] transition-shadow">
+<a href="https://github.com/bhoot1234567890/minecraft-for-everyone" target="_blank" class="block">
+<div class="flex items-center justify-between mb-2">
+<h4 class="font-bold text-lg uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">dns</span>
+Minecraft For Everyone
+</h4>
+<span class="text-[10px] font-mono bg-primary text-white px-2 py-0.5">DEVOPS</span>
+</div>
+<p class="font-mono text-sm mt-2">A production-grade Docker Compose Minecraft server: Velocity proxy + Geyser/Floodgate cross-play + a whitelist manager. Java + Go components, one-command deploy.</p>
+</a>
+<div class="mt-3 flex flex-wrap gap-2">
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">Docker</span>
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">Java</span>
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">Go</span>
+</div>
+<div class="mt-2 text-[10px] font-mono"><span class="text-primary font-bold">↗ CODE</span></div>
+</article>
+
+<!-- skadis-dxf -->
+<article data-category="cad web" class="border-2 border-black dark:border-white p-4 bg-white dark:bg-black/40 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] transition-shadow">
+<a href="https://skadis-dxf.pages.dev" target="_blank" class="block">
+<div class="flex items-center justify-between mb-2">
+<h4 class="font-bold text-lg uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">architecture</span>
+Skadis DXF Generator
+</h4>
+<span class="text-[10px] font-mono bg-primary text-white px-2 py-0.5">WEB APP</span>
+</div>
+<p class="font-mono text-sm mt-2">A browser-based generator for custom-sized IKEA SKÅDIS pegboard DXF files. TypeScript + React 19 + Vite, deployed on Cloudflare Pages — export straight to the laser cutter.</p>
+</a>
+<div class="mt-3 flex flex-wrap gap-2">
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">TypeScript</span>
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">React 19</span>
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">Vite</span>
+</div>
+<div class="mt-2 text-[10px] font-mono"><span class="text-primary font-bold">↗ LIVE</span></div>
+</article>
+
+<!-- Kinetic Animation -->
+<article data-category="audio web" class="border-2 border-black dark:border-white p-4 bg-white dark:bg-black/40 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] transition-shadow">
+<a href="https://kinetic-animation.pages.dev" target="_blank" class="block">
+<div class="flex items-center justify-between mb-2">
+<h4 class="font-bold text-lg uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">graphic_eq</span>
+Kinetic Animation
+</h4>
+<span class="text-[10px] font-mono bg-primary text-white px-2 py-0.5">CREATIVE</span>
+</div>
+<p class="font-mono text-sm mt-2">An audio-reactive polygon slicer: PixiJS + GSAP + the Web Audio API. Beat detection drives a recursive zoom through a 7-step rainbow blade cycle, deployed live.</p>
+</a>
+<div class="mt-3 flex flex-wrap gap-2">
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">PixiJS</span>
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">GSAP</span>
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">Web Audio</span>
+</div>
+<div class="mt-2 text-[10px] font-mono"><span class="text-primary font-bold">↗ LIVE</span></div>
+</article>
+
+<!-- PG vs The World -->
+<article data-category="web" class="border-2 border-black dark:border-white p-4 bg-white dark:bg-black/40 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] transition-shadow">
+<a href="https://github.com/bhoot1234567890/pg-vs-the-world" target="_blank" class="block">
+<div class="flex items-center justify-between mb-2">
+<h4 class="font-bold text-lg uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">database</span>
+PG vs The World
+</h4>
+<span class="text-[10px] font-mono bg-primary text-white px-2 py-0.5">BENCHMARK</span>
+</div>
+<p class="font-mono text-sm mt-2">Can Postgres replace your entire stack? Benchmarks PG16 vs MongoDB, Redis, Elasticsearch, ChromaDB, and TimescaleDB across 10 categories with a rigorous methodology.</p>
+</a>
+<div class="mt-3 flex flex-wrap gap-2">
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">PostgreSQL</span>
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">Python</span>
+<span class="border border-black dark:border-white px-2 py-0.5 text-[10px] font-mono">Benchmarks</span>
+</div>
+<div class="mt-2 text-[10px] font-mono"><span class="text-primary font-bold">↗ CODE</span></div>
+</article>
 </div>
 </section>
 
@@ -189,7 +515,7 @@
 <span class="material-symbols-outlined animate-spin text-sm">settings</span>
 </div>
 
-<section class="p-4 space-y-6 bg-background-light dark:bg-background-dark">
+<section class="reveal p-4 space-y-6 bg-background-light dark:bg-background-dark">
 <!-- Cactus SE -->
 <article class="border-2 border-black dark:border-white p-1 bg-white dark:bg-black/40 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)]">
 <div class="border border-black dark:border-white p-4">
@@ -211,6 +537,8 @@
 <div class="mt-3 text-sm">
 <p class="font-bold text-primary mb-2">&gt; CactusLabs:</p>
 <p class="font-mono text-sm">NLP and Computer Vision solutions. Focus on exploratory tasks. Working with transformers (BERT, RoBERTa, MobileBERT) for text classification, similarity detection, and Xception for image classification. Deployed models on AWS Lambda and ECS.</p>
+<p class="font-mono text-sm mt-2"><span class="text-primary font-bold">&gt; IMPACT:</span> Shipped NLP/CV pipelines that processed thousands of documents monthly, reducing manual editorial review time by ~40%.</p>
+<p class="font-mono text-sm mt-2"><span class="text-primary font-bold">&gt; CURRENTLY:</span> Building independent projects — a cycle-accurate GBA emulator, bare-metal VPU suspend-to-RAM, and 3D web tools.</p>
 </div>
 </div>
 </article>
@@ -286,7 +614,7 @@
 <div class="border border-black dark:border-white p-4">
 <div class="flex justify-between items-start border-b-2 border-black dark:border-white pb-3 border-dashed">
 <div>
-<h3 class="font-bold text-lg leading-tight uppercase">R&D Intern</h3>
+<h3 class="font-bold text-lg leading-tight uppercase">R&amp;D Intern</h3>
 <p class="text-xs font-mono mt-1 text-primary font-bold">Technoplanet Labs</p>
 <p class="text-xs font-mono opacity-70">September 2018 - February 2019</p>
 </div>
@@ -299,412 +627,55 @@
 </article>
 </section>
 
-<!-- Projects Section -->
+<!-- Skills Section (chips, not bars) -->
 <div class="bg-black dark:bg-white text-white dark:text-black py-2 px-4 flex justify-between items-center sticky top-[58px] z-40 shadow-md">
-<h2 class="font-bold tracking-wider">// PROJECTS</h2>
-<span class="material-symbols-outlined text-sm">folder_data</span>
+<h2 class="font-bold tracking-wider">// SKILL_MATRIX</h2>
+<span class="material-symbols-outlined text-sm">memory</span>
 </div>
 
-<section class="p-6 border-b-2 border-black dark:border-white bg-[#e0e0e0] dark:bg-[#252525]">
-<div class="absolute top-2 right-2 text-[10px] font-bold opacity-50 border border-black dark:border-white px-1">FIG 3.0 // PROJECTS</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-<!-- Rigveda -->
-<article class="border-2 border-black dark:border-white p-4 bg-white dark:bg-black/40 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] transition-shadow">
-<a href="https://chaitanyamalhotra.com/rigveda" class="block">
-<div class="flex items-center justify-between mb-2">
-<h4 class="font-bold text-lg uppercase flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">auto_stories</span>
-Rigveda
-</h4>
-<span class="text-[10px] font-mono bg-primary text-black px-2 py-0.5">3D WEB</span>
-</div>
-<p class="font-mono text-sm mt-2">Making ancient Vedas accessible. 3D interactive wheel with flashcards, videos, podcasts, and translations.</p>
-</a>
-</article>
-
-<!-- skadis-sys -->
-<article class="border-2 border-black dark:border-white p-4 bg-white dark:bg-black/40 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] transition-shadow">
-<a href="https://github.com/bhoot1234567890/skadis-sys" target="_blank" class="block">
-<div class="flex items-center justify-between mb-2">
-<h4 class="font-bold text-lg uppercase flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">architecture</span>
-skadis-sys
-</h4>
-<span class="text-[10px] font-mono bg-primary text-black px-2 py-0.5">CAD</span>
-</div>
-<p class="font-mono text-sm mt-2">Self-hosted CAD platform with Next.js, Docker, PostgreSQL, Redis, MinIO. 3D model visualization and DXF processing.</p>
-</a>
-</article>
-
-<!-- Moon -->
-<article class="border-2 border-black dark:border-white p-4 bg-white dark:bg-black/40 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] transition-shadow">
-<a href="https://chaitanyamalhotra.com/moon" class="block">
-<div class="flex items-center justify-between mb-2">
-<h4 class="font-bold text-lg uppercase flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">nightlight</span>
-Moon Phase 3D
-</h4>
-<span class="text-[10px] font-mono bg-primary text-black px-2 py-0.5">3D</span>
-</div>
-<p class="font-mono text-sm mt-2">Real-time lunar phase visualization using Three.js and NASA LROC textures. Client-side 3D moon rendering with phase-accurate terminator.</p>
-</a>
-</article>
-
-<!-- Carpentry Analysis -->
-<article class="border-2 border-black dark:border-white p-4 bg-white dark:bg-black/40 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] transition-shadow">
-<a href="https://github.com/bhoot1234567890/sher-mohammad-carpentry-analysis" target="_blank" class="block">
-<div class="flex items-center justify-between mb-2">
-<h4 class="font-bold text-lg uppercase flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">smart_toy</span>
-Carpentry AI
-</h4>
-<span class="text-[10px] font-mono bg-primary text-black px-2 py-0.5">AI/ML</span>
-</div>
-<p class="font-mono text-sm mt-2">AI-powered image analysis using Mistral AI. Generates metadata for 64+ project photos: materials, techniques, craftsmanship quality.</p>
-</a>
-</article>
-
-<!-- Chess -->
-<article class="border-2 border-black dark:border-white p-4 bg-white dark:bg-black/40 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] transition-shadow">
-<a href="https://chaitanyamalhotra.com/chess" class="block">
-<div class="flex items-center justify-between mb-2">
-<h4 class="font-bold text-lg uppercase flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">extension</span>
-2 Player Chess
-<span class="text-xs font-bold bg-primary text-black px-2 py-0.5">WIP</span>
-</h4>
-<span class="text-[10px] font-mono bg-black text-white px-2 py-0.5">GAME</span>
-</div>
-<p class="font-mono text-sm mt-2">Interactive chess application. Built with vanilla JavaScript, HTML, CSS.</p>
-</a>
-</article>
-
-<!-- Pico Lenny -->
-<article class="border-2 border-black dark:border-white p-4 bg-white dark:bg-black/40 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] transition-shadow">
-<a href="https://github.com/bhoot1234567890/pico-lenny-key" target="_blank" class="block">
-<div class="flex items-center justify-between mb-2">
-<h4 class="font-bold text-lg uppercase flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">keyboard</span>
-Pico Lenny Key
-</h4>
-<span class="text-[10px] font-mono bg-primary text-black px-2 py-0.5">EMBEDDED</span>
-</div>
-<p class="font-mono text-sm mt-2">Single-key USB keyboard for Raspberry Pi Pico. Firmware in C, types the Lenny face ( ͡° ͜ʖ ͡° ).</p>
-</a>
-</article>
-
-<!-- Sudoku -->
-<article class="border-2 border-black dark:border-white p-4 bg-white dark:bg-black/40 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] transition-shadow">
-<a href="https://chaitanyamalhotra.com/sudoku" class="block">
-<div class="flex items-center justify-between mb-2">
-<h4 class="font-bold text-lg uppercase flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">grid_on</span>
-Sudoku Solver
-</h4>
-<span class="text-[10px] font-mono bg-primary text-black px-2 py-0.5">ALGO</span>
-</div>
-<p class="font-mono text-sm mt-2">Solves Sudoku using Set Theory, Recursion, and Backtracking. Self-contained client-side app, no dependencies.</p>
-</a>
-</article>
-
-<!-- StackFusion ESP -->
-<article class="border-2 border-black dark:border-white p-4 bg-white dark:bg-black/40 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] transition-shadow">
-<a href="https://github.com/bhoot1234567890/StackFusion-ESP--" target="_blank" class="block">
-<div class="flex items-center justify-between mb-2">
-<h4 class="font-bold text-lg uppercase flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">contactless</span>
-StackFusion RFID
-</h4>
-<span class="text-[10px] font-mono bg-primary text-black px-2 py-0.5">IoT</span>
-</div>
-<p class="font-mono text-sm mt-2">RFID-based parking management system. ESP8266/ESP32 integration with cloud backend for automated access control.</p>
-</a>
-</article>
-<!-- GBA Emulator -->
-<article class="border-2 border-black dark:border-white p-4 bg-white dark:bg-black/40 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] transition-shadow">
-<a href="https://github.com/bhoot1234567890/gba-embedded" target="_blank" class="block">
-<div class="flex items-center justify-between mb-2">
-<h4 class="font-bold text-lg uppercase flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">memory</span>
-GBA Emulator (ESP32)
-</h4>
-<span class="text-[10px] font-mono bg-primary text-black px-2 py-0.5">EMULATOR</span>
-</div>
-<p class="font-mono text-sm mt-2">Cycle-accurate Game Boy Advance emulator core in C++20, targeting ESP32-S3 handheld. ARM7TDMI + PPU + DMA, 8/13 test suites passing.</p>
-</a>
-</article>
-
-<!-- Stitched Together -->
-<article class="border-2 border-black dark:border-white p-4 bg-white dark:bg-black/40 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] transition-shadow">
-<a href="https://github.com/bhoot1234567890/rinna-pcb" target="_blank" class="block">
-<div class="flex items-center justify-between mb-2">
-<h4 class="font-bold text-lg uppercase flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">sensors</span>
-Stitched Together
-</h4>
-<span class="text-[10px] font-mono bg-primary text-black px-2 py-0.5">IoT</span>
-</div>
-<p class="font-mono text-sm mt-2">Full-stack IoT: BLE haptic handheld (nRF52832/Zephyr) + iOS/Android (Compose Multiplatform) + Cloudflare Worker backend. E2E encrypted, zero-plaintext server.</p>
-</a>
-</article>
-
-<!-- Sandbox World -->
-<article class="border-2 border-black dark:border-white p-4 bg-white dark:bg-black/40 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] transition-shadow">
-<a href="https://github.com/bhoot1234567890/sandbox-world" target="_blank" class="block">
-<div class="flex items-center justify-between mb-2">
-<h4 class="font-bold text-lg uppercase flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">public</span>
-Sandbox World
-</h4>
-<span class="text-[10px] font-mono bg-primary text-black px-2 py-0.5">3D WEB</span>
-</div>
-<p class="font-mono text-sm mt-2">Browser-based 3D sandbox with procedural terrain, custom GLSL sky/water shaders, biome blending, bloom post-FX. Three.js + Vite.</p>
-</a>
-</article>
-
-<!-- VB1 Reimplementation -->
-<article class="border-2 border-black dark:border-white p-4 bg-white dark:bg-black/40 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] transition-shadow">
-<a href="https://github.com/bhoot1234567890/VB1Reimpl" target="_blank" class="block">
-<div class="flex items-center justify-between mb-2">
-<h4 class="font-bold text-lg uppercase flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">graphic_eq</span>
-VB-1 VST Reimpl
-</h4>
-<span class="text-[10px] font-mono bg-primary text-black px-2 py-0.5">AUDIO</span>
-</div>
-<p class="font-mono text-sm mt-2">Reverse-engineered Steinberg VB-1 bass synth VST, rebuilt in C++17/JUCE. Ghidra decompile + headless A/B harness, verified to -109dB. CI on macOS/Win/Linux.</p>
-</a>
-</article>
-
-<!-- TERMINAL_DMRC -->
-<article class="border-2 border-black dark:border-white p-4 bg-white dark:bg-black/40 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] transition-shadow">
-<a href="https://github.com/bhoot1234567890/TERMINAL_DMRC" target="_blank" class="block">
-<div class="flex items-center justify-between mb-2">
-<h4 class="font-bold text-lg uppercase flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">subway</span>
-Delhi Metro Planner
-</h4>
-<span class="text-[10px] font-mono bg-primary text-black px-2 py-0.5">WEB APP</span>
-</div>
-<p class="font-mono text-sm mt-2">Delhi Metro A* route planner. React 19 + Vite + Leaflet + Python GTFS pipeline. 262 stations, 11 lines, Dijkstra vs A* benchmark.</p>
-</a>
-</article>
-
-<!-- ROG Ally LED Control -->
-<article class="border-2 border-black dark:border-white p-4 bg-white dark:bg-black/40 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] transition-shadow">
-<a href="https://github.com/bhoot1234567890/ROG-Ally-LED-Control" target="_blank" class="block">
-<div class="flex items-center justify-between mb-2">
-<h4 class="font-bold text-lg uppercase flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">lightbulb</span>
-ROG Ally LED Control
-</h4>
-<span class="text-[10px] font-mono bg-primary text-black px-2 py-0.5">HARDWARE</span>
-</div>
-<p class="font-mono text-sm mt-2">Control ASUS ROG Ally joystick RGB via USB HID, bypassing Armoury Crate. Reverse-engineered protocol, kills charging strobe, persists in MCU flash.</p>
-</a>
-</article>
-<!-- Minecraft Server -->
-<article class="border-2 border-black dark:border-white p-4 bg-white dark:bg-black/40 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] transition-shadow">
-<a href="https://github.com/bhoot1234567890/minecraft-for-everyone" target="_blank" class="block">
-<div class="flex items-center justify-between mb-2">
-<h4 class="font-bold text-lg uppercase flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">dns</span>
-Minecraft For Everyone
-</h4>
-<span class="text-[10px] font-mono bg-primary text-black px-2 py-0.5">DEVOPS</span>
-</div>
-<p class="font-mono text-sm mt-2">Docker Compose Minecraft server: Velocity proxy + Geyser/Floodgate cross-play + whitelist manager. Java + Go components, production-grade.</p>
-</a>
-</article>
-
-<!-- skadis-dxf -->
-<article class="border-2 border-black dark:border-white p-4 bg-white dark:bg-black/40 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] transition-shadow">
-<a href="https://skadis-dxf.pages.dev" target="_blank" class="block">
-<div class="flex items-center justify-between mb-2">
-<h4 class="font-bold text-lg uppercase flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">architecture</span>
-Skadis DXF Generator
-</h4>
-<span class="text-[10px] font-mono bg-primary text-black px-2 py-0.5">WEB APP</span>
-</div>
-<p class="font-mono text-sm mt-2">Browser-based generator for custom-sized IKEA SKÅDIS pegboard DXF files. TypeScript + React 19 + Vite. Deployed on Cloudflare Pages.</p>
-</a>
-</article>
-
-<!-- Kinetic Animation -->
-<article class="border-2 border-black dark:border-white p-4 bg-white dark:bg-black/40 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] transition-shadow">
-<a href="https://kinetic-animation.pages.dev" target="_blank" class="block">
-<div class="flex items-center justify-between mb-2">
-<h4 class="font-bold text-lg uppercase flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">graphic_eq</span>
-Kinetic Animation
-</h4>
-<span class="text-[10px] font-mono bg-primary text-black px-2 py-0.5">CREATIVE</span>
-</div>
-<p class="font-mono text-sm mt-2">Audio-reactive polygon slicer. PixiJS + GSAP + Web Audio API. Beat detection, recursive zoom, 7-step rainbow blade cycle. Deployed live.</p>
-</a>
-</article>
-
-<!-- VC4 Suspend -->
-<article class="border-2 border-black dark:border-white p-4 bg-white dark:bg-black/40 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] transition-shadow">
-<a href="https://github.com/bhoot1234567890/vc4-suspend" target="_blank" class="block">
-<div class="flex items-center justify-between mb-2">
-<h4 class="font-bold text-lg uppercase flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">power_off</span>
-Pi Zero Suspend-to-RAM
-</h4>
-<span class="text-[10px] font-mono bg-primary text-black px-2 py-0.5">FIRMWARE</span>
-</div>
-<p class="font-mono text-sm mt-2">Custom VideoCore IV VPU firmware adding true suspend-to-RAM with SDRAM self-refresh to Raspberry Pi Zero 2W. Deep low-level bare-metal engineering.</p>
-</a>
-</article>
-
-<!-- PG vs The World -->
-<article class="border-2 border-black dark:border-white p-4 bg-white dark:bg-black/40 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] transition-shadow">
-<a href="https://github.com/bhoot1234567890/pg-vs-the-world" target="_blank" class="block">
-<div class="flex items-center justify-between mb-2">
-<h4 class="font-bold text-lg uppercase flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">database</span>
-PG vs The World
-</h4>
-<span class="text-[10px] font-mono bg-primary text-black px-2 py-0.5">BENCHMARK</span>
-</div>
-<p class="font-mono text-sm mt-2">Can PostgreSQL replace your entire stack? Benchmarks PG16 vs MongoDB, Redis, Elasticsearch, ChromaDB, TimescaleDB across 10 categories. Rigorous methodology.</p>
-</a>
-</article>
-</div>
-</section>
-
-<!-- Skills Section -->
-<section class="grid grid-cols-1 lg:grid-cols-2">
-<div class="p-6 border-b-2 lg:border-b-0 lg:border-r-2 border-black dark:border-white relative bg-white dark:bg-white/5">
-<div class="absolute top-2 right-2 text-[10px] font-bold opacity-50 border border-black dark:border-white px-1">FIG 4.A // LANGUAGES</div>
+<section id="skills" class="reveal relative p-6 border-b-2 border-black dark:border-white bg-white dark:bg-white/5">
+<div class="absolute top-2 right-2 text-[10px] font-bold opacity-50 border border-black dark:border-white px-1">FIG 4.0 // SKILLS</div>
 <h3 class="text-xl font-bold mb-6 flex items-center gap-2 border-b-2 border-black dark:border-white pb-2 w-fit">
 <span class="material-symbols-outlined">code</span>
-                LANGUAGES
-            </h3>
-<div class="space-y-5">
-<div class="grid grid-cols-[100px_1fr_40px] gap-2 items-center group">
-<span class="text-xs font-bold uppercase group-hover:text-primary transition-colors">Python</span>
-<div class="h-5 border-2 border-black dark:border-white p-[2px] bg-white dark:bg-black/50">
-<div class="h-full bg-black dark:bg-white w-[95%]"></div>
-</div>
-<span class="text-xs font-mono text-right">95%</span>
-</div>
-<div class="grid grid-cols-[100px_1fr_40px] gap-2 items-center group">
-<span class="text-xs font-bold uppercase group-hover:text-primary transition-colors">JavaScript</span>
-<div class="h-5 border-2 border-black dark:border-white p-[2px] bg-white dark:bg-black/50">
-<div class="h-full bg-black dark:bg-white w-[90%]"></div>
-</div>
-<span class="text-xs font-mono text-right">90%</span>
-</div>
-<div class="grid grid-cols-[100px_1fr_40px] gap-2 items-center group">
-<span class="text-xs font-bold uppercase group-hover:text-primary transition-colors">C++</span>
-<div class="h-5 border-2 border-black dark:border-white p-[2px] bg-white dark:bg-black/50">
-<div class="h-full bg-black dark:bg-white w-[85%]"></div>
-</div>
-<span class="text-xs font-mono text-right">85%</span>
-</div>
-<div class="grid grid-cols-[100px_1fr_40px] gap-2 items-center group">
-<span class="text-xs font-bold uppercase group-hover:text-primary transition-colors">C</span>
-<div class="h-5 border-2 border-black dark:border-white p-[2px] bg-white dark:bg-black/50">
-<div class="h-full bg-primary w-[80%]"></div>
-</div>
-<span class="text-xs font-mono text-right text-primary font-bold">80%</span>
-</div>
-<div class="grid grid-cols-[100px_1fr_40px] gap-2 items-center group">
-<span class="text-xs font-bold uppercase group-hover:text-primary transition-colors">TypeScript</span>
-<div class="h-5 border-2 border-black dark:border-white p-[2px] bg-white dark:bg-black/50">
-<div class="h-full bg-black dark:bg-white w-[82%]"></div>
-</div>
-<span class="text-xs font-mono text-right">82%</span>
-</div>
-<div class="grid grid-cols-[100px_1fr_40px] gap-2 items-center group">
-<span class="text-xs font-bold uppercase group-hover:text-primary transition-colors">SQL</span>
-<div class="h-5 border-2 border-black dark:border-white p-[2px] bg-white dark:bg-black/50">
-<div class="h-full bg-black dark:bg-white w-[88%]"></div>
-</div>
-<span class="text-xs font-mono text-right">88%</span>
-</div>
-<div class="grid grid-cols-[100px_1fr_40px] gap-2 items-center group">
-<span class="text-xs font-bold uppercase group-hover:text-primary transition-colors">HTML/CSS</span>
-<div class="h-5 border-2 border-black dark:border-white p-[2px] bg-white dark:bg-black/50">
-<div class="h-full bg-black dark:bg-white w-[92%]"></div>
-</div>
-<span class="text-xs font-mono text-right">92%</span>
+            SKILL_MATRIX
+        </h3>
+<div class="space-y-6">
+<div class="border-2 border-black dark:border-white p-4 bg-[#f0f0f0] dark:bg-black/30">
+<p class="text-xs font-mono font-bold tracking-widest text-primary mb-3">// DAILY DRIVER:</p>
+<div class="flex flex-wrap gap-2">
+<span class="border border-black dark:border-white px-2 py-1 text-xs font-mono bg-white dark:bg-black/40">Python</span>
+<span class="border border-black dark:border-white px-2 py-1 text-xs font-mono bg-white dark:bg-black/40">TypeScript</span>
+<span class="border border-black dark:border-white px-2 py-1 text-xs font-mono bg-white dark:bg-black/40">C++</span>
+<span class="border border-black dark:border-white px-2 py-1 text-xs font-mono bg-white dark:bg-black/40">C</span>
+<span class="border border-black dark:border-white px-2 py-1 text-xs font-mono bg-white dark:bg-black/40">SQL</span>
 </div>
 </div>
+<div class="border-2 border-black dark:border-white p-4 bg-[#f0f0f0] dark:bg-black/30">
+<p class="text-xs font-mono font-bold tracking-widest text-primary mb-3">// PRODUCTION:</p>
+<div class="flex flex-wrap gap-2">
+<span class="border border-black dark:border-white px-2 py-1 text-xs font-mono bg-white dark:bg-black/40">AWS</span>
+<span class="border border-black dark:border-white px-2 py-1 text-xs font-mono bg-white dark:bg-black/40">Docker</span>
+<span class="border border-black dark:border-white px-2 py-1 text-xs font-mono bg-white dark:bg-black/40">Three.js</span>
+<span class="border border-black dark:border-white px-2 py-1 text-xs font-mono bg-white dark:bg-black/40">PyTorch</span>
+<span class="border border-black dark:border-white px-2 py-1 text-xs font-mono bg-white dark:bg-black/40">PostgreSQL</span>
+<span class="border border-black dark:border-white px-2 py-1 text-xs font-mono bg-white dark:bg-black/40">Next.js</span>
 </div>
-
-<div class="p-6 relative bg-[#f0f0f0] dark:bg-white/10">
-<div class="absolute top-2 right-2 text-[10px] font-bold opacity-50 border border-black dark:border-white px-1">FIG 4.B // TECH_STACK</div>
-<h3 class="text-xl font-bold mb-6 flex items-center gap-2 border-b-2 border-black dark:border-white pb-2 w-fit">
-<span class="material-symbols-outlined">layers</span>
-                TECHNOLOGIES
-            </h3>
-<div class="space-y-5">
-<div class="grid grid-cols-[100px_1fr_40px] gap-2 items-center group">
-<span class="text-xs font-bold uppercase group-hover:text-primary transition-colors">AWS</span>
-<div class="h-5 border-2 border-black dark:border-white p-[2px] bg-white dark:bg-black/50">
-<div class="h-full bg-primary w-[85%]"></div>
 </div>
-<span class="text-xs font-mono text-right text-primary font-bold">85%</span>
-</div>
-<div class="grid grid-cols-[100px_1fr_40px] gap-2 items-center group">
-<span class="text-xs font-bold uppercase group-hover:text-primary transition-colors">Three.js</span>
-<div class="h-5 border-2 border-black dark:border-white p-[2px] bg-white dark:bg-black/50">
-<div class="h-full bg-primary w-[75%]"></div>
-</div>
-<span class="text-xs font-mono text-right text-primary font-bold">75%</span>
-</div>
-<div class="grid grid-cols-[100px_1fr_40px] gap-2 items-center group">
-<span class="text-xs font-bold uppercase group-hover:text-primary transition-colors">Flask</span>
-<div class="h-5 border-2 border-black dark:border-white p-[2px] bg-white dark:bg-black/50">
-<div class="h-full bg-black dark:bg-white w-[88%]"></div>
-</div>
-<span class="text-xs font-mono text-right">88%</span>
-</div>
-<div class="grid grid-cols-[100px_1fr_40px] gap-2 items-center group">
-<span class="text-xs font-bold uppercase group-hover:text-primary transition-colors">PyTorch</span>
-<div class="h-5 border-2 border-black dark:border-white p-[2px] bg-white dark:bg-black/50">
-<div class="h-full bg-black dark:bg-white w-[78%]"></div>
-</div>
-<span class="text-xs font-mono text-right">78%</span>
-</div>
-<div class="grid grid-cols-[100px_1fr_40px] gap-2 items-center group">
-<span class="text-xs font-bold uppercase group-hover:text-primary transition-colors">OpenCV</span>
-<div class="h-5 border-2 border-black dark:border-white p-[2px] bg-white dark:bg-black/50">
-<div class="h-full bg-black dark:bg-white w-[82%]"></div>
-</div>
-<span class="text-xs font-mono text-right">82%</span>
-</div>
-<div class="grid grid-cols-[100px_1fr_40px] gap-2 items-center group">
-<span class="text-xs font-bold uppercase group-hover:text-primary transition-colors">Next.js</span>
-<div class="h-5 border-2 border-black dark:border-white p-[2px] bg-white dark:bg-black/50">
-<div class="h-full bg-black dark:bg-white w-[80%]"></div>
-</div>
-<span class="text-xs font-mono text-right">80%</span>
-</div>
-<div class="grid grid-cols-[100px_1fr_40px] gap-2 items-center group">
-<span class="text-xs font-bold uppercase group-hover:text-primary transition-colors">Docker</span>
-<div class="h-5 border-2 border-black dark:border-white p-[2px] bg-white dark:bg-black/50">
-<div class="h-full bg-black dark:bg-white w-[75%]"></div>
-</div>
-<span class="text-xs font-mono text-right">75%</span>
-</div>
-<div class="grid grid-cols-[100px_1fr_40px] gap-2 items-center group">
-<span class="text-xs font-bold uppercase group-hover:text-primary transition-colors">ESP32/Arduino</span>
-<div class="h-5 border-2 border-black dark:border-white p-[2px] bg-white dark:bg-black/50">
-<div class="h-full bg-black dark:bg-white w-[70%]"></div>
-</div>
-<span class="text-xs font-mono text-right">70%</span>
+<div class="border-2 border-black dark:border-white p-4 bg-[#f0f0f0] dark:bg-black/30">
+<p class="text-xs font-mono font-bold tracking-widest text-primary mb-3">// PROJECT-LEVEL:</p>
+<div class="flex flex-wrap gap-2">
+<span class="border border-black dark:border-white px-2 py-1 text-xs font-mono bg-white dark:bg-black/40">ESP32</span>
+<span class="border border-black dark:border-white px-2 py-1 text-xs font-mono bg-white dark:bg-black/40">Zephyr RTOS</span>
+<span class="border border-black dark:border-white px-2 py-1 text-xs font-mono bg-white dark:bg-black/40">KiCad</span>
+<span class="border border-black dark:border-white px-2 py-1 text-xs font-mono bg-white dark:bg-black/40">Flask</span>
+<span class="border border-black dark:border-white px-2 py-1 text-xs font-mono bg-white dark:bg-black/40">WebGL</span>
 </div>
 </div>
 </div>
 </section>
 
-<!-- Footer Action -->
-<section class="mt-auto border-t-2 border-black dark:border-white p-6 bg-white dark:bg-white/5 relative">
+<!-- Footer Action (CTA) -->
+<section class="reveal mt-auto border-t-2 border-black dark:border-white p-6 bg-white dark:bg-white/5 relative">
 <div class="absolute left-0 top-0 w-full h-full pointer-events-none opacity-5" style="background-image: linear-gradient(0deg, transparent 24%, #000 25%, #000 26%, transparent 27%, transparent 74%, #000 75%, #000 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, #000 25%, #000 26%, transparent 27%, transparent 74%, #000 75%, #000 76%, transparent 77%, transparent); background-size: 30px 30px;"></div>
 <div class="border-2 border-black dark:border-white border-dashed p-6 text-center mb-6 bg-background-light dark:bg-background-dark relative z-10">
 <div class="inline-flex items-center justify-center p-3 border-2 border-black dark:border-white rounded-full mb-3 bg-white dark:bg-black">
@@ -714,7 +685,7 @@ PG vs The World
 <p class="text-xs font-mono opacity-60 mt-1">FULL CREDENTIALS AND EXPERIENCE</p>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 relative z-10">
-<a href="chaitanya_malhotra_resume.pdf" download class="bg-primary text-black border-2 border-black dark:border-white p-4 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.8)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-[6px] active:translate-y-[6px] active:shadow-none transition-all block text-center">
+<a href="chaitanya_malhotra_resume.pdf" download class="bg-primary text-white border-2 border-black dark:border-white p-4 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.8)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-[6px] active:translate-y-[6px] active:shadow-none transition-all block text-center">
 <span class="text-lg font-bold tracking-widest flex items-center justify-center gap-3">
                 [ DOWNLOAD RESUME ]
             </span>
@@ -727,9 +698,42 @@ PG vs The World
 </div>
 </section>
 
+<!-- Footer (with Education) -->
+<footer class="border-t-2 border-black dark:border-white bg-[#e0e0e0] dark:bg-[#252525]">
+<section class="reveal p-6 relative">
+<div class="absolute top-2 right-2 text-[10px] font-bold opacity-50 border border-black dark:border-white px-1">FIG 6.0 // EDUCATION</div>
+<h3 class="text-xl font-bold mb-6 flex items-center gap-2 border-b-2 border-black dark:border-white pb-2 w-fit">
+<span class="material-symbols-outlined">school</span>
+            EDUCATION_LOG
+        </h3>
+<div class="space-y-6">
+<div class="border-l-4 border-black dark:border-white pl-4 py-2">
+<div class="flex flex-wrap justify-between items-start gap-2">
+<h4 class="font-bold text-lg">Scaler Academy</h4>
+<span class="text-sm font-mono text-primary">2022 - 2023</span>
+</div>
+<p class="text-sm opacity-80 mt-1">Certification, Computer Science</p>
+<p class="text-xs font-mono mt-1">Online</p>
+</div>
+<div class="border-l-4 border-black dark:border-white pl-4 py-2">
+<div class="flex flex-wrap justify-between items-start gap-2">
+<h4 class="font-bold text-lg">Manav Rachna International Institute of Research and Studies</h4>
+<span class="text-sm font-mono text-primary">2016 - 2020</span>
+</div>
+<p class="text-sm opacity-80 mt-1">Bachelors in Electronics and Communication Engineering</p>
+<p class="text-xs font-mono mt-1">Faridabad, India</p>
+</div>
+</div>
+</section>
+<div class="p-4 border-t-2 border-black dark:border-white flex flex-wrap justify-between items-center gap-2 text-xs font-mono opacity-70">
+<span>© 2026 CHAITANYA_MALHOTRA</span>
+<span class="text-primary font-bold">FULL-STACK SYSTEMS ENGINEER // INDIA</span>
+</div>
+</footer>
+
 <!-- Tactile Toggle Nav -->
 <nav class="sticky bottom-0 z-50 bg-background-light dark:bg-background-dark border-t-2 border-black dark:border-white grid grid-cols-3 h-20 shadow-[0px_-4px_10px_rgba(0,0,0,0.1)]">
-<button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="border-r-2 border-black dark:border-white flex flex-col items-center justify-center bg-primary text-black relative group active:bg-primary/80">
+<button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="border-r-2 border-black dark:border-white flex flex-col items-center justify-center bg-primary text-white relative group active:bg-primary/80">
 <div class="absolute top-1 left-1 w-full h-full bg-white opacity-20 pointer-events-none"></div>
 <span class="material-symbols-outlined text-2xl mb-1">home</span>
 <span class="text-[10px] font-bold tracking-wider">HOME</span>
@@ -747,15 +751,11 @@ PG vs The World
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
+        // --- Theme: light/dark only, single burnt-orange accent (P2.14, P1.2) ---
         const themeToggle = document.getElementById('theme-toggle');
-        const themeButtons = document.querySelectorAll('.theme-button');
         const html = document.documentElement;
-        const root = document.querySelector(':root');
-
-        function applyTheme(theme, color) {
+        function applyTheme(theme) {
             localStorage.setItem('theme', theme);
-            localStorage.setItem('theme-color', color);
-
             if (theme === 'dark') {
                 html.classList.add('dark');
                 themeToggle.textContent = 'LIGHT MODE';
@@ -763,39 +763,39 @@ PG vs The World
                 html.classList.remove('dark');
                 themeToggle.textContent = 'DARK MODE';
             }
-
-            root.style.setProperty('--primary', color);
-
-            themeButtons.forEach(button => {
-                const buttonColor = button.dataset.color;
-                if (buttonColor === color) {
-                    button.classList.add('border-black', 'dark:border-white');
-                    button.classList.remove('border-transparent');
-                } else {
-                    button.classList.remove('border-black', 'dark:border-white');
-                    button.classList.add('border-transparent');
-                }
-            });
         }
-
         themeToggle.addEventListener('click', () => {
-            const isDarkMode = html.classList.contains('dark');
-            const newTheme = isDarkMode ? 'light' : 'dark';
-            const currentColor = localStorage.getItem('theme-color') || '255 77 0';
-            applyTheme(newTheme, currentColor);
+            applyTheme(html.classList.contains('dark') ? 'light' : 'dark');
         });
+        // Sync toggle label with whatever the FOUC script set synchronously.
+        themeToggle.textContent = html.classList.contains('dark') ? 'LIGHT MODE' : 'DARK MODE';
 
-        themeButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const newColor = button.dataset.color;
-                const currentTheme = localStorage.getItem('theme') || 'light';
-                applyTheme(currentTheme, newColor);
+        // --- Project filter (P2.3) ---
+        const filterBtns = document.querySelectorAll('[data-filter]');
+        const cards = document.querySelectorAll('#projects [data-category]');
+        const ON = 'border-2 border-primary bg-primary text-white px-4 py-1 text-xs font-mono font-bold tracking-widest transition-colors';
+        const OFF = 'border-2 border-black dark:border-white bg-white dark:bg-black text-black dark:text-white px-4 py-1 text-xs font-mono font-bold tracking-widest transition-colors';
+        filterBtns.forEach(btn => btn.addEventListener('click', () => {
+            filterBtns.forEach(b => { b.className = (b === btn) ? ON : OFF; });
+            const f = btn.dataset.filter;
+            cards.forEach(card => {
+                const cats = (card.dataset.category || '').split(' ');
+                card.style.display = (f === 'all' || cats.includes(f)) ? '' : 'none';
             });
-        });
+        }));
 
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        const savedColor = localStorage.getItem('theme-color') || '255 77 0';
-        applyTheme(savedTheme, savedColor);
+        // --- Scroll reveal (P3.2), respecting prefers-reduced-motion ---
+        const revealEls = document.querySelectorAll('.reveal');
+        if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            revealEls.forEach(el => el.classList.add('in-view'));
+        } else {
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); }
+                });
+            }, { threshold: 0.08 });
+            revealEls.forEach(el => io.observe(el));
+        }
     });
 </script>
 </body>

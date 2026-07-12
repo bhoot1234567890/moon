@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================ */
+/* DESIGN TOKENS — single source of truth (P3.9 neutral scale)  */
+/* ============================================================ */
+:root {
+  --primary: 214 61 0; /* #D63D00 burnt-orange industrial accent */
+  --surface-1: 255 255 255;
+  --surface-2: 240 240 240;
+  --surface-3: 224 224 224;
+  --surface-4: 220 220 220;
+  --surface-ink: 26 26 26;
+}
+html.dark {
+  --surface-1: 33 33 33;   /* #212121 */
+  --surface-2: 42 42 42;   /* #2a2a2a */
+  --surface-3: 37 37 37;   /* #252525 */
+  --surface-4: 26 26 26;   /* #1a1a1a */
+  --surface-ink: 240 240 240;
+}
+
+/* ============================================================ */
+/* EXISTING INDEX CUSTOM CLASSES (preserved from inline <style>)*/
+/* ============================================================ */
+.industrial-border {
+  border-width: 2px;
+  border-style: solid;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.barcode-stripe {
+  display: inline-block;
+  height: 100%;
+  background-color: currentColor;
+}
+body {
+  min-height: max(884px, 100dvh);
+}
+.stroke-text {
+  color: currentColor;
+  -webkit-text-stroke: 1px currentColor;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ============================================================ */
+/* ACCESSIBILITY (P3.3)                                          */
+/* ============================================================ */
+:focus-visible {
+  outline: 2px solid rgb(var(--primary));
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================================ */
+/* SCROLL REVEAL (P3.2) — tiny IntersectionObserver utility      */
+/* ============================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(0.5rem);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================================ */
+/* MARQUEE (P3.5) — seamless CSS loop                           */
+/* ============================================================ */
+.marquee-track {
+  display: inline-flex;
+  white-space: nowrap;
+  animation: marquee-scroll 28s linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
