@@ -2,7 +2,7 @@
 // #audio-player-container. Good practices: DOM creation, event cleanup,
 // localStorage resume position, and minimal dependencies.
 
-const AUDIO_SRC = 'https://moon-cdn.chetanvmalhotra.workers.dev/assets/music/Waagal - Somārudrā Throatsinging Sitar Live Looping.mp3';
+const AUDIO_SRC = 'https://cdn.chaitanyamalhotra.com/assets/music/Waagal - Somārudrā Throatsinging Sitar Live Looping.mp3';
 const AUDIO_TITLE = 'Waagal - Somārudrā';
 const YT_URL = 'https://www.youtube.com/watch?v=fU6HLjKnywU';
 const STORAGE_KEY = 'rigveda_audio_pos_v1';

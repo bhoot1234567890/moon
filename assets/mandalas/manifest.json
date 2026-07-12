@@ -1,82 +1,82 @@
 {
   "OriginalText": {
-    "1": "https://moon-cdn.chetanvmalhotra.workers.dev/assets/original_text/book1.pdf",
-    "2": "https://moon-cdn.chetanvmalhotra.workers.dev/assets/original_text/book2.pdf",
-    "3": "https://moon-cdn.chetanvmalhotra.workers.dev/assets/original_text/book3.pdf",
-    "4": "https://moon-cdn.chetanvmalhotra.workers.dev/assets/original_text/book4.pdf",
-    "5": "https://moon-cdn.chetanvmalhotra.workers.dev/assets/original_text/book5.pdf",
-    "6": "https://moon-cdn.chetanvmalhotra.workers.dev/assets/original_text/book6.pdf",
-    "7": "https://moon-cdn.chetanvmalhotra.workers.dev/assets/original_text/book7.pdf",
-    "8": "https://moon-cdn.chetanvmalhotra.workers.dev/assets/original_text/book8.pdf",
-    "9": "https://moon-cdn.chetanvmalhotra.workers.dev/assets/original_text/book9.pdf",
-    "10": "https://moon-cdn.chetanvmalhotra.workers.dev/assets/original_text/book10.pdf"
+    "1": "https://cdn.chaitanyamalhotra.com/assets/original_text/book1.pdf",
+    "2": "https://cdn.chaitanyamalhotra.com/assets/original_text/book2.pdf",
+    "3": "https://cdn.chaitanyamalhotra.com/assets/original_text/book3.pdf",
+    "4": "https://cdn.chaitanyamalhotra.com/assets/original_text/book4.pdf",
+    "5": "https://cdn.chaitanyamalhotra.com/assets/original_text/book5.pdf",
+    "6": "https://cdn.chaitanyamalhotra.com/assets/original_text/book6.pdf",
+    "7": "https://cdn.chaitanyamalhotra.com/assets/original_text/book7.pdf",
+    "8": "https://cdn.chaitanyamalhotra.com/assets/original_text/book8.pdf",
+    "9": "https://cdn.chaitanyamalhotra.com/assets/original_text/book9.pdf",
+    "10": "https://cdn.chaitanyamalhotra.com/assets/original_text/book10.pdf"
   },
   "Flashcards": {
-    "1": "https://moon-cdn.chetanvmalhotra.workers.dev/assets/flashcards/book1_flashcards.pdf",
-    "2": "https://moon-cdn.chetanvmalhotra.workers.dev/assets/flashcards/book2_flashcards.pdf",
-    "3": "https://moon-cdn.chetanvmalhotra.workers.dev/assets/flashcards/book3_flashcards.pdf",
-    "4": "https://moon-cdn.chetanvmalhotra.workers.dev/assets/flashcards/book4_flashcards.pdf",
-    "5": "https://moon-cdn.chetanvmalhotra.workers.dev/assets/flashcards/book5_flashcards.pdf",
-    "6": "https://moon-cdn.chetanvmalhotra.workers.dev/assets/flashcards/book6_flashcards.pdf",
-    "7": "https://moon-cdn.chetanvmalhotra.workers.dev/assets/flashcards/book7_flashcards.pdf",
-    "8": "https://moon-cdn.chetanvmalhotra.workers.dev/assets/flashcards/book8_flashcards.pdf",
-    "9": "https://moon-cdn.chetanvmalhotra.workers.dev/assets/flashcards/book9_flashcards.pdf",
-    "10": "https://moon-cdn.chetanvmalhotra.workers.dev/assets/flashcards/book10_flashcards.pdf"
+    "1": "https://cdn.chaitanyamalhotra.com/assets/flashcards/book1_flashcards.pdf",
+    "2": "https://cdn.chaitanyamalhotra.com/assets/flashcards/book2_flashcards.pdf",
+    "3": "https://cdn.chaitanyamalhotra.com/assets/flashcards/book3_flashcards.pdf",
+    "4": "https://cdn.chaitanyamalhotra.com/assets/flashcards/book4_flashcards.pdf",
+    "5": "https://cdn.chaitanyamalhotra.com/assets/flashcards/book5_flashcards.pdf",
+    "6": "https://cdn.chaitanyamalhotra.com/assets/flashcards/book6_flashcards.pdf",
+    "7": "https://cdn.chaitanyamalhotra.com/assets/flashcards/book7_flashcards.pdf",
+    "8": "https://cdn.chaitanyamalhotra.com/assets/flashcards/book8_flashcards.pdf",
+    "9": "https://cdn.chaitanyamalhotra.com/assets/flashcards/book9_flashcards.pdf",
+    "10": "https://cdn.chaitanyamalhotra.com/assets/flashcards/book10_flashcards.pdf"
   },
   "Podcasts": {
-    "1": "https://moon-cdn.chetanvmalhotra.workers.dev/assets/podcasts/book1.mp3",
-    "2": "https://moon-cdn.chetanvmalhotra.workers.dev/assets/podcasts/book2.mp3",
-    "3": "https://moon-cdn.chetanvmalhotra.workers.dev/assets/podcasts/book3.mp3",
-    "4": "https://moon-cdn.chetanvmalhotra.workers.dev/assets/podcasts/book4.mp3",
-    "5": "https://moon-cdn.chetanvmalhotra.workers.dev/assets/podcasts/book5.mp3",
-    "6": "https://moon-cdn.chetanvmalhotra.workers.dev/assets/podcasts/book6.mp3",
-    "7": "https://moon-cdn.chetanvmalhotra.workers.dev/assets/podcasts/book7.mp3",
-    "8": "https://moon-cdn.chetanvmalhotra.workers.dev/assets/podcasts/book8.mp3",
-    "9": "https://moon-cdn.chetanvmalhotra.workers.dev/assets/podcasts/book9.mp3",
-    "10": "https://moon-cdn.chetanvmalhotra.workers.dev/assets/podcasts/book10.mp3"
+    "1": "https://cdn.chaitanyamalhotra.com/assets/podcasts/book1.mp3",
+    "2": "https://cdn.chaitanyamalhotra.com/assets/podcasts/book2.mp3",
+    "3": "https://cdn.chaitanyamalhotra.com/assets/podcasts/book3.mp3",
+    "4": "https://cdn.chaitanyamalhotra.com/assets/podcasts/book4.mp3",
+    "5": "https://cdn.chaitanyamalhotra.com/assets/podcasts/book5.mp3",
+    "6": "https://cdn.chaitanyamalhotra.com/assets/podcasts/book6.mp3",
+    "7": "https://cdn.chaitanyamalhotra.com/assets/podcasts/book7.mp3",
+    "8": "https://cdn.chaitanyamalhotra.com/assets/podcasts/book8.mp3",
+    "9": "https://cdn.chaitanyamalhotra.com/assets/podcasts/book9.mp3",
+    "10": "https://cdn.chaitanyamalhotra.com/assets/podcasts/book10.mp3"
   },
   "Videos": {
-    "1": "https://moon-cdn.chetanvmalhotra.workers.dev/assets/videos/video_mandal1.mp4",
-    "2": "https://moon-cdn.chetanvmalhotra.workers.dev/assets/videos/video_mandal2.mp4",
-    "3": "https://moon-cdn.chetanvmalhotra.workers.dev/assets/videos/video_mandal3.mp4",
-    "4": "https://moon-cdn.chetanvmalhotra.workers.dev/assets/videos/video_mandal4.mp4",
-    "5": "https://moon-cdn.chetanvmalhotra.workers.dev/assets/videos/video_mandal5.mp4",
-    "6": "https://moon-cdn.chetanvmalhotra.workers.dev/assets/videos/video_mandal6.mp4",
-    "7": "https://moon-cdn.chetanvmalhotra.workers.dev/assets/videos/video_mandal7.mp4",
-    "8": "https://moon-cdn.chetanvmalhotra.workers.dev/assets/videos/video_mandal8.mp4",
-    "9": "https://moon-cdn.chetanvmalhotra.workers.dev/assets/videos/video_mandal9.mp4",
-    "10": "https://moon-cdn.chetanvmalhotra.workers.dev/assets/videos/video_mandal10.mp4"
+    "1": "https://cdn.chaitanyamalhotra.com/assets/videos/video_mandal1.mp4",
+    "2": "https://cdn.chaitanyamalhotra.com/assets/videos/video_mandal2.mp4",
+    "3": "https://cdn.chaitanyamalhotra.com/assets/videos/video_mandal3.mp4",
+    "4": "https://cdn.chaitanyamalhotra.com/assets/videos/video_mandal4.mp4",
+    "5": "https://cdn.chaitanyamalhotra.com/assets/videos/video_mandal5.mp4",
+    "6": "https://cdn.chaitanyamalhotra.com/assets/videos/video_mandal6.mp4",
+    "7": "https://cdn.chaitanyamalhotra.com/assets/videos/video_mandal7.mp4",
+    "8": "https://cdn.chaitanyamalhotra.com/assets/videos/video_mandal8.mp4",
+    "9": "https://cdn.chaitanyamalhotra.com/assets/videos/video_mandal9.mp4",
+    "10": "https://cdn.chaitanyamalhotra.com/assets/videos/video_mandal10.mp4"
   },
   "Mandals": {
     "1": [
-      "https://moon-cdn.chetanvmalhotra.workers.dev/assets/mandalas/mandala_1_cover_prompt.png"
+      "https://cdn.chaitanyamalhotra.com/assets/mandalas/mandala_1_cover_prompt.png"
     ],
     "2": [
-      "https://moon-cdn.chetanvmalhotra.workers.dev/assets/mandalas/mandala_2_cover_prompt.png"
+      "https://cdn.chaitanyamalhotra.com/assets/mandalas/mandala_2_cover_prompt.png"
     ],
     "3": [
-      "https://moon-cdn.chetanvmalhotra.workers.dev/assets/mandalas/mandala_3_cover_prompt.png"
+      "https://cdn.chaitanyamalhotra.com/assets/mandalas/mandala_3_cover_prompt.png"
     ],
     "4": [
-      "https://moon-cdn.chetanvmalhotra.workers.dev/assets/mandalas/mandala_4_cover_prompt.png"
+      "https://cdn.chaitanyamalhotra.com/assets/mandalas/mandala_4_cover_prompt.png"
     ],
     "5": [
-      "https://moon-cdn.chetanvmalhotra.workers.dev/assets/mandalas/mandala_5_cover_prompt.png"
+      "https://cdn.chaitanyamalhotra.com/assets/mandalas/mandala_5_cover_prompt.png"
     ],
     "6": [
-      "https://moon-cdn.chetanvmalhotra.workers.dev/assets/mandalas/mandala_6_cover_prompt.png"
+      "https://cdn.chaitanyamalhotra.com/assets/mandalas/mandala_6_cover_prompt.png"
     ],
     "7": [
-      "https://moon-cdn.chetanvmalhotra.workers.dev/assets/mandalas/mandala_7_cover_prompt.png"
+      "https://cdn.chaitanyamalhotra.com/assets/mandalas/mandala_7_cover_prompt.png"
     ],
     "8": [
-      "https://moon-cdn.chetanvmalhotra.workers.dev/assets/mandalas/mandala_8_cover_prompt.png"
+      "https://cdn.chaitanyamalhotra.com/assets/mandalas/mandala_8_cover_prompt.png"
     ],
     "9": [
-      "https://moon-cdn.chetanvmalhotra.workers.dev/assets/mandalas/mandala_9_cover_prompt.png"
+      "https://cdn.chaitanyamalhotra.com/assets/mandalas/mandala_9_cover_prompt.png"
     ],
     "10": [
-      "https://moon-cdn.chetanvmalhotra.workers.dev/assets/mandalas/mandala_10_cover_prompt.png"
+      "https://cdn.chaitanyamalhotra.com/assets/mandalas/mandala_10_cover_prompt.png"
     ]
   }
 }
