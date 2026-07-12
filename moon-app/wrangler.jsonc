@@ -1,0 +1,6 @@
+{
+  "name": "moon-app",
+  "main": "worker.js",
+  "compatibility_date": "2024-09-23",
+  "routes": [{ "pattern": "moon.chaitanyamalhotra.com", "custom_domain": true }]
+}
