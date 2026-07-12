@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://chaitanyamalhotra.com/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://chaitanyamalhotra.com/rigveda</loc><changefreq>yearly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://chaitanyamalhotra.com/about</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://chaitanyamalhotra.com/work/gba-emulator</loc><changefreq>yearly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://chaitanyamalhotra.com/rigveda</loc><changefreq>yearly</changefreq><priority>0.7</priority></url>
   <url><loc>https://chaitanyamalhotra.com/chess</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
   <url><loc>https://chaitanyamalhotra.com/sudoku</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
   <url><loc>https://chaitanyamalhotra.com/moon</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
