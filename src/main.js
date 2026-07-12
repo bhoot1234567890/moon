@@ -952,7 +952,7 @@ function populateMandalOverlay(mandalIndex) {
             video.src = manifestData.Videos[mk];
           } else {
             // Fallback path if Videos entry is missing from manifest
-            const fallback = `./assets/videos/video_mandal${mk}.mp4`;
+            const fallback = `https://moon-cdn.chetanvmalhotra.workers.dev/assets/videos/video_mandal${mk}.mp4`;
             video.src = fallback;
             try { console.warn('[rigveda] manifest.Videos missing for', mk, 'using fallback', fallback); } catch(e){}
           }
@@ -1328,7 +1328,7 @@ function returnToStart() {
 
 // Load and add the golden chariot wheel model
 gltfLoader.load(
-  "assets/models/golden-chariot-wheel-draco-ktx2.glb",
+  "https://moon-cdn.chetanvmalhotra.workers.dev/assets/models/golden-chariot-wheel-draco-ktx2.glb",
   (gltf) => {
     const wheel = gltf.scene;
     wheel.position.set(0, 0, 0);

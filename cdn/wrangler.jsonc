@@ -1,0 +1,6 @@
+{
+  "name": "moon-cdn",
+  "main": "worker.js",
+  "compatibility_date": "2024-09-23",
+  "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "moon-media" }]
+}
