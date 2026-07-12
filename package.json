@@ -5,7 +5,8 @@
   "description": "Portfolio of Chaitanya Malhotra — full-stack systems engineer.",
   "scripts": {
     "build:css": "tailwindcss -i ./src/app.css -o ./assets/app.css --minify",
-    "watch:css": "tailwindcss -i ./src/app.css -o ./assets/app.css --watch"
+    "watch:css": "tailwindcss -i ./src/app.css -o ./assets/app.css --watch",
+    "deploy": "bash scripts/deploy-pages.sh"
   },
   "devDependencies": {
     "@tailwindcss/container-queries": "^0.1.1",

@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# pre-push hook: deploy to Cloudflare Pages when pushing to main.
+# Deploys the LOCAL build (which is what you're pushing), then the push proceeds.
+# Deploy failure is reported but does NOT block the push.
+while read -r local_ref local_sha remote_ref remote_sha; do
+  if [[ "$remote_ref" == "refs/heads/main" ]]; then
+    echo "pre-push: main detected — deploying to Cloudflare Pages..."
+    if "$(git rev-parse --show-toplevel)/scripts/deploy-pages.sh"; then
+      echo "pre-push: Pages deploy complete."
+    else
+      echo "pre-push: ⚠️  Pages deploy FAILED (push still continues; site not updated)."
+    fi
+    break
+  fi
+done
+exit 0
