@@ -20,6 +20,8 @@ html.dark {
   --surface-4: 26 26 26;   /* #1a1a1a */
   --surface-ink: 240 240 240;
 }
+html { background-color: #cccccc; }
+html.dark { background-color: #212121; }
 
 /* ============================================================ */
 /* EXISTING INDEX CUSTOM CLASSES (preserved from inline <style>)*/
